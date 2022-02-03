@@ -1,0 +1,58 @@
+.Login_container{
+    padding: 50px 0px;
+    display: flex;
+    .login_img {
+        width: 50%;
+        img{
+            width: 100%;
+        }
+    }
+    .form_login{
+        h2{
+            text-align: center;
+        }
+        width:50%;
+        padding: 0 50px;
+        
+        .form-group{
+            input{
+                border: 1px solid #80808066;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+.container_inputs{
+    height: 135px;
+    position: relative;
+
+    .form-group{
+        position: absolute;
+        width: 100%;
+    }
+}
+
+.focus_input{
+    border-bottom: 3px solid #00a9dd !important;
+}
+
+.error_input{
+    border-bottom: 3px solid #ff95a8 !important;
+}
+
+ .form-control{
+     transition: 0s !important;
+ }
+
+
+@media screen and (max-width: 600px) {
+ 
+    .form_login{
+        width: 100% !important;
+        padding: 0 !important;
+    }
+    .Login_container .login_img {
+        width: 100% !important;
+    }
+}

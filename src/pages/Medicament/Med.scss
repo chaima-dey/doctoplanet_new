@@ -1,0 +1,41 @@
+ .med_list{
+    .card {
+        border: 1px solid #E1E1F0;
+     .card-header{
+      color: #585858;
+        padding: 5px 30px;
+        background: #e7e7e7;
+        display: flex;
+        justify-content: flex-start;
+        img{
+            width: 35px;
+            margin-right: 5px;
+        }
+     } 
+     .card-body{
+        padding: 12px 30px;
+        .card-title{
+         font-size: 18px;
+        }
+         button{
+            float: right;
+            height: 40px;
+            padding: 0 20px;
+         }
+     } 
+    }
+ }
+
+ .medicament_input{
+   height: 41px !important;
+   padding: 0 14px !important;
+   border-color: hsl(0, 0%, 80%);
+   border-radius: 4px !important;
+ }
+ 
+ .form-select{
+transition: .3s;
+ }
+ .form-select:hover, .form-select:focus{
+   border-color: #00a9dd !important;
+ }

@@ -1,0 +1,76 @@
+.Login_container {
+  padding: 50px 0px;
+  display: flex;
+  .login_img {
+    width: 50%;
+    img {
+      width: 100%;
+    }
+  }
+  .form_register {
+    h2 {
+      text-align: center;
+    }
+    width: 50%;
+    padding: 0 50px;
+    .form-group {
+      input {
+        border: 1px solid #80808066;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .Login_container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.loading-btn {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (max-width: 600px) {
+  .form_register {
+    width: 100% !important;
+  }
+  .Login_container {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .form_register {
+    padding: 0 !important;
+  }
+}
+
+.confirmation_message {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 150px !important;
+  img {
+    width: 250px;
+  }
+  p {
+    font-size: 17px;
+    margin: 0;
+    a{
+        color: #f17732 !important;
+        font-weight: 700 !important;
+        text-decoration: underline !important;
+        cursor: pointer;
+    }
+    b {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+  text-align: center;
+}

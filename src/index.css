@@ -1,0 +1,131 @@
+.route_app{
+    min-height: 100vh;
+}
+button:active{
+    opacity: 0.2 !important;
+}
+ .title-ext{
+    font-size: 30px !important;
+ }
+
+ .work-content{
+     padding:0px 20px;
+     
+ }
+ .banner-img{
+     display: flex;
+     justify-content: center;
+ }
+ /* .banner-img > img{
+     max-width: 90% !important;
+ } */
+ 
+ .comment_ça_marche{
+    background: #f2f2f2;
+    border-radius: 50px;
+    padding: 0 15px;
+ }
+ .fa-map-marker-alt{
+    transform: translate(3px,-1px);
+    margin-right: 8px;
+    font-size: 35px !important;
+ }
+.transition_opacity{
+    opacity: 0;
+}
+ 
+
+.assurence_box{
+    height: 350px;
+position: relative;
+box-shadow: 0 0 66px #00000052;
+}
+
+.assurence_box > .btn-primary{
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+}
+
+.feature-bx4 .icon-content .ttr-title {
+    color: #f17732 !important;
+    margin: 0 0 12px;
+}
+
+.LOGO {
+    height: 27px !important;
+    margin-top: 4px !important;
+}
+
+.banner-img > img {
+    width: 400px !important;
+    height:auto !important;
+}
+
+.work-num-bx > img {
+ max-width:300px;
+ max-height: 300px;
+}
+.main-banner{
+    height:450px !important
+}
+
+.logo_partenaire{
+    width: 250px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 60px;
+    transition:.3s;
+}
+.logo_partenaire:hover{
+    filter: opacity(0.8);
+}
+
+.heading-bx > h6 > b{
+    color: #f17732 !important;
+    font-weight: 700 !important;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.footer_icon{
+    margin-right: 15px;
+    width: 40px !important;
+    height: auto !important;
+}
+
+.w100{
+    width:100%
+}
+@media only screen and (max-width: 575px) {
+    .main-banner{
+        height:auto !important
+    }
+.img_banner{
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+    .main-banner {
+        height: auto;
+        padding-top: 50px !important;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 5px;    height: 8px;
+
+  }
+  
+  ::-webkit-scrollbar-thumb:horizontal{
+    background: rgb(116, 116, 116); 
+}
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(116, 116, 116); 
+   
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #242424; 
+  }

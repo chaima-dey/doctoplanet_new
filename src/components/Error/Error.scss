@@ -1,0 +1,11 @@
+.alert-danger , .alert-success{
+    padding: 10px 10px !important;
+    p{
+        display: flex;
+    align-items: center;
+        font-size: 15px;
+        i{
+            margin: 0 8px;
+        }
+    }
+}
