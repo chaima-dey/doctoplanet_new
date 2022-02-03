@@ -96,7 +96,7 @@ function Login() {
           <img src={LoginBanner} alt="" />
         </div>
         <div className="home transition_opacity form_login tab-pane fade show active">
-          <h2 className="mb-3">Login</h2>
+          <h2 className="mb-3">Se connecter</h2>
 
           {Error && <DivError message={Error} />}
 
@@ -143,7 +143,7 @@ function Login() {
                 className="btn mb-30 btn-lg btn-primary w-100"
                 onClick={() => Login()}
               >
-                Login
+                Je me connecte
               </button>
             ) : (
               <button className="btn mb-30 btn-lg btn-primary w-100 loading-btn">
