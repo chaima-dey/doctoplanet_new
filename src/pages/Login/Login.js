@@ -97,39 +97,45 @@ function Login() {
         </div>
         <div className="home transition_opacity form_login tab-pane fade show active">
           <h2 className="mb-3">Login</h2>
-        
+
           {Error && <DivError message={Error} />}
-          
-        {SuccessReducer && <div className="mb-3">
-          <_Alert close={false} variant={"success"} text={"Vorte compte a été vérifié"}   />
-          </div>}
- 
-         <div className='container_inputs'>
-         <div className="form-group">
-            <input
-            ref={input_1}
+
+          {SuccessReducer && (
+            <div className="mb-3">
+              <_Alert
+                close={false}
+                variant={"success"}
+                text={"Vorte compte a été vérifié"}
+              />
+            </div>
+          )}
+
+          <div className="container_inputs">
+            <div className="form-group">
+              <input
+                ref={input_1}
                 onFocus={() => focus(input_1)}
                 onBlur={() => blur(input_1)}
-              onChange={(e) => setMail(e.target.value)}
-              value={Mail}
-              type="text"
-              className="form-control"
-              placeholder="Adresse mail"
-            />
+                onChange={(e) => setMail(e.target.value)}
+                value={Mail}
+                type="text"
+                className="form-control"
+                placeholder="Adresse mail"
+              />
+            </div>
+            <div className="form-group" style={{ top: 68 }}>
+              <input
+                ref={input_2}
+                onFocus={() => focus(input_2)}
+                onBlur={() => blur(input_2)}
+                onChange={(e) => setPassowrd(e.target.value)}
+                value={Passowrd}
+                type="password"
+                className="form-control"
+                placeholder="Mot de passe"
+              />
+            </div>
           </div>
-          <div className="form-group" style={{top: 68}}>
-            <input
-         ref={input_2}
-         onFocus={() => focus(input_2)}
-         onBlur={() => blur(input_2)}
-              onChange={(e) => setPassowrd(e.target.value)}
-              value={Passowrd}
-              type="password"
-              className="form-control"
-              placeholder="Mot de passe"
-            />
-          </div>
-         </div>
           <div className="form-group">
             {!Loading ? (
               <button

@@ -42,8 +42,24 @@
 }
 
  .form-control{
-     transition: 0s !important;
+     transition: .1s !important;
  }
+
+ @media screen and (max-width: 990px) {
+ 
+    .Login_container .form_register {
+        width: 100% !important;
+        padding: 0 50px;
+        margin-top: 15px;
+
+    }
+
+    .Login_container .form_login {
+        width: 100% !important;
+        padding: 0 50px;
+        margin-top: 15px;
+    }
+}
 
 
 @media screen and (max-width: 600px) {
