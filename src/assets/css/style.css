@@ -3105,7 +3105,9 @@ textarea.form-control-lg {
     padding-right: 0;
     padding-left: 0; }
   .navbar-nav .dropdown-menu {
-    position: static; }
+    position: static;
+    margin-bottom: 10px;
+  }
 
 .navbar-text {
   padding-top: 0.5rem;
@@ -3681,7 +3683,7 @@ textarea.form-control-lg {
     color: #7a4906; }
 
 .alert-danger {
-  color: #941a30;
+  color:#e13957;
   background-color: #fdd5dc;
   border-color: #fdbfcb; }
   .alert-danger .alert-link {

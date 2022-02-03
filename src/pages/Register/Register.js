@@ -185,7 +185,7 @@ function Register() {
             <img src={LoginBanner} alt="" />
           </div>
           <div className="home transition_opacity form_register tab-pane fade show active">
-            <h2 className="mb-3">Je m'enregistre</h2>
+            <h2 className="mb-3">S'enregistrer</h2>
             {Error && <DivError message={Error} />}
 
             {
@@ -274,7 +274,7 @@ function Register() {
                       type="button"
                       className="btn mb-30 btn-lg btn-primary w-100"
                     >
-                      S'enregistrer
+                     Je m'enregistre
                     </button>
                   ) : (
                     <button className="btn mb-30 btn-lg btn-primary w-100 loading-btn">
