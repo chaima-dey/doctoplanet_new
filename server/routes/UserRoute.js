@@ -31,7 +31,6 @@ router.post("/signup", async (req, res) => {
             password: hashPassowrd,
             date_naissance: req.body.user.date_naissance,
             tel: req.body.user.tel,
-            adresse: req.body.user.adresse,
             image: "",
             created_at: req.body.user.created_at
         });
@@ -45,8 +44,9 @@ router.post("/signup", async (req, res) => {
           // const url = `http://localhost:5000/user/verify/${user._id}/${token.token}`;
           const url = `https://doctoplanet.com/user/verify/${user._id}/${token.token}`;
         const mail_sned = await sendmail(req.body.user.email.toLowerCase(),url,req.body.user.nom)
-       if(!mail_sned.accepted)
-         return res.status(422).send("Erreur serveur, essayez encore")
+        
+      //  if(!mail_sned.accepted)
+      //    return res.status(422).send("Erreur serveur, essayez encore")
         return res.status(200).send(user);
     } catch (err) {
         return res.status(422).send(err.message);
