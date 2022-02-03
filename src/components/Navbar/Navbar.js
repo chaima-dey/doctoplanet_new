@@ -104,7 +104,7 @@ function _Navbar() {
             <div className="user_nav">
               <div onClick={() => navigate("/compte")}>
                 {/* <i className="far fa-user-circle"></i> */}
-                <img src={UserReducer.image ? `${url}/photos/${UserReducer.image}` : User_icon} alt="" />
+                <img src={UserReducer.image ? `${url}/uploads/${UserReducer.image}` : User_icon} alt="" />
                 <p> {UserReducer.nom}</p>
               </div>
              
