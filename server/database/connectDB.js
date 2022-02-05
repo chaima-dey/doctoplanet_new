@@ -10,7 +10,7 @@ const ConnectDB = () => {
       useUnifiedTopology: true
     },
     (err) => {
-      if (err) {
+      if (err) { 
         throw err;
       }
       console.log("Database connected");

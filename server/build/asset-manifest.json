@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.41b75183.chunk.css",
-    "main.js": "/static/js/main.0237e0ea.chunk.js",
-    "main.js.map": "/static/js/main.0237e0ea.chunk.js.map",
+    "main.css": "/static/css/main.9e180290.chunk.css",
+    "main.js": "/static/js/main.25a54b01.chunk.js",
+    "main.js.map": "/static/js/main.25a54b01.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.721bdd5f.js",
     "runtime-main.js.map": "/static/js/runtime-main.721bdd5f.js.map",
-    "static/js/2.47110ab6.chunk.js": "/static/js/2.47110ab6.chunk.js",
-    "static/js/2.47110ab6.chunk.js.map": "/static/js/2.47110ab6.chunk.js.map",
+    "static/js/2.a2443253.chunk.js": "/static/js/2.a2443253.chunk.js",
+    "static/js/2.a2443253.chunk.js.map": "/static/js/2.a2443253.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.41b75183.chunk.css.map": "/static/css/main.41b75183.chunk.css.map",
-    "static/js/2.47110ab6.chunk.js.LICENSE.txt": "/static/js/2.47110ab6.chunk.js.LICENSE.txt",
+    "static/css/main.9e180290.chunk.css.map": "/static/css/main.9e180290.chunk.css.map",
+    "static/js/2.a2443253.chunk.js.LICENSE.txt": "/static/js/2.a2443253.chunk.js.LICENSE.txt",
     "static/media/QSN_banner.f7ba4592.png": "/static/media/QSN_banner.f7ba4592.png",
     "static/media/assurence.045ab981.png": "/static/media/assurence.045ab981.png",
     "static/media/axa-logo.5b372753.png": "/static/media/axa-logo.5b372753.png",
@@ -22,7 +22,7 @@
     "static/media/footer.d025f458.jpg": "/static/media/footer.d025f458.jpg",
     "static/media/img_4.a781c63f.png": "/static/media/img_4.a781c63f.png",
     "static/media/login-banner.ece4acf8.png": "/static/media/login-banner.ece4acf8.png",
-    "static/media/med_icon.0d589abe.svg": "/static/media/med_icon.0d589abe.svg",
+    "static/media/med_icon.8b4b7eec.svg": "/static/media/med_icon.8b4b7eec.svg",
     "static/media/medica.24bfd504.svg": "/static/media/medica.24bfd504.svg",
     "static/media/medicament.e9e2fced.png": "/static/media/medicament.e9e2fced.png",
     "static/media/mobile.f82d7322.png": "/static/media/mobile.f82d7322.png",
@@ -37,8 +37,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.721bdd5f.js",
-    "static/js/2.47110ab6.chunk.js",
-    "static/css/main.41b75183.chunk.css",
-    "static/js/main.0237e0ea.chunk.js"
+    "static/js/2.a2443253.chunk.js",
+    "static/css/main.9e180290.chunk.css",
+    "static/js/main.25a54b01.chunk.js"
   ]
 }
