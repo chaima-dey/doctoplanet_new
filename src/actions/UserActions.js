@@ -3,7 +3,7 @@ import url from "../api";
 export const RegisterUser = async (user) => {
   try {
     const res = await axios.post(`${url}/user/signup`  , { user });
-    console.log(res); 
+ 
      
     return res;
   } catch (error) {
@@ -26,7 +26,6 @@ export const UpdateUser = async (user, dispatch) => {
 export const LoginUser = async (user, dispatch) => {
   try {
     const res = await axios.post(`${url}/user/signin`, { user });
-    console.log(res);
     dispatch({
       type: "TOKEN",
       payload: res.data.token,

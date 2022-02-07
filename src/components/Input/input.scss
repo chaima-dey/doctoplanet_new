@@ -1,0 +1,22 @@
+.custom-input{
+    border: 1px solid #d5d5d5;
+    width: 100%;
+    height: 50px;
+    padding: 0 15px;
+
+}
+
+.custom-input:focus{
+    border: 2px solid #d5d5d5;
+}
+.custom{
+    position: relative;
+}
+.custom-input:focus::before{
+    content: '';
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: #00a9dd;
+    bottom: 0;
+}

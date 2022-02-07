@@ -198,5 +198,10 @@
     padding: 0px 200px !important;
   }
 }
-
+@media only screen and (max-width: 1305px) and (min-width: 980px) {
+  .navbar-light .navbar-nav .nav-link {
+     font-size: 14px; 
+     padding: 10px !important;
+}
+}
 

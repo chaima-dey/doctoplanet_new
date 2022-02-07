@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import _Alert from "../../components/Alert/_Alert";
+import Input from "../../components/Input/Input";
 
 function Accueil() {
   const location = useLocation();
@@ -68,6 +69,7 @@ function Accueil() {
               économique et facile !
             </h4>
           </div>
+          
           <div className="row justify-content-center comment_ça_marche">
             <div className="col-lg-4 col-sm-6 mb-30">
               <div className="work-bx">

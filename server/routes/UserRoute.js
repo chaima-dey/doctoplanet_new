@@ -96,6 +96,7 @@ router.post("/signin", async (req, res) => {
         if (passwords_compare) {
             const token = jwt.sign({ userId: user._id }, jwtkey);
           if(!user.verify) return res.status(404).send("Adresse mail non vérifiée");
+          user.password = null
             res.status(200).send({ token, user });
         } else res.status(404).send("Mot de passe incorrect");
     } else {
