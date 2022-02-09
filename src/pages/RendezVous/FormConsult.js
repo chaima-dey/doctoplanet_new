@@ -4,42 +4,50 @@ import DivError from "../../components/Error/DivError";
 
 function FormConsult(props) {
   const [Array, setArray] = useState([]);
-const [Error, setError] = useState(false);
-const [y, setY] = useState(window.scrollY);
-  const asymptote = (asym,id) => {
+  const [Error, setError] = useState(null);
+  const [y, setY] = useState(window.scrollY);
+  const asymptote = (asym, id) => {
     const arr = Array;
     if (!arr.includes(asym)) {
       arr.push(asym);
     } else {
       arr.splice(arr.indexOf(asym), 1);
     }
-    if (arr.length > 3) {       
+    if (arr.length > 3) {
       arr.splice(arr.indexOf(asym), 1);
-      const element = document.querySelector(`#${id}`)
-      element.click()
-      setError(true)
+      const element = document.querySelector(`#${id}`);
+      element.click();
+      setError("Trois symptômes maximum");
       window.scrollTo(0, 0);
-      return
-     
+      return;
     }
-    setError(false)
+    setError(false);
     setArray(arr);
-    console.log(Array)
-    props.setAsymptotes(Array)
-    
-  }; 
+
+    props.setAsymptotes(Array);
+  };
+  useEffect(() => {
+    console.log(props.setError_2)
+  
+    return () => {
+      
+    }
+  }, [props.setError_2])
+  
 
   return (
     <div className="asymptote">
       <h3 className="title">2- Les symptômes</h3>
-      {
-        Error &&  <DivError message={"Trois symptômes maximum"} />
-      }
+      {Error && (
+        <div className="alert_hide">
+          <DivError hideAlert={() => setError(false)} message={Error} />
+        </div>
+      )}
       <div className="form_check">
         <label className="form-check-label">Troubles respiratoires</label>
         <div className="form-check form-switch">
           <input
-            onChange={() => asymptote("Troubles respiratoires",'Troubles')}
+            onChange={() => asymptote("Troubles respiratoires", "Troubles")}
             className="form-check-input"
             type="checkbox"
             id="Troubles"
@@ -50,7 +58,7 @@ const [y, setY] = useState(window.scrollY);
         <label className="form-check-label">Douleurs thoraciques</label>
         <div className="form-check form-switch">
           <input
-            onChange={() => asymptote("Douleurs thoraciques","thoraciques")}
+            onChange={() => asymptote("Douleurs thoraciques", "thoraciques")}
             className="form-check-input"
             type="checkbox"
             id="thoraciques"
@@ -61,7 +69,7 @@ const [y, setY] = useState(window.scrollY);
         <label className="form-check-label">Maux de tête</label>
         <div className="form-check form-switch">
           <input
-            onChange={() => asymptote("Maux de tête","Mauxdetête")}
+            onChange={() => asymptote("Maux de tête", "Mauxdetête")}
             className="form-check-input"
             type="checkbox"
             id="Mauxdetête"
@@ -72,8 +80,7 @@ const [y, setY] = useState(window.scrollY);
         <label className="form-check-label">Maux du ventre</label>
         <div className="form-check form-switch">
           <input
-       
-            onChange={() => asymptote("Maux du ventre","Mauxduventre")}
+            onChange={() => asymptote("Maux du ventre", "Mauxduventre")}
             className="form-check-input"
             type="checkbox"
             id="Mauxduventre"
@@ -84,7 +91,7 @@ const [y, setY] = useState(window.scrollY);
         <label className="form-check-label">Fiévre</label>
         <div className="form-check form-switch">
           <input
-            onChange={() => asymptote("Fiévre","Fiévre")}
+            onChange={() => asymptote("Fiévre", "Fiévre")}
             className="form-check-input"
             type="checkbox"
             id="Fiévre"
@@ -96,7 +103,7 @@ const [y, setY] = useState(window.scrollY);
         <label className="form-check-label">Fatigue</label>
         <div className="form-check form-switch">
           <input
-            onChange={() => asymptote("Fatigue","Fatigue")}
+            onChange={() => asymptote("Fatigue", "Fatigue")}
             className="form-check-input"
             type="checkbox"
             id="Fatigue"
@@ -107,7 +114,7 @@ const [y, setY] = useState(window.scrollY);
         <label className="form-check-label">Douleurs musculaires</label>
         <div className="form-check form-switch">
           <input
-            onChange={() => asymptote("Douleurs musculaires","musculaires")}
+            onChange={() => asymptote("Douleurs musculaires", "musculaires")}
             className="form-check-input"
             type="checkbox"
             id="musculaires"
@@ -118,7 +125,7 @@ const [y, setY] = useState(window.scrollY);
         <label className="form-check-label">Vomissements</label>
         <div className="form-check form-switch">
           <input
-            onChange={() => asymptote("Vomissements","Vomissements")}
+            onChange={() => asymptote("Vomissements", "Vomissements")}
             className="form-check-input"
             type="checkbox"
             id="Vomissements"
@@ -129,7 +136,7 @@ const [y, setY] = useState(window.scrollY);
         <label className="form-check-label">Diarrhées</label>
         <div className="form-check form-switch">
           <input
-            onChange={() => asymptote("Diarrhées","Diarrhées")}
+            onChange={() => asymptote("Diarrhées", "Diarrhées")}
             className="form-check-input"
             type="checkbox"
             id="Diarrhées"

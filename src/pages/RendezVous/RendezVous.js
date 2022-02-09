@@ -233,6 +233,9 @@ function RendezVous() {
             <button
               style={{ marginLeft: "auto" }}
               onClick={() => {
+                if(Asymptotes.length != 3 && count > 1) {
+                  return
+                }
                 if (count < 3) setcount(count + 1);
               }}
               className="btn btn-secondary"

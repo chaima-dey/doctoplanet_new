@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React,{useState} from 'react'
-import { Alert } from 'react-bootstrap'
+import { Alert, CloseButton } from 'react-bootstrap'
 import './Error.scss'
 function DivError(props) {
   
@@ -11,6 +11,7 @@ function DivError(props) {
         <i className="fas fa-exclamation-circle"></i>
         {props.message}
         </p>
+        <CloseButton onClick={() => props.hideAlert()} />
       </Alert>
     )
 }

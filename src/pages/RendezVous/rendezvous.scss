@@ -92,3 +92,13 @@ margin-bottom: 50px;
  .form-control{
      transition: .1s !important;
  }
+
+ .alert_hide{
+     .alert-danger{
+         display: flex;
+         justify-content: space-between;
+     }
+     button{
+       margin: 0;
+     }
+ }
