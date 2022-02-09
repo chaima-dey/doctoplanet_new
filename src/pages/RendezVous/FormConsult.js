@@ -1,28 +1,48 @@
-import React, { useState } from "react";
+/* eslint-disable */
+import React, { useEffect, useState } from "react";
+import DivError from "../../components/Error/DivError";
 
 function FormConsult(props) {
   const [Array, setArray] = useState([]);
-  const asymptote = (asym) => {
+const [Error, setError] = useState(false);
+const [y, setY] = useState(window.scrollY);
+  const asymptote = (asym,id) => {
     const arr = Array;
     if (!arr.includes(asym)) {
       arr.push(asym);
     } else {
       arr.splice(arr.indexOf(asym), 1);
     }
+    if (arr.length > 3) {       
+      arr.splice(arr.indexOf(asym), 1);
+      const element = document.querySelector(`#${id}`)
+      element.click()
+      setError(true)
+      window.scrollTo(0, 0);
+      return
+     
+    }
+    setError(false)
     setArray(arr);
+    console.log(Array)
     props.setAsymptotes(Array)
-  };
+    
+  }; 
+
   return (
     <div className="asymptote">
-      <h3 className="title">2- Les asymptotes</h3>
+      <h3 className="title">2- Les symptômes</h3>
+      {
+        Error &&  <DivError message={"Trois symptômes maximum"} />
+      }
       <div className="form_check">
         <label className="form-check-label">Troubles respiratoires</label>
         <div className="form-check form-switch">
           <input
-            onChange={() => asymptote("Troubles respiratoires")}
+            onChange={() => asymptote("Troubles respiratoires",'Troubles')}
             className="form-check-input"
             type="checkbox"
-            id="flexSwitchCheckChecked"
+            id="Troubles"
           />
         </div>
       </div>
@@ -30,10 +50,10 @@ function FormConsult(props) {
         <label className="form-check-label">Douleurs thoraciques</label>
         <div className="form-check form-switch">
           <input
-            onChange={() => asymptote("Douleurs thoraciques")}
+            onChange={() => asymptote("Douleurs thoraciques","thoraciques")}
             className="form-check-input"
             type="checkbox"
-            id="flexSwitchCheckChecked"
+            id="thoraciques"
           />
         </div>
       </div>
@@ -41,10 +61,10 @@ function FormConsult(props) {
         <label className="form-check-label">Maux de tête</label>
         <div className="form-check form-switch">
           <input
-            onChange={() => asymptote("Maux de tête")}
+            onChange={() => asymptote("Maux de tête","Mauxdetête")}
             className="form-check-input"
             type="checkbox"
-            id="flexSwitchCheckChecked"
+            id="Mauxdetête"
           />
         </div>
       </div>
@@ -52,10 +72,11 @@ function FormConsult(props) {
         <label className="form-check-label">Maux du ventre</label>
         <div className="form-check form-switch">
           <input
-            onChange={() => asymptote("Maux du ventre")}
+       
+            onChange={() => asymptote("Maux du ventre","Mauxduventre")}
             className="form-check-input"
             type="checkbox"
-            id="flexSwitchCheckChecked"
+            id="Mauxduventre"
           />
         </div>
       </div>
@@ -63,10 +84,10 @@ function FormConsult(props) {
         <label className="form-check-label">Fiévre</label>
         <div className="form-check form-switch">
           <input
-            onChange={() => asymptote("Fiévre")}
+            onChange={() => asymptote("Fiévre","Fiévre")}
             className="form-check-input"
             type="checkbox"
-            id="flexSwitchCheckChecked"
+            id="Fiévre"
           />
         </div>
       </div>
@@ -75,10 +96,10 @@ function FormConsult(props) {
         <label className="form-check-label">Fatigue</label>
         <div className="form-check form-switch">
           <input
-            onChange={() => asymptote("Fatigue")}
+            onChange={() => asymptote("Fatigue","Fatigue")}
             className="form-check-input"
             type="checkbox"
-            id="flexSwitchCheckChecked"
+            id="Fatigue"
           />
         </div>
       </div>
@@ -86,10 +107,10 @@ function FormConsult(props) {
         <label className="form-check-label">Douleurs musculaires</label>
         <div className="form-check form-switch">
           <input
-            onChange={() => asymptote("Douleurs musculaires")}
+            onChange={() => asymptote("Douleurs musculaires","musculaires")}
             className="form-check-input"
             type="checkbox"
-            id="flexSwitchCheckChecked"
+            id="musculaires"
           />
         </div>
       </div>
@@ -97,10 +118,10 @@ function FormConsult(props) {
         <label className="form-check-label">Vomissements</label>
         <div className="form-check form-switch">
           <input
-            onChange={() => asymptote("Vomissements")}
+            onChange={() => asymptote("Vomissements","Vomissements")}
             className="form-check-input"
             type="checkbox"
-            id="flexSwitchCheckChecked"
+            id="Vomissements"
           />
         </div>
       </div>
@@ -108,10 +129,10 @@ function FormConsult(props) {
         <label className="form-check-label">Diarrhées</label>
         <div className="form-check form-switch">
           <input
-            onChange={() => asymptote("Diarrhées")}
+            onChange={() => asymptote("Diarrhées","Diarrhées")}
             className="form-check-input"
             type="checkbox"
-            id="flexSwitchCheckChecked"
+            id="Diarrhées"
           />
         </div>
       </div>

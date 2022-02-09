@@ -1,20 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function DateConsult(props) {
+  const [DateVal, setDateVal] = useState(new Date());
+const [TimeVal, setTimeVal] = useState("07:00");
+  useEffect(() => {
+    document.getElementById("datePicker").valueAsDate = new Date();
+  }, []);
+
+  useEffect(() => {
+ 
+  if(new Date(DateVal).setHours(0,0,0,0) < new Date().setHours(0,0,0,0))
+
+    document.getElementById("datePicker").valueAsDate = new Date();
+
+  }, [DateVal]);
+
+  useEffect(() => {
+ 
+    if(new Date(DateVal).setHours(0,0,0,0) == new Date().setHours(0,0,0,0))
+  {
+    const hour = ("0" + new Date().getHours() ).slice(-2);
+    const min =   ("0" + new Date().getMinutes() ).slice(-2);
+    const time = hour+''+min
+ 
+    console.log(TimeVal.replace(':','') > time)
+  }
+    }, [TimeVal]);
+
   return (
     <div>
-        <h3 className="title">3- Date du rendez-vous</h3>
+      <h3 className="title">3- Date du rendez-vous</h3>
       <div className="row_group">
-        
         <div className="form-group">
           <label htmlFor="">Date du consultation</label>
-          <input   onChange={e => props.setDate_consul(e.target.value)} type="date" className="form-control" />
+          <input
+            id="datePicker"
+            onChange={(e) => {
+              props.setDate_consul(e.target.value)
+              setDateVal(e.target.value)
+            }}
+            type="date"
+            className="form-control"
+          />
         </div>
         <div className="form-group">
           <label htmlFor="">Heure du consultation</label>
-          <select  
-            onChange={e => props.setHeure_consul(e.target.value)}
-          style={{ height: 60 }} className="form-select">
+          <select
+            onChange={(e) =>{
+              props.setHeure_consul(e.target.value)
+              setTimeVal(e.target.value)
+            }}
+
+            style={{ height: 60 }}
+            className="form-select"
+          >
             <option value="07:00">07:00</option>
             <option value="07:30">07:30</option>
             <option value="08:00">08:00</option>
@@ -55,8 +94,10 @@ function DateConsult(props) {
       <div className="form-group">
         <label htmlFor="">Spécialité du medecin souhaitée</label>
         <select
-        onChange={e => props.setMedecin(e.target.value)}
-        style={{ height: 60 }} className="form-select">
+          onChange={(e) => props.setMedecin(e.target.value)}
+          style={{ height: 60 }}
+          className="form-select"
+        >
           <option value="Généraliste">Généraliste</option>
           <option value="Pediatre">Pediatre</option>
           <option value="Psychiatre">Psychiatre</option>
@@ -67,8 +108,7 @@ function DateConsult(props) {
       <div className="form-group">
         <label htmlFor="">Dites-nous comment vous vous sentez?</label>
         <textarea
-        onChange={e => props.setEtat_Patient(e.target.value)}
-
+          onChange={(e) => props.setEtat_Patient(e.target.value)}
           name=""
           className="form-control"
           id=""

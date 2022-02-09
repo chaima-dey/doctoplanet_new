@@ -59,6 +59,9 @@ margin-bottom: 50px;
     margin-right: 10px;
 }
 
+.input_auto{
+    background-color: #00a9dd26;
+}
 
 @media screen and (max-width: 600px) {
     .btn_form_setp3 {
@@ -77,3 +80,15 @@ margin-bottom: 50px;
         }
     
 }
+
+.focus_input{
+    border-bottom: 3px solid #00a9dd !important;
+}
+
+.error_input{
+    border-bottom: 3px solid #ff95a8 !important;
+}
+
+ .form-control{
+     transition: .1s !important;
+ }

@@ -22,7 +22,7 @@ function RendezVous() {
   const [Mail, setMail] = useState(UserReducer.email ? UserReducer.email : '');
   const [Tel, setTel] = useState(UserReducer.tel ? UserReducer.tel : '');
   const [Date_naissance, setDate_naissance] = useState(UserReducer.date_naissance ? UserReducer.date_naissance : '');
-  const [Groupe, setGroupe] = useState("A+");
+  const [Groupe, setGroupe] = useState("O-");
   const [Adresse, setAdresse] = useState(UserReducer.adresse ? UserReducer.adresse : '');
   const [Ville, setVille] = useState("");
   const [Pays, setPays] = useState("France");
@@ -40,6 +40,8 @@ function RendezVous() {
     const element = document.querySelector(".home");
     element.classList.remove("transition_opacity");
   }, []);
+
+ 
 
   const SaveConsultation = async () => {
 
@@ -151,10 +153,13 @@ function RendezVous() {
             <div className="form-group">
               <label htmlFor="">Groupe sanguin</label>
               <select
+            
+
                 onChange={(e) => setGroupe(e.target.value)}
                 style={{ height: 60 }}
-                className="form-select"
+                className={"form-select " }
               >
+                <option value="">Je ne sais pas</option>
                 <option value="A+">A+</option>
                 <option value="A-">A-</option>
                 <option value="B+">B+</option>
@@ -163,7 +168,7 @@ function RendezVous() {
                 <option value="O-">O-</option>
                 <option value="AB+">AB+</option>
                 <option value="AB-">AB-</option>
-                <option value="">Je ne sais pas</option>
+              
               </select>
             </div>
           </div>
