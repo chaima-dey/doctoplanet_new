@@ -102,3 +102,20 @@ margin-bottom: 50px;
        margin: 0;
      }
  }
+
+ .form-wraper .form-control:focus, .form-wraper  {
+    border-color: rgba(86, 90, 207, 0.3) !important;
+    border-bottom: 2px solid #01a9dd !important;
+}
+
+.form-control:hover  {
+    border-color: rgba(86, 90, 207, 0.3) !important;
+
+}
+
+.error_input{
+    border-bottom: 3px solid #ff95a8 !important;
+}
+
+
+ 

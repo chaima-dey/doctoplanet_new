@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import "./rendezvous.scss";
 import countryList from "react-select-country-list";
 import FormConsult from "./FormConsult";
@@ -9,7 +9,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import url from "../../api";
+import DivError from "../../components/Error/DivError";
+import PlacesAutocomplete from 'react-places-autocomplete';
+import {
+  geocodeByAddress,
+  geocodeByPlaceId,
+  getLatLng,
+} from 'react-places-autocomplete';
 function RendezVous() {
+
+  
+
+  const element  = useRef(null)
   let navigate = useNavigate()
   const dispatch = useDispatch()
   const UserReducer = useSelector((state) => state.UserReducer);
@@ -31,7 +42,18 @@ function RendezVous() {
   const [Heure_consul, setHeure_consul] = useState("07:00");
   const [Medecin, setMedecin] = useState("Généraliste");
   const [Etat_Patient, setEtat_Patient] = useState("");
+const [Error, setError] = useState(false)
+const [adress, setadress] = useState("")
 
+const [gmapsLoaded, setGmapsLoaded] = useState(false)
+
+
+useEffect(() => {
+  window.initMap = () => setGmapsLoaded(true)
+  const gmapScriptEl = document.createElement(`script`)
+  gmapScriptEl.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCjJWZNX_OXs49Qz5QuQd5BVwoo1JouexE&libraries=places&callback=initMap`
+  document.querySelector(`body`).insertAdjacentElement(`beforeend`, gmapScriptEl)
+}, [])
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -82,10 +104,95 @@ function RendezVous() {
     }
   };
 
+  const NextStep = () =>{
+    element.current.scrollIntoView()  
+    if(Nom == '' ) {
+      setError('Veuillez entrer votre nom')
+      return
+    }
+    if(Prenom == '' ) {
+      setError('Veuillez entrer votre prénom')
+      return
+    }
+    if(Mail == '' ) {
+      setError('Veuillez entrer votre adresse mail ')
+      return
+    }
+    if(Tel == '' ) {
+      setError('Veuillez entrer votre téléphone')
+      return
+    }
+    
+    
+    if(Asymptotes.length != 3 && count > 1) {
+      return
+    }
+    if (count < 3) setcount(count + 1);
+  }
+
+  const handleChange = address => {
+ setadress(address)
+  };
+
+  const handleSelect = address => {
+    geocodeByAddress(address)
+      .then(results => getLatLng(results[0]))
+      .then(latLng => console.log('Success', latLng))
+      .catch(error => console.error('Error', error));
+  }; 
+
   return (
     <div className="transition_opacity home container my-5">
+
+
+
+
+{
+  gmapsLoaded &&
+<PlacesAutocomplete
+         value={adress}
+        onChange={handleChange}
+         onSelect={handleSelect}
+      >
+        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+          <div>
+            <input
+              {...getInputProps({
+                placeholder: 'Search Places ...',
+                className: 'location-search-input',
+              })}
+            />
+            <div className="autocomplete-dropdown-container">
+              {loading && <div>Loading...</div>}
+              {suggestions.map(suggestion => {
+                const className = suggestion.active
+                  ? 'suggestion-item--active'
+                  : 'suggestion-item';
+                // inline style for demonstration purpose
+                const style = suggestion.active
+                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                return (
+                  <div
+                    {...getSuggestionItemProps(suggestion, {
+                      className,
+                      style,
+                    })}
+                  >
+                    <span>{suggestion.description}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </PlacesAutocomplete>
+}
+
+
+
       <div className="heading-bx" style={{ marginTop: 130, marginBottom: 70 }}>
-        <h2 className="title-ext text-secondary">Prendre un rendez-vous</h2>
+        <h2 ref={element} className="title-ext text-secondary">Prendre un rendez-vous</h2>
         <h6 style={{ paddingLeft: 15 }}>
           <i className="fas fa-user-shield"></i>
           Les données de santé sont protégées
@@ -94,6 +201,11 @@ function RendezVous() {
       <div className="appointment-form rendez_vous_form form-wraper">
         <div style={{ display: count == 1 ? "block" : "none" }}>
           <h3 className="title">1- Inforamtions du patient</h3>
+          {Error && (
+        <div className="alert_hide">
+          <DivError hideAlert={() => setError(false)} message={Error} />
+        </div>
+      )}
           <div className="row_group">
             <div className="form-group">
               <input
@@ -101,7 +213,7 @@ function RendezVous() {
                 value={Nom}
                 onChange={(e) => setNom(e.target.value)}
                 type="text"
-                className="form-control"
+                className="form-control "
                 placeholder="Nom"
               />
             </div>
@@ -232,12 +344,7 @@ function RendezVous() {
           {count < 3 && (
             <button
               style={{ marginLeft: "auto" }}
-              onClick={() => {
-                if(Asymptotes.length != 3 && count > 1) {
-                  return
-                }
-                if (count < 3) setcount(count + 1);
-              }}
+              onClick={() => NextStep()}
               className="btn btn-secondary"
             >
               Suivant
