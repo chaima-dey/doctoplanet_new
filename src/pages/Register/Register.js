@@ -10,7 +10,8 @@ import DivError from "../../components/Error/DivError";
 import { Spinner } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 var validator = require("email-validator");
-
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/bootstrap.css'
 function Register() {
   const input_1 = useRef(null);
   const input_2 = useRef(null);
@@ -18,6 +19,7 @@ function Register() {
   const input_4 = useRef(null);
   const input_5 = useRef(null);
   const input_6 = useRef(null);
+  const input_7 = useRef(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -44,6 +46,7 @@ function Register() {
   }, [Error]);
 
   const Register = async () => {
+
     setError(null);
     var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     var me =
@@ -107,13 +110,17 @@ function Register() {
     }
 
     if (Tel == "") {
-      input_6.current.classList.add("error_input")
+      const element = document.querySelector('.react-tel-input')
+      element.classList.add("error_input")
       setError("Veuillez saisir votre Téléphone");
       return;
     }
     else{
-      input_6.current.classList.remove("error_input")
+      const element = document.querySelector('.input-phone')
+      element.classList.remove("error_input")
     }
+
+
 
     setLoading(true);
     const res = await RegisterUser(user);
@@ -156,6 +163,17 @@ function Register() {
 
   const blur = (num) => {
     num.current.classList.remove("focus_input");
+  };
+
+  const focus_phone = () =>{
+    const element = document.querySelector('.input-phone')
+    element.classList.remove("error_input");
+   
+  }
+
+  const blur_phone = (num) => {
+    const element = document.querySelector('.input-phone')
+    element.classList.remove("focus_input");
   };
 
   return (
@@ -259,19 +277,31 @@ function Register() {
                   />
                 </div>
                 <div className="form-group">
-                  <input
-                    ref={input_6}
-                    onFocus={() => focus(input_6)}
-                    onBlur={() => blur(input_6)}
+                  {/* <input
+                    ref={input_7}
+                    onFocus={() => focus(input_7)}
+                    onBlur={() => blur(input_7)}
                     value={Tel}
                     onChange={(e) => {
                       handleTel(e);
                     }}
                     type="text"
-                    className="form-control"
+                    className="form-control tel-input"
                     placeholder="Téléphone"
-                  />
+                  /> */}
+                                 <PhoneInput
+   className="input-phone"   
+   onFocus={() => focus_phone()}
+   onBlur={() => blur_phone()}
+   enableLongNumbers={false}
+  country={'fr'}
+  placeholder='Téléphone'
+  value={Tel}
+  onChange={phone => setTel(phone)}
+ 
+/>
                 </div>
+ <br/>
                 <div className="form-group">
                   {!Loading ? (
                     <button

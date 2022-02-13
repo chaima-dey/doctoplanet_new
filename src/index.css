@@ -134,3 +134,8 @@ box-shadow: 0 0 66px #00000052;
   input{
       border-radius: 0 !important;
   }
+
+
+  button{
+      border-radius: 0px !important;
+  }

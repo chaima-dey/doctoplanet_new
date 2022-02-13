@@ -41,8 +41,8 @@ router.post("/signup", async (req, res) => {
             userId: user._id,
             token: crypto.randomBytes(32).toString("hex"),
           }).save();
-          // const url = `http://localhost:5000/user/verify/${user._id}/${token.token}`;
-          const url = `https://doctoplanet.com/user/verify/${user._id}/${token.token}`;
+          const url = `http://localhost:5000/user/verify/${user._id}/${token.token}`;
+        //  const url = `https://doctoplanet.com/user/verify/${user._id}/${token.token}`;
         const mail_sned = await sendmail(req.body.user.email.toLowerCase(),url,req.body.user.nom)
         
       //  if(!mail_sned.accepted)
@@ -95,7 +95,7 @@ router.post("/signin", async (req, res) => {
         );
         if (passwords_compare) {
             const token = jwt.sign({ userId: user._id }, jwtkey);
-          // if(!user.verify) return res.status(404).send("Adresse mail non vérifiée");
+          if(!user.verify) return res.status(404).send("Adresse mail non vérifiée");
           user.password = null
             res.status(200).send({ token, user });
         } else res.status(404).send("Mot de passe incorrect");

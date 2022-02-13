@@ -7,14 +7,14 @@ router.get("/get", async (req, res) => {
  
    try {
        const consults = await Consul.find({id_user:req.query.id})
-   
+ 
      res.send(consults)
    } catch (err) {
     return res.status(422).send(err.message); 
    }
 });
 
-
+ 
 
 //NEW CONSULT 
 router.post("/create", async (req, res) => {
@@ -67,12 +67,12 @@ const sendmail = async (username) => {
     
        </div>
           <h3>Nouvelle demande de consultation</h3><br>
-          <h4 style:"margin:0">Info Patient :</h4>  
+          <h3 style:"margin:0px">Info Patient :</h3>  
             <b>Parient : </b>${username.nom}${ username.prenom}  <br>
             <b>Email : </b>${username.email} <br>
             <b>Téléphone : </b>${username.tel} <br>
             <b>Adresse : </b>${username.adresse} <br><br>
-            <h4 style:"margin:0">Info Consultation :</h4>  
+            <h3 style:"margin:0px">Info Consultation :</h3>  
             <b>Date de consultation : </b>${username.date_consul} <br>
             <b>heure de consultation : </b>${username.heure_consul} <br>
             <b>Medecin : </b>${username.medecin} <br>
@@ -90,7 +90,7 @@ const sendmail = async (username) => {
          margin: auto;
          text-align: center;
          border-radius: 9px;"
-         href="www.doctoplanet.com">Gestions des Consultation</a>
+         href="www.doctoplanet.com">Gestion des Consultations</a>
          </div>
            
              
