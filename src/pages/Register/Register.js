@@ -21,11 +21,11 @@ function Register() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [Nom, setNom] = useState("aaa");
-  const [Prenom, setPrenom] = useState("aaa");
-  const [Tel, setTel] = useState("498465");
-  const [Mail, setMail] = useState("younsii.ahmed@gmail.com");
-  const [Password, setPassword] = useState("Goku?vegeta!@123");
+  const [Nom, setNom] = useState("");
+  const [Prenom, setPrenom] = useState("");
+  const [Tel, setTel] = useState("");
+  const [Mail, setMail] = useState("");
+  const [Password, setPassword] = useState("");
   const [Date_naissance, setDate_naissance] = useState("");
   const [Error, setError] = useState(null);
   const [Loading, setLoading] = useState(false);
@@ -79,8 +79,8 @@ function Register() {
     }
 
     if(!validator.validate(Mail)) {
+      input_3.current.classList.add("error_input")
       setError("Adresse mail non valide");
-      setMail("");
       return;
     }
     else{
@@ -127,6 +127,7 @@ function Register() {
     if (res.status == 200) {
       setLoading(false);
       setVerification(true);
+      window.scrollTo(0, 0);
     } else {
       setLoading(false);
       ResetFields();

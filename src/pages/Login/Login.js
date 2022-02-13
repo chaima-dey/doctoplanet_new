@@ -17,8 +17,8 @@ function Login() {
   const SuccessReducer = useSelector((state) => state.SuccessReducer);
 
   const dispatch = useDispatch();
-  const [Mail, setMail] = useState("younsii.ahmed@gmail.com");
-  const [Passowrd, setPassowrd] = useState("Goku?vegeta!@123");
+  const [Mail, setMail] = useState("");
+  const [Passowrd, setPassowrd] = useState("");
   const [Error, setError] = useState(null);
   const [Loading, setLoading] = useState(false);
 
