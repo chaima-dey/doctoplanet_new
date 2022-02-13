@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import url from "../../api";
 import DivError from "../../components/Error/DivError";
 import PlacesAutocomplete from 'react-places-autocomplete';
+ 
+var validator = require("email-validator");
 import {
   geocodeByAddress,
   geocodeByPlaceId,
@@ -38,13 +40,13 @@ function RendezVous() {
   const [Ville, setVille] = useState("");
   const [Pays, setPays] = useState("France");
   const [Asymptotes, setAsymptotes] = useState([]);
-  const [Date_consul, setDate_consul] = useState("");
+  const [Date_consul, setDate_consul] = useState(new Date());
   const [Heure_consul, setHeure_consul] = useState("07:00");
   const [Medecin, setMedecin] = useState("Généraliste");
   const [Etat_Patient, setEtat_Patient] = useState("");
 const [Error, setError] = useState(false)
 const [adress, setadress] = useState("")
-
+const [ErrorServer, setErrorServer] = useState(false)
 const [gmapsLoaded, setGmapsLoaded] = useState(false)
 
 
@@ -63,6 +65,9 @@ useEffect(() => {
     element.classList.remove("transition_opacity");
   }, []);
 
+ useEffect(() => {
+ setErrorServer(false)
+ }, [count])
  
 
   const SaveConsultation = async () => {
@@ -100,6 +105,8 @@ useEffect(() => {
         payload: true,
       });
     } catch (error) {
+      setErrorServer(true)
+      window.scrollTo(0, 0);
       setLoading(false);
     }
   };
@@ -114,7 +121,7 @@ useEffect(() => {
       setError('Veuillez entrer votre prénom')
       return
     }
-    if(Mail == '' ) {
+       if(!validator.validate(Mail)) {
       setError('Veuillez entrer votre adresse mail ')
       return
     }
@@ -122,9 +129,13 @@ useEffect(() => {
       setError('Veuillez entrer votre téléphone')
       return
     }
+    if(Adresse == '' ) {
+      setError('Veuillez entrer votre Adresse')
+      return
+    }
     
     
-    if(Asymptotes.length != 3 && count > 1) {
+    if(Asymptotes.length == 0 && count > 1) {
       return
     }
     if (count < 3) setcount(count + 1);
@@ -147,7 +158,7 @@ useEffect(() => {
 
 
 
-{
+{/* {
   gmapsLoaded &&
 <PlacesAutocomplete
          value={adress}
@@ -187,7 +198,7 @@ useEffect(() => {
           </div>
         )}
       </PlacesAutocomplete>
-}
+} */}
 
 
 
@@ -197,6 +208,11 @@ useEffect(() => {
           <i className="fas fa-user-shield"></i>
           Les données de santé sont protégées
         </h6>
+        <hr />
+        {
+          ErrorServer &&
+          <DivError hideAlert={() => setErrorServer(false)} message={"Un erreur se produit"} />
+        }
       </div>
       <div className="appointment-form rendez_vous_form form-wraper">
         <div style={{ display: count == 1 ? "block" : "none" }}>
@@ -329,6 +345,7 @@ useEffect(() => {
             setEtat_Patient={(e) => setEtat_Patient(e)}
           />
         </div>
+     
         <div className={"btn_form mt-5 " + (count > 2 ? " btn_form_setp3" : "")}>
           {count > 1 && (
             <button

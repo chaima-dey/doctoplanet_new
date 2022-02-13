@@ -103,13 +103,14 @@ margin-bottom: 50px;
      }
  }
 
- .form-wraper .form-control:focus, .form-wraper  {
+ .form-control:focus {
     border-color: rgba(86, 90, 207, 0.3) !important;
     border-bottom: 2px solid #01a9dd !important;
 }
 
 .form-control:hover  {
     border-color: rgba(86, 90, 207, 0.3) !important;
+    border-bottom: 2px solid #01a9dd !important;
 
 }
 
@@ -118,4 +119,6 @@ margin-bottom: 50px;
 }
 
 
- 
+ .form-check-input{
+     border-radius: 30px !important;
+ }

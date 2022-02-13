@@ -50,8 +50,14 @@ function Login() {
     };
     var me =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    if (Passowrd == "" || Mail == "") {
+    if (Mail == "") {
       input_1.current.classList.add("error_input")
+   
+      setError("Adresse mail ou mot de passe vide");
+      return;
+    }
+    if (Passowrd == "") {
+      
       input_2.current.classList.add("error_input")
       setError("Adresse mail ou mot de passe vide");
       return;
@@ -65,13 +71,17 @@ function Login() {
     }
     setLoading(true);
     const res = await LoginUser(user, dispatch);
+    if(!res){
+      setError('Problème de connexion')
+      setLoading(false);
+      return
+    }
     if (res && res.status == 200) {
       setLoading(false);
       window.location.replace("/");
     } else {
       setLoading(false);
       setPassowrd("");
-      console.log(res.data)
       if(res.data == "Adresse introuvable") 
       input_1.current.classList.add("error_input")
       if(res.data == "Mot de passe incorrect")
@@ -98,7 +108,7 @@ function Login() {
         <div className="home transition_opacity form_login tab-pane fade show active">
           <h2 className="mb-3">Se connecter</h2>
 
-          {Error && <DivError message={Error} />}
+          {Error && <DivError hideAlert={() => setError(false)} message={Error} />}
 
           {SuccessReducer && (
             <div className="mb-3">

@@ -14,6 +14,7 @@ import { Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import _Alert from "../../components/Alert/_Alert";
 import Input from "../../components/Input/Input";
+import Cards from "../../components/Cards/Cards";
 
 function Accueil() {
   const location = useLocation();
@@ -115,6 +116,9 @@ function Accueil() {
 
         <img className="pt-img2 animate2" src={wave_orange} alt="" />
       </section>
+
+      {/* <Cards /> */}
+     
       <RDV />
     </div>
   );

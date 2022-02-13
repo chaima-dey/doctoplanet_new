@@ -129,3 +129,8 @@ box-shadow: 0 0 66px #00000052;
   ::-webkit-scrollbar-thumb:hover {
     background: #242424; 
   }
+
+
+  input{
+      border-radius: 0 !important;
+  }

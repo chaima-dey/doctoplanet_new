@@ -17,10 +17,10 @@ router.post("/signup", async (req, res) => {
   
     const mail_isExist = await User.findOne({ email: req.body.user.email.toLowerCase() });
 
-    if (mail_isExist) {
-        res.status(404).send("Adresse mail existe");
-        return;
-    }
+    // if (mail_isExist) {
+    //     res.status(404).send("Adresse mail existe");
+    //     return;
+    // }
     
     const hashPassowrd = await bcrypt.hash(req.body.user.password, 10);
     try {
@@ -95,7 +95,7 @@ router.post("/signin", async (req, res) => {
         );
         if (passwords_compare) {
             const token = jwt.sign({ userId: user._id }, jwtkey);
-          if(!user.verify) return res.status(404).send("Adresse mail non vérifiée");
+          // if(!user.verify) return res.status(404).send("Adresse mail non vérifiée");
           user.password = null
             res.status(200).send({ token, user });
         } else res.status(404).send("Mot de passe incorrect");
@@ -158,41 +158,60 @@ const storage = multer.diskStorage({
   const sendmail = async (mail,url,username) => {
 
   try {
-    var transporter = nodemailer.createTransport({
-      host: "smtp-mail.outlook.com", // hostname
-      secureConnection: false, // TLS requires secureConnection to be false
-      port: 587, // port for secure SMTP
-      tls: {
+    const transporter = nodemailer.createTransport({
+      host: "ssl0.ovh.net",
+  port: 465,
+  secure: true, 
+  auth: {
+    user: "contact@doctoplanet.com",
+    pass: "Goku?vegeta!@123"
+  },
+        tls:{
       ciphers:'SSLv3'
-      },
-      requireTLS:true,//this parameter solved problem for me
-      auth: {
-        user: 'younsi.ahmed@outlook.com',
-        pass: 'Goku?vegeta!@123' // generated ethereal password
-      }
-      });
-  
+  }
+  })
   
     // send mail with defined transport object
     let info = await transporter.sendMail({
-      from: `"Doctoplanet" younsi.ahmed@outlook.com`, // sender address
+      from: `"Doctoplanet" contact@doctoplanet.com`, // sender address
       to: `${mail}`, // list of receivers
       subject: "Verification Adresse mail", // Subject line
       text: "DoctoPlanet", // plain text body
       html:  `
      
-     <h2>Confirmation compte Doctoplanet</h2> <br>  
-    
-     <b>Bonjour ${username}</b> <br>  
-      Merci d'avoir rejoint Doctoplanet. <br>   
-      Nous aimerions vous confirmer que votre compte a été créé avec succès. Pour accéder au compte, cliquez sur le lien ci-dessous
-      <br>
-      ${url} 
-      <br><br>
-      Si vous rencontrez des difficultés pour vous connecter à votre compte, contactez-nous.
-      <br>
-      Cordialement<br>
-      L'équipe du Doctoplanet.
+      <div style="max-width: 500px;
+      margin: auto;
+      background-color: #9e9e9e1a;
+      padding: 30px;font-family: system-ui;border: 1px solid #cbcbcb;">
+     <div style="display: flex;justify-content: center;align-items: center;">
+      <img style="width: 200px;margin: auto;" src="https://res.cloudinary.com/dg3ftjfp0/image/upload/v1643880068/download_vfvl5h.png" alt="">
+  
+     </div>
+        <h2>Confirmation compte Doctoplanet</h2>  
+          
+          <b>Bonjour ${username}</b> <br>
+           Merci d'avoir rejoint Doctoplanet.     
+           Nous aimerions vous confirmer que votre compte a été créé avec succès. Pour accéder au compte, cliquez sur le lien ci-dessous
+           <br /> <br/>     
+       <div>
+       <a
+       style="    background: #fe5527;
+       color: white;
+       text-decoration: auto;
+       cursor: pointer;
+       width: fit-content;
+       padding: 10px;
+       margin: auto;
+       text-align: center;
+       border-radius: 9px;"
+       href="${url}">Confirmer votre profil</a>
+       </div>
+           <br />  
+           
+        <p style="margin:0">Si vous rencontrez des difficultés pour vous connecter à votre compte, contactez-nous.</p>
+           Cordialement<br />  
+           L'équipe du Doctoplanet.
+      </div>
       `
     });
     return info

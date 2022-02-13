@@ -11,7 +11,7 @@ function DivError(props) {
         <i className="fas fa-exclamation-circle"></i>
         {props.message}
         </p>
-        <CloseButton onClick={() => props.hideAlert()} />
+        <CloseButton style={{margin:0}} onClick={() => props.hideAlert()} />
       </Alert>
     )
 }

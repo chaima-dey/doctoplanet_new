@@ -1,0 +1,55 @@
+.card_steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .step__1 {
+    padding: 10px;
+    margin: 0 10px;
+    position: relative;
+    width: 110px;
+    height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 70px;
+      position: absolute;
+    }
+    .border_ {
+      transition: 0.3s;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 4px solid rgb(66, 66, 66);
+    }
+  }
+  .step__2 {
+    width: 50px;
+    height: 40px;
+    border: 4px solid rgb(68, 68, 68);
+    border-bottom: 0;
+    border-left: 0;
+    margin: 10px;
+  }
+  .step__3 {
+    padding: 10px;
+    font-size: 50px;
+  }
+}
+
+.card_steps:hover {
+  .border_ {
+    transform: rotate(25deg);
+    border: 4px solid #f17732;
+  }
+.step__2{
+    border: 4px solid #f17732;
+    border-bottom: 0;
+    border-left: 0;
+}
+.step__3{
+    color: #f17732;
+}
+
+}

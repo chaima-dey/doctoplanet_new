@@ -26,14 +26,7 @@ function FormConsult(props) {
 
     props.setAsymptotes(Array);
   };
-  useEffect(() => {
-    console.log(props.setError_2)
-  
-    return () => {
-      
-    }
-  }, [props.setError_2])
-  
+ 
 
   return (
     <div className="asymptote">
