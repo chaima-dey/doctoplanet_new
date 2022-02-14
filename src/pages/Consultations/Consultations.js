@@ -8,11 +8,13 @@ import url from '../../api';
 import './Consultations.scss'
 function Consultations() {
   const [Allconsult, setAllconsult] = useState([]);
+  const [ConsultFiltred, setConsultFiltred] = useState([])
+  const [Filtre, setFiltre] = useState(0)
   const UserReducer = useSelector((state) => state.UserReducer);
 
   const getConsults = async () =>{
     const res = await axios.get(`${url}/consultation/get`,{ params: { id: UserReducer._id } })
-    console.log(res.data[0])
+    setConsultFiltred(res.data)
     setAllconsult(res.data)
   }
 
@@ -21,7 +23,33 @@ function Consultations() {
     getConsults()
   }, []);
 
-  const Tables = ({etat}) =>{
+
+  useEffect(() => {
+ 
+    if(Filtre == 'Tous')
+    {
+      setConsultFiltred(Allconsult)
+    }
+    if(Filtre == "attente")     
+    {
+    const arr = Allconsult.filter(el => el.etat == 0)
+    setConsultFiltred(arr)
+    }  
+    if(Filtre == "Validée")    
+    {
+      const arr = Allconsult.filter(el => el.etat == 1)
+      setConsultFiltred(arr)
+    }  
+    if(Filtre == "Terminée")     
+   { 
+    const arr = Allconsult.filter(el => el.etat == 2)
+    setConsultFiltred(arr)
+   }
+  
+  }, [Filtre])
+  
+
+  const Tables = () =>{
     return(
       <Table  style={{minWidth:1000}} striped bordered hover>
   <thead>
@@ -35,8 +63,8 @@ function Consultations() {
     </tr>
   </thead>
   {
-    Allconsult.map((el,index)=>
-   el.etat == etat &&
+    ConsultFiltred.map((el,index)=>
+
   <tbody key={index}>
   <tr>
     <td>{index +1}</td>
@@ -57,7 +85,6 @@ function Consultations() {
   </tr>
  
 </tbody>
- 
      )
 
     }
@@ -80,20 +107,25 @@ function Consultations() {
    
   </div>
   
-  <Tabs  defaultActiveKey="attente" id="uncontrolled-tab-example" className="mb-3">
+  <Tabs    onSelect={(k) => setFiltre(k)} defaultActiveKey="Tous" id="uncontrolled-tab-example" className="mb-3">
    
-  <Tab style={{overflow:'auto'}}  eventKey="attente" title="En attente">
-      <Tables etat={0} />
+  <Tab style={{overflow:'auto'}}    eventKey="Tous" title="Tous">
+      <Tables  />
+    
    </Tab>
-  <Tab style={{overflow:'auto'}} eventKey="Validée" title="Validée">
+  <Tab style={{overflow:'auto'}}    eventKey="attente" title="En attente">
+      <Tables etat={0} />
+    
+   </Tab>
+  <Tab   style={{overflow:'auto'}} eventKey="Validée" title="Validée">
   <Tables etat={1} />
   </Tab>
-  <Tab style={{overflow:'auto'}} eventKey="Terminée" title="Terminée">
+  <Tab  style={{overflow:'auto'}} eventKey="Terminée" title="Terminée">
   <Tables etat={2} />
    </Tab>
   
 </Tabs>
-    
+
   
  
    

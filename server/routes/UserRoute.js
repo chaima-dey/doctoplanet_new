@@ -17,10 +17,10 @@ router.post("/signup", async (req, res) => {
   
     const mail_isExist = await User.findOne({ email: req.body.user.email.toLowerCase() });
 
-    // if (mail_isExist) {
-    //     res.status(404).send("Adresse mail existe");
-    //     return;
-    // }
+    if (mail_isExist) {
+        res.status(404).send("Adresse mail existe");
+        return;
+    }
     
     const hashPassowrd = await bcrypt.hash(req.body.user.password, 10);
     try {

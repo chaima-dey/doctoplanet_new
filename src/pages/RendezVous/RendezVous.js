@@ -11,7 +11,9 @@ import { useNavigate } from "react-router-dom";
 import url from "../../api";
 import DivError from "../../components/Error/DivError";
 import PlacesAutocomplete from 'react-places-autocomplete';
- 
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/bootstrap.css'
+import PaysList from './pays'
 var validator = require("email-validator");
 import {
   geocodeByAddress,
@@ -47,14 +49,18 @@ function RendezVous() {
 const [Error, setError] = useState(false)
 const [adress, setadress] = useState("")
 const [ErrorServer, setErrorServer] = useState(false)
-const [gmapsLoaded, setGmapsLoaded] = useState(false)
+ 
 
 
 useEffect(() => {
-  window.initMap = () => setGmapsLoaded(true)
-  const gmapScriptEl = document.createElement(`script`)
-  gmapScriptEl.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCjJWZNX_OXs49Qz5QuQd5BVwoo1JouexE&libraries=places&callback=initMap`
-  document.querySelector(`body`).insertAdjacentElement(`beforeend`, gmapScriptEl)
+//   let array = []
+//  const key = Object.keys(PaysList)
+
+// for (let index = 0; index < key.length; index++) {
+ 
+// array.push({'id':index+1,'code':key[index],'name':PaysList[key[index]]})
+// }
+ 
 }, [])
 
   useEffect(() => {
@@ -125,8 +131,18 @@ useEffect(() => {
       setError('Veuillez entrer votre adresse mail ')
       return
     }
-    if(Tel == '' ) {
-      setError('Veuillez entrer votre téléphone')
+    if (Tel == "") {
+      // const element = document.querySelector('.react-tel-input')
+      // element.classList.add("error_input")
+      setError("Veuillez saisir votre Téléphone");
+      return;
+    }
+    else{
+      // const element = document.querySelector('.input-phone')
+      // element.classList.remove("error_input")
+    }
+    if(Date_naissance == '' ) {
+      setError('Veuillez entrer votre Adresse')
       return
     }
     if(Adresse == '' ) {
@@ -151,6 +167,20 @@ useEffect(() => {
       .then(latLng => console.log('Success', latLng))
       .catch(error => console.error('Error', error));
   }; 
+
+  const focus_phone = () =>{
+    const element = document.querySelector('.input-phone')
+    element.classList.remove("error_input");
+   
+  }
+
+  const blur_phone = (num) => {
+    const element = document.querySelector('.input-phone')
+    element.classList.remove("focus_input");
+  };
+
+
+  
 
   return (
     <div className="transition_opacity home container my-5">
@@ -199,6 +229,9 @@ useEffect(() => {
         )}
       </PlacesAutocomplete>
 } */}
+
+
+
 
 
 
@@ -256,15 +289,20 @@ useEffect(() => {
               placeholder="Adresse mail"
             />
           </div>
-          <div className="form-group">
-            <input
-              style={{ backgroundColor: UserReducer.tel && UserReducer.tel == Tel ? '#00a9dd26' : '' }}
-              value={Tel}
-              onChange={(e) => setTel(e.target.value)}
-              type="number"
-              className="form-control"
-              placeholder="Téléphone mobile"
-            />
+          <div  style={{ backgroundColor: '#00a9dd26' }} className="form-group">
+          <PhoneInput
+             
+            
+   className="input-phone"   
+   onFocus={() => focus_phone()}
+   onBlur={() => blur_phone()}
+   enableLongNumbers={false}
+  country={'fr'}
+  placeholder='Téléphone'
+  value={Tel}
+  onChange={phone => setTel(phone)}
+ 
+/>
           </div>
 
           <div className="row_group">
@@ -325,10 +363,9 @@ useEffect(() => {
                 onChange={(e) => setPays(e.target.value)}
                 className="form-select"
               >
-                <option>Pays</option>
-                <option></option>
-                {options.map((el, index) => (
-                  <option key={index}> {el.label} </option>
+                <option id='222'>Pays</option>
+                {PaysList.map((el, index) => (
+              <option key={index} value={el.name}> {el.name} </option>
                 ))}
               </select>
             </div>
