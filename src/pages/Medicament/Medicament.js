@@ -181,8 +181,8 @@ function Medicament() {
             placeholder="Nom du médicament"
           />
         </div>
-        <hr />
-        <Select placeholder='Nom du laboratoire'  options={Labo} />
+   
+      
         {/* <Form.Select aria-label="Default select mt-2">
           <option>Laboratoire</option>
           <option value="1">One</option>

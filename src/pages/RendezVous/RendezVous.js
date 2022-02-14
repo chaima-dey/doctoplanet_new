@@ -118,36 +118,66 @@ useEffect(() => {
   };
 
   const NextStep = () =>{
+    const input = document.querySelector('.input_nom')
     element.current.scrollIntoView()  
     if(Nom == '' ) {
       setError('Veuillez entrer votre nom')
+      input.classList.add('error_input')
       return
     }
+    else input.classList.remove('error_input')
     if(Prenom == '' ) {
       setError('Veuillez entrer votre prénom')
+      const element = document.querySelector('.input_prenom')
+      element.classList.add('error_input')
       return
+    }
+    else{
+      const element = document.querySelector('.input_prenom')
+      element.classList.remove("error_input")
     }
        if(!validator.validate(Mail)) {
       setError('Veuillez entrer votre adresse mail ')
+      const element = document.querySelector('.input_mail')
+      element.classList.add('error_input')
       return
     }
+    else{
+      const element = document.querySelector('.input_mail')
+      element.classList.remove("error_input")
+    }
     if (Tel == "") {
-      // const element = document.querySelector('.react-tel-input')
-      // element.classList.add("error_input")
+    //   const element = document.querySelector('.react-tel-input')
+    // element.childNodes[1].classList.add('error_input')
       setError("Veuillez saisir votre Téléphone");
+      // const element = document.querySelector('.input_tel')
+      // element.classList.add('error_input')
       return;
     }
     else{
-      // const element = document.querySelector('.input-phone')
-      // element.classList.remove("error_input")
+      // const element = document.querySelector('.react-tel-input')
+      // element.childNodes[1].classList.remove('error_input')
     }
+   
     if(Date_naissance == '' ) {
-      setError('Veuillez entrer votre Adresse')
+      setError('Veuillez entrer votre date de naissance')
+      const element = document.querySelector('.input_date')
+      element.classList.add('error_input')
       return
+    }
+    else{
+      const element = document.querySelector('.input_date')
+      element.classList.remove("error_input")
     }
     if(Adresse == '' ) {
       setError('Veuillez entrer votre Adresse')
+      const element = document.querySelector('.input_adresse')
+      element.classList.add('error_input')
       return
+    }
+    else{
+      const element = document.querySelector('.input_adresse')
+      element.classList.remove("error_input")
     }
     
     
@@ -262,7 +292,7 @@ useEffect(() => {
                 value={Nom}
                 onChange={(e) => setNom(e.target.value)}
                 type="text"
-                className="form-control "
+                className="form-control input_nom"
                 placeholder="Nom"
               />
             </div>
@@ -272,7 +302,7 @@ useEffect(() => {
                 value={Prenom}
                 onChange={(e) => setPrenom(e.target.value)}
                 type="text"
-                className="form-control"
+                className="form-control input_prenom"
                 placeholder="Prénom"
               />
             </div>
@@ -285,7 +315,7 @@ useEffect(() => {
               value={Mail}
               onChange={(e) => setMail(e.target.value)}
               type="mail"
-              className="form-control"
+              className="form-control  input_mail"
               placeholder="Adresse mail"
             />
           </div>
@@ -313,7 +343,7 @@ useEffect(() => {
                 value={Date_naissance}
                 onChange={(e) => setDate_naissance(e.target.value)}
                 type="date"
-                className="form-control"
+                className="form-control input_date" 
               />
             </div>
             <div className="form-group">
@@ -344,8 +374,8 @@ useEffect(() => {
               style={{ backgroundColor: UserReducer.adresse && Adresse == UserReducer.adresse ? '#00a9dd26' : '' }}
               onChange={(e) => setAdresse(e.target.value)}
               type="text"
-              className="form-control"
-              placeholder="Adresse"
+              className="form-control input_adresse"
+              placeholder="Adresse "
             />
           </div>
           <div className="row_group">
