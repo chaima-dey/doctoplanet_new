@@ -145,7 +145,7 @@ function Medicament() {
         <div className="container inner-content">
           <div className="row align-items-center">
             <div className="col-lg-6 col-md-6 col-sm-7 text-center">
-              <h1 className="title-ext text-primary">Guide Médicament</h1>
+              <h1 className="title-ext text-primary">Guide Médicaments</h1>
               <h5>
                 Ce guide vous aidera à mieux comprendre la prescription de votre
                 médecin

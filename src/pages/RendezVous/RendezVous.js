@@ -236,7 +236,7 @@ useEffect(() => {
 
 
       <div className="heading-bx" style={{ marginTop: 130, marginBottom: 70 }}>
-        <h2 ref={element} className="title-ext text-secondary">Prendre un rendez-vous</h2>
+        <h1 ref={element} className="title-ext text-secondary">Prendre un rendez-vous en ligne</h1>
         <h6 style={{ paddingLeft: 15 }}>
           <i className="fas fa-user-shield"></i>
           Les données de santé sont protégées

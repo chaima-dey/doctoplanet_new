@@ -20,9 +20,9 @@ function Assurence() {
         <div className="container inner-content">
           <div className="row align-items-center">
             <div className="col-lg-6 col-md-6 col-sm-7 text-center">
-              <h2 style={{ fontSize: 30 }} className="title-ext text-primary">
+              <h1 style={{ fontSize: 30 }} className="title-ext text-primary">
                 Une assurance pour chaque détail de votre vie
-              </h2>
+              </h1>
               <h3>
                 Ne laissez plus votre vie et celle de votre famille entre les
                 mains du hasard

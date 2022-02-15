@@ -101,7 +101,7 @@ function Consultations() {
 
   return <div className="home container inner-content" style={{ paddingTop: 50 }}>
   <div className="heading-bx mb-0">
-    <h5 className="title-ext text-secondary">Mes Consultations</h5>
+    <h1 className="title-ext text-secondary">Mes Consultations</h1>
   </div>
   <div className="form-group form-wraper">
    
