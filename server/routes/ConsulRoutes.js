@@ -44,7 +44,7 @@ const sendmail = async (username) => {
     secure: true, 
     auth: {
       user: "contact@doctoplanet.com",
-      pass: "Goku?vegeta!@123"
+      pass: "doctoplanethammouda"
     },
           tls:{
         ciphers:'SSLv3'

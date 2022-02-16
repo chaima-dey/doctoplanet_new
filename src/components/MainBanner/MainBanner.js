@@ -21,9 +21,9 @@ function MainBanner() {
       <div className="container inner-content">
         <div className="row align-items-center">
         <div className="col-lg-7 col-md-6 col-sm-7">
-            <h2 className="title-ext text-primary">
-              Accédez à une consultation 7/7
-            </h2>
+            <h1 className="title-ext text-primary">
+              Consultation en ligne 7/7
+            </h1>
             <h2>
               Consultez un professionnel de santé depuis n’importe où dans le
               monde.
