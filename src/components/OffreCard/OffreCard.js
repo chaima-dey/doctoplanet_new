@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../StripeButton/Button";
 import "./OffreCard.scss";
 function OffreCard() {
   return (
@@ -67,14 +68,17 @@ function OffreCard() {
             </p>
             <br />
             <h5 className="background"> COÛT DE LA COUVERTURE 25€ / mois</h5>
-            <hr />
+         
   
-            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_target">
+            <form  className="mt-5 paypal_btn" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_target">
 <input type="hidden" name="cmd" value="_s-xclick" />
 <input type="hidden" name="hosted_button_id" value="S2QUJHFS9CFFC" />
 <input type="image" src="https://www.paypalobjects.com/fr_FR/FR/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, le réflexe sécurité pour payer en ligne" />
 <img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1" />
 </form>
+
+<hr /> 
+<Button />
 
 
             
@@ -136,13 +140,16 @@ function OffreCard() {
               achetée quels que soient l’âge et l’état de santé du patient.
             </p>
             <h5 className="background"> COÛT DE LA COUVERTURE 35€ / mois</h5>
-            <hr />
-            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_target">
+           
+            <form  className="mt-5 paypal_btn" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_target">
 <input type="hidden" name="cmd" value="_s-xclick" />
 <input type="hidden" name="hosted_button_id" value="RRH9G4LAKA4W2" />
 <input type="image" src="https://www.paypalobjects.com/fr_FR/FR/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, le réflexe sécurité pour payer en ligne" />
 <img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1" />
 </form>
+
+<hr /> 
+<Button />
 
 
              
