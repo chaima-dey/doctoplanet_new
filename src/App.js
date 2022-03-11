@@ -47,9 +47,10 @@ function App() {
           <Route path="/offres" element={<Offres />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/qui-sommes-nous" element={<QSN />} />
-          <Route path="/rendez_vous" element={<RendezVous />} />
+          <Route path="/rendez_vous" element={   TokenReducer ? <RendezVous /> : <Navigate to="/login" /> } />
           <Route path="/assurances" element={<Assurence />} />
           <Route path="/medicament" element={<Medicament />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={
             !TokenReducer ? <Login /> :  <Navigate to="/" />
           } />

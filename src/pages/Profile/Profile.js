@@ -313,10 +313,11 @@ function Profile() {
                         UserReducer.groupe_sang == Groupe
                           ? "#00a9dd26"
                           : "",
+                          height: 60
                     }}
                     value={Groupe}
                       onChange={(e) => setGroupe(e.target.value)}
-                      style={{ height: 60 }}
+                    
                       className="form-select"
                     >
                       <option value="A+">A+</option>

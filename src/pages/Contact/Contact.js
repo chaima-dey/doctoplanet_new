@@ -2,11 +2,37 @@ import React from "react";
 import icon1 from "../../assets/images/icon/icon1.png";
 import icon2 from "../../assets/images/icon/icon2.png";
 import icon3 from "../../assets/images/icon/icon3.png";
+import background from "../../assets/images/main-banner/bg1.jpg";
+import MED from "../../assets/images/banner/medicament.png";
 function Contact() {
   return (
     <>
-      <div className="container" style={{maxWidth:800,marginTop:100}}>
-        <div className="heading-bx" style={{ marginBottom: 80 }}>
+         {/* <div
+        className="home main-banner offre_banner"
+        style={{ backgroundImage: `url(${background})` }}
+      >
+        <div className="container inner-content">
+          <div className="row align-items-center">
+            <div className="col-lg-6 col-md-6 col-sm-7 text-center">
+              <h1 className="title-ext text-primary">Contact</h1>
+              <h5>
+                Ce guide vous aidera à mieux comprendre la prescription de votre
+                médecin
+              </h5>
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-5  text-center">
+              <img
+                className="img_banner"
+                style={{ width: 400 }}
+                src={MED}
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </div> */}
+      <div className="container" style={{maxWidth:800,marginTop:140}}>
+        <div className="heading-bx" style={{ marginBottom: 20 }}>
           <h2 className="title-ext text-secondary">Contactez-nous</h2>
         </div>
 

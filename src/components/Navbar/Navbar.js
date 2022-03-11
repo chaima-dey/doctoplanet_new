@@ -69,7 +69,7 @@ function _Navbar() {
           <NavLink className="nav-link" to="/assurances">
             Assurances
           </NavLink>
-          <NavDropdown style={{marginRight:20}} title="Espace Patient" id="basic-nav-dropdown">
+          <NavDropdown  title="Espace Patient" id="basic-nav-dropdown">
           <NavDropdown.Item onClick={() => navigate("/compte")}>
              <FiUser /> Mon compte
             </NavDropdown.Item>
@@ -85,10 +85,13 @@ function _Navbar() {
             <NavDropdown.Item onClick={() => navigate("/medicament")}>
             <FiSearch />  Trouver un médicaments
             </NavDropdown.Item>
-            <NavDropdown.Item disabled>
+            {/* <NavDropdown.Item disabled>
             <FiSearch />   Trouver un medecin
-            </NavDropdown.Item>
+            </NavDropdown.Item> */}
           </NavDropdown>
+          <NavLink  className="nav-link" to="/contact">
+            Contact
+          </NavLink>
         </Nav>
 
         <li className="btn-area">
