@@ -25,14 +25,23 @@ function Call() {
 
 
   useEffect(() => {
-  
+    navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: true
+    }).then(stream => {
+
+      video_1.current.srcObject = stream
+      video_1.current.addEventListener('loadedmetadata', () => {
+        video_1.current.play()
+      })
+    })
 },[])
 
 
  
 
   useEffect(() => {
-
+  if(!Ready) return
     MyPeer.on('open', id => {
       socket.emit("join-room", RoomID, id)
     })
@@ -94,20 +103,16 @@ function Call() {
     peers[userID] = call
   }
 
-  const addVideoStream = (video, stream) => {
-    video.srcObject = stream
-    video.addEventListener('loadedmetadata', () => {
-      video.play()
-    })
-    VideoGrid.current.append(video)
-  }
+ 
 
 
 
   return (
     <div>
       <h3> {RoomID} </h3>
-  <button onClick={()=> setReady(!Ready)}>Join</button>
+{
+   !Ready && <button onClick={()=> setReady(true)}>Participer</button>
+}
       {/* <button onClick={}>Join</button> */}
       <div ref={VideoGrid} id="video-grid">
         <video ref={video_1} src=""></video>
