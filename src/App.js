@@ -55,7 +55,7 @@ function App() {
       <div className="route_app">
         <Routes>
           <Route path="/" element={<Accueil />} />
-          <Route path="/call" element={<ToCall />} />
+          <Route path="/tocall" element={<ToCall />} />
           <Route path="/call/:roomID" element={<Call />} />
           <Route path="/offres" element={<Offres />} />
           <Route path="/faq" element={<FAQ />} />

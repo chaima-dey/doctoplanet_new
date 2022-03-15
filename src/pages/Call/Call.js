@@ -14,7 +14,7 @@ function Call() {
   const ReadyCall = useSelector((state) => state.ReadyCall);
   const location = useLocation()
   const params = useParams();
-  const [SendID, setSendID] = useState("");
+  const [Ready, setReady] = useState(false);
   const [RoomID, setRoomID] = useState("c8130238-a03f-4990-b859-7023a9af18eb")
   const MyPeer = new Peer(undefined)
   const VideoGrid = useRef(null);
@@ -22,11 +22,17 @@ function Call() {
   const video_2 = useRef(null);
   const peers = {}
   const navigate = useNavigate()
-   
 
 
   useEffect(() => {
+  
+},[])
+
+
  
+
+  useEffect(() => {
+
     MyPeer.on('open', id => {
       socket.emit("join-room", RoomID, id)
     })
@@ -34,11 +40,6 @@ function Call() {
     socket.on('user-disconnected', userId => {
       video_2.current.srcObject = null
     })
-
-  }, [params.roomID])
-
-
-  useEffect(() => {
     video_1.current.muted = true
     navigator.mediaDevices.getUserMedia({
       video: true,
@@ -70,7 +71,10 @@ function Call() {
     return () => {
       socket.removeAllListeners();
     }
-  }, [])
+  }, [Ready])
+
+
+
 
 
 
@@ -101,15 +105,15 @@ function Call() {
 
 
   return (
-    <>
+    <div>
       <h3> {RoomID} </h3>
-
+  <button onClick={()=> setReady(!Ready)}>Join</button>
       {/* <button onClick={}>Join</button> */}
       <div ref={VideoGrid} id="video-grid">
         <video ref={video_1} src=""></video>
         <video ref={video_2} src=""></video>
       </div>
-    </>
+    </div>
   );
 }
 
