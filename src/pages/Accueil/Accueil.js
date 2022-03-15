@@ -22,24 +22,9 @@ function Accueil() {
   const TokenReducer = useSelector((state) => state.TokenReducer);
   const SuccessReducer = useSelector((state) => state.SuccessReducer);
   const dispatch = useDispatch();
-  useEffect(()=>{ 
-   
-    return ()=>{
-      dispatch({
-        type: "SetSuccess",
-        payload: false,
-      });
-    }
-  } ,[])
+ 
   useEffect(() => {
-    if (SuccessReducer) {
-      setTimeout(() => {
-        dispatch({
-          type: "SetSuccess",
-          payload: false,
-        });
-      }, 3000);
-    }
+    
   }, [SuccessReducer]);
   useEffect(() => {
     if (location.state) {
@@ -58,17 +43,16 @@ function Accueil() {
   return ( 
     <div className="home transition_opacity">
 
-{SuccessReducer && <_Alert variant={"success"} text={"Consultation enregistrée avec succés"} />
-}
+
       <MainBanner />
       <section className="section-area work-area mt-5">
         <div className="container">
           <div className="heading-bx">
             <h2 className="title-ext text-secondary">Comment ça marche ?</h2>
-            <h4 style={{ paddingLeft: 15, maxWidth: 570 }} className="title">
+            <h3 style={{ paddingLeft: 15, maxWidth: 570 }} className="title">
               Prenez rendez-vous et consultez un médecin en Visio, c’est simple
               économique et facile !
-            </h4>
+            </h3>
           </div>
           
           <div className="row justify-content-center comment_ça_marche">

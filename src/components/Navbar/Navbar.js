@@ -9,7 +9,7 @@ import {
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
-import { FiUser,FiCalendar,FiList ,FiSearch} from "react-icons/fi";
+import { FiUser,FiCalendar,FiList ,FiSearch,BsGenderMale} from "react-icons/fi";
 import { Navigate, NavLink, useLocation } from "react-router-dom";
 import LOGO from "../../assets/images/Docto_LOGO.png";
 import "./Navbar.scss";

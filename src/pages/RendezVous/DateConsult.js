@@ -12,6 +12,7 @@ function DateConsult(props) {
   }, []);
 
   useEffect(() => {
+    console.log(DateVal)
     if (
       new Date(DateVal).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0)
     )

@@ -1,10 +1,18 @@
-import React from "react";
+/* eslint-disable */
+import React, { useEffect } from "react";
 import icon1 from "../../assets/images/icon/icon1.png";
 import icon2 from "../../assets/images/icon/icon2.png";
 import icon3 from "../../assets/images/icon/icon3.png";
 import background from "../../assets/images/main-banner/bg1.jpg";
 import MED from "../../assets/images/banner/medicament.png";
+
+ 
 function Contact() {
+
+
+  useEffect(() => {
+   }, [])
+  
   return (
     <>
          {/* <div

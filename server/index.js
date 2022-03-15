@@ -3,7 +3,11 @@ const cors = require("cors");
 const app = express();
 const server = require("http").createServer(app);
 const ConnectDB = require("./database/connectDB")
-
+const { v4: uuidv4 } = require('uuid');
+options = {
+  cors: true,
+};
+const io = require("socket.io")(server, options);
 
 // ConnectDB
 ConnectDB()
@@ -27,6 +31,23 @@ app.use("/consultation", require("./routes/ConsulRoutes"));
 app.use("/", require("./routes/MedicamentRoutes"));
 
  
+app.get('/call',(req,res)=>{
+  res.send(uuidv4())
+})
+
+io.on("connection", async (socket) => {
+ socket.on("join-room",(roomID,userID)=>{
+  socket.join(roomID); 
+  socket.to(roomID).emit('user-joined', userID);
+
+
+  socket.on('disconnect', () => {
+    socket.to(roomID).emit('user-disconnected', userID)
+  })
+ })
+
+
+})
 
 app.get(/.*/, (req, res) => {
   var pathName = req.path.split('/');

@@ -14,6 +14,7 @@ import PlacesAutocomplete from 'react-places-autocomplete';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/bootstrap.css'
 import PaysList from './pays'
+import _Alert from "../../components/Alert/_Alert";
 var validator = require("email-validator");
 import {
   geocodeByAddress,
@@ -43,13 +44,14 @@ function RendezVous() {
   const [Pays, setPays] = useState("France");
   const [Asymptotes, setAsymptotes] = useState([]);
   const [Date_consul, setDate_consul] = useState(new Date());
-  const [Heure_consul, setHeure_consul] = useState("07:00");
+  const [Heure_consul, setHeure_consul] = useState("");
   const [Medecin, setMedecin] = useState("Généraliste");
   const [Etat_Patient, setEtat_Patient] = useState("");
 const [Error, setError] = useState(false)
 const [adress, setadress] = useState("")
 const [ErrorServer, setErrorServer] = useState(false)
- 
+const SuccessReducer = useSelector((state) => state.SuccessReducer);
+
 
 
 useEffect(() => {
@@ -77,7 +79,7 @@ useEffect(() => {
  
 
   const SaveConsultation = async () => {
-
+  
     const consultation = {
       id_user: UserReducer._id ? UserReducer._id : '',
       nom: Nom,
@@ -103,12 +105,10 @@ useEffect(() => {
         consultation
       );
       setLoading(false);
-      navigate("/", {
-        state: { consultation_added: true },
-      });
+      setcount(1)
       dispatch({
         type: "SetSuccess",
-        payload: true,
+        payload: "Votre consultation a été enregistré avec succès",
       });
     } catch (error) {
       setErrorServer(true)
@@ -213,249 +213,213 @@ useEffect(() => {
   
 
   return (
-    <div className="transition_opacity home container my-5">
 
 
+  <>
+     {SuccessReducer.length > 0 && <_Alert variant={"success"} text={"Consultation enregistrée avec succés"} />
+ }
+    <div className="transition_opacity home container " >
 
 
-{/* {
-  gmapsLoaded &&
-<PlacesAutocomplete
-         value={adress}
-        onChange={handleChange}
-         onSelect={handleSelect}
-      >
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
-            <input
-              {...getInputProps({
-                placeholder: 'Search Places ...',
-                className: 'location-search-input',
-              })}
-            />
-            <div className="autocomplete-dropdown-container">
-              {loading && <div>Loading...</div>}
-              {suggestions.map(suggestion => {
-                const className = suggestion.active
-                  ? 'suggestion-item--active'
-                  : 'suggestion-item';
-                // inline style for demonstration purpose
-                const style = suggestion.active
-                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                return (
-                  <div
-                    {...getSuggestionItemProps(suggestion, {
-                      className,
-                      style,
-                    })}
-                  >
-                    <span>{suggestion.description}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </PlacesAutocomplete>
-} */}
-
-
-
-
-
-
-      <div className="heading-bx" style={{ marginTop: 130, marginBottom: 70 }}>
-        <h1 ref={element} className="title-ext text-secondary">Prendre un rendez-vous en ligne</h1>
-        <h6 style={{ paddingLeft: 15 }}>
-          <i className="fas fa-user-shield"></i>
-          Les données de santé sont protégées
-        </h6>
-        <hr />
-        {
-          ErrorServer &&
-          <DivError hideAlert={() => setErrorServer(false)} message={"Un erreur se produit"} />
-        }
-      </div>
-      <div className="appointment-form rendez_vous_form form-wraper">
-        <div style={{ display: count == 1 ? "block" : "none" }}>
-          <h3 className="title">1- Inforamtions du patient</h3>
-          {Error && (
-        <div className="alert_hide">
-          <DivError hideAlert={() => setError(false)} message={Error} />
-        </div>
-      )}
-          <div className="row_group">
-            <div className="form-group">
-              <input
-                style={{ backgroundColor: UserReducer.nom && UserReducer.nom == Nom ? '#00a9dd26' : '' }}
-                value={Nom}
-                onChange={(e) => setNom(e.target.value)}
-                type="text"
-                className="form-control input_nom"
-                placeholder="Nom"
-              />
-            </div>
-            <div className="form-group">
-              <input
-                style={{ backgroundColor: UserReducer.prenom  && UserReducer.prenom == Prenom ? '#00a9dd26' : '' }}
-                value={Prenom}
-                onChange={(e) => setPrenom(e.target.value)}
-                type="text"
-                className="form-control input_prenom"
-                placeholder="Prénom"
-              />
-            </div>
-          </div>
-          <div className="form-group"
-
-          >
-            <input
-              style={{ backgroundColor: UserReducer.email && UserReducer.email == Mail ? '#00a9dd26' : '' }}
-              value={Mail}
-              onChange={(e) => setMail(e.target.value)}
-              type="mail"
-              className="form-control  input_mail"
-              placeholder="Adresse mail"
-            />
-          </div>
-          <div  style={{ backgroundColor: '#00a9dd26' }} className="form-group">
-          <PhoneInput
-             
-            
-   className="input-phone"   
-   onFocus={() => focus_phone()}
-   onBlur={() => blur_phone()}
-   enableLongNumbers={false}
-  country={'fr'}
-  placeholder='Téléphone'
-  value={Tel}
-  onChange={phone => setTel(phone)}
  
-/>
-          </div>
 
-          <div className="row_group">
-            <div className="form-group">
-              <label htmlFor="">Date de naissance</label>
-              <input
-                style={{ backgroundColor: UserReducer.date_naissance && UserReducer.date_naissance == Date_naissance ? '#00a9dd26' : '' }}
-                value={Date_naissance}
-                onChange={(e) => setDate_naissance(e.target.value)}
-                type="date"
-                className="form-control input_date" 
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="">Groupe sanguin</label>
-              <select
-            
 
-                onChange={(e) => setGroupe(e.target.value)}
-                style={{ height: 60 }}
-                className={"form-select " }
-              >
-                <option value="">Je ne sais pas</option>
-                <option value="A+">A+</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B-">B-</option>
-                <option value="O+">O+</option>
-                <option value="O-">O-</option>
-                <option value="AB+">AB+</option>
-                <option value="AB-">AB-</option>
-              
-              </select>
-            </div>
-          </div>
-          <div className="form-group">
-            <input
-              value={Adresse}
-              style={{ backgroundColor: UserReducer.adresse && Adresse == UserReducer.adresse ? '#00a9dd26' : '' }}
-              onChange={(e) => setAdresse(e.target.value)}
-              type="text"
-              className="form-control input_adresse"
-              placeholder="Adresse "
-            />
-          </div>
-          <div className="row_group">
-            <div className="form-group">
-              <input
-                value={Ville}
-                onChange={(e) => setVille(e.target.value)}
-                type="text"
-                className="form-control"
-                placeholder="Ville"
-              />
-            </div>
-            <div className="form-group">
-              <select
-                onChange={(e) => setPays(e.target.value)}
-                className="form-select"
-              >
-                <option id='222'>Pays</option>
-                {PaysList.map((el, index) => (
-              <option key={index} value={el.name}> {el.name} </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-        <div style={{ display: count == 2 ? "block" : "none" }}>
-          <FormConsult setAsymptotes={(asyms) => setAsymptotes(asyms)} />
-        </div>
-        <div style={{ display: count == 3 ? "block" : "none" }}>
-          <DateConsult
-            setDate_consul={(e) => setDate_consul(e)}
-            setHeure_consul={(e) => setHeure_consul(e)}
-            setMedecin={(e) => setMedecin(e)}
-            setEtat_Patient={(e) => setEtat_Patient(e)}
-          />
-        </div>
-     
-        <div className={"btn_form mt-5 " + (count > 2 ? " btn_form_setp3" : "")}>
-          {count > 1 && (
-            <button
-              style={{ marginRight: 10 }}
-              onClick={() => {
-                if (count > 1) setcount(count - 1);
-              }}
-              className="btn btn-secondary"
-            >
-              Retour
-            </button>
-          )}
-          {count < 3 && (
-            <button
-              style={{ marginLeft: "auto" }}
-              onClick={() => NextStep()}
-              className="btn btn-secondary"
-            >
-              Suivant
-            </button>
-          )}
-          {count == 3 && (
-            <>
-              {!Loading ? (
-                <button
-                  onClick={() => SaveConsultation()}
-                  className="btn btn-primary shadow"
-                >
-                  Demander une consultation
-                </button>
-              ) : (
-                <Spinner
-                  animation="border"
-                  className=" mt-5"
-                  role="status"
-                  style={{ color: "#008fbb" }}
-                />
-              )}
-            </>
-          )}
-        </div>
+
+
+
+<div className="heading-bx" style={{marginTop:120,  marginBottom: 70 }}>
+  <h1 ref={element} className="title-ext text-secondary">Prendre un rendez-vous en ligne</h1>
+  <h6 style={{ paddingLeft: 15 }}>
+    <i className="fas fa-user-shield"></i>
+    Les données de santé sont protégées
+  </h6>
+  <hr />
+  {
+    ErrorServer &&
+    <DivError hideAlert={() => setErrorServer(false)} message={"Un erreur se produit"} />
+  }
+</div>
+<div className="appointment-form rendez_vous_form form-wraper">
+  <div style={{ display: count == 1 ? "block" : "none" }}>
+    <h3 className="title">1- Inforamtions du patient</h3>
+    {Error && (
+  <div className="alert_hide">
+    <DivError hideAlert={() => setError(false)} message={Error} />
+  </div>
+)}
+    <div className="row_group">
+      <div className="form-group">
+        <input
+          style={{ backgroundColor: UserReducer.nom && UserReducer.nom == Nom ? '#00a9dd26' : '' }}
+          value={Nom}
+          onChange={(e) => setNom(e.target.value)}
+          type="text"
+          className="form-control input_nom"
+          placeholder="Nom"
+        />
+      </div>
+      <div className="form-group">
+        <input
+          style={{ backgroundColor: UserReducer.prenom  && UserReducer.prenom == Prenom ? '#00a9dd26' : '' }}
+          value={Prenom}
+          onChange={(e) => setPrenom(e.target.value)}
+          type="text"
+          className="form-control input_prenom"
+          placeholder="Prénom"
+        />
       </div>
     </div>
+    <div className="form-group"
+
+    >
+      <input
+        style={{ backgroundColor: UserReducer.email && UserReducer.email == Mail ? '#00a9dd26' : '' }}
+        value={Mail}
+        onChange={(e) => setMail(e.target.value)}
+        type="mail"
+        className="form-control  input_mail"
+        placeholder="Adresse mail"
+      />
+    </div>
+    <div  style={{ backgroundColor: '#00a9dd26' }} className="form-group">
+    <PhoneInput
+       
+      
+className="input-phone"   
+onFocus={() => focus_phone()}
+onBlur={() => blur_phone()}
+enableLongNumbers={false}
+country={'fr'}
+placeholder='Téléphone'
+value={Tel}
+onChange={phone => setTel(phone)}
+
+/>
+    </div>
+
+    <div className="row_group">
+      <div className="form-group">
+        <label htmlFor="">Date de naissance</label>
+        <input
+          style={{ backgroundColor: UserReducer.date_naissance && UserReducer.date_naissance == Date_naissance ? '#00a9dd26' : '' }}
+          value={Date_naissance}
+          onChange={(e) => setDate_naissance(e.target.value)}
+          type="date"
+          className="form-control input_date" 
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="">Groupe sanguin</label>
+        <select
+      
+
+          onChange={(e) => setGroupe(e.target.value)}
+          style={{ height: 60 }}
+          className={"form-select " }
+        >
+          <option value="">Je ne sais pas</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+        
+        </select>
+      </div>
+    </div>
+    <div className="form-group">
+      <input
+        value={Adresse}
+        style={{ backgroundColor: UserReducer.adresse && Adresse == UserReducer.adresse ? '#00a9dd26' : '' }}
+        onChange={(e) => setAdresse(e.target.value)}
+        type="text"
+        className="form-control input_adresse"
+        placeholder="Adresse "
+      />
+    </div>
+    <div className="row_group">
+      <div className="form-group">
+        <input
+          value={Ville}
+          onChange={(e) => setVille(e.target.value)}
+          type="text"
+          className="form-control"
+          placeholder="Ville"
+        />
+      </div>
+      <div className="form-group">
+        <select
+          onChange={(e) => setPays(e.target.value)}
+          className="form-select"
+        >
+          <option id='222'>Pays</option>
+          {PaysList.map((el, index) => (
+        <option key={index} value={el.name}> {el.name} </option>
+          ))}
+        </select>
+      </div>
+    </div>
+  </div>
+  <div style={{ display: count == 2 ? "block" : "none" }}>
+    <FormConsult setAsymptotes={(asyms) => setAsymptotes(asyms)} />
+  </div>
+  <div style={{ display: count == 3 ? "block" : "none" }}>
+    <DateConsult
+      setDate_consul={(e) => setDate_consul(e)}
+      setHeure_consul={(e) => setHeure_consul(e)}
+      setMedecin={(e) => setMedecin(e)}
+      setEtat_Patient={(e) => setEtat_Patient(e)}
+    />
+  </div>
+
+  <div className={"btn_form mt-5 " + (count > 2 ? " btn_form_setp3" : "")}>
+    {count > 1 && (
+      !Loading  &&
+      <button
+        style={{ marginRight: 10 }}
+        onClick={() => {
+          if (count > 1) setcount(count - 1);
+        }}
+        className="btn btn-secondary"
+      >
+        Retour
+      </button>
+    )}
+    {count < 3 && (
+      <button
+        style={{ marginLeft: "auto" }}
+        onClick={() => NextStep()}
+        className="btn btn-secondary"
+      >
+        Suivant
+      </button>
+    )}
+    {count == 3 && (
+      <>
+        {!Loading ? (
+          <button
+            onClick={() => SaveConsultation()}
+            className="btn btn-primary shadow"
+          >
+            Demander une consultation
+          </button>
+        ) : (
+          <Spinner
+            animation="border"
+            className=" mt-5"
+            role="status"
+            style={{ color: "#008fbb" }}
+          />
+        )}
+      </>
+    )}
+  </div>
+</div>
+</div>
+  </>
   );
 }
 

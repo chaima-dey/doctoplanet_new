@@ -7,7 +7,11 @@ import { useDispatch } from 'react-redux';
   const CloseAlert = () =>{
     dispatch({
       type: "SetSuccess",
-      payload: false,
+      payload: "",
+    });
+    dispatch({
+      type: "SetError",
+      payload: "",
     });
   }
    return <>

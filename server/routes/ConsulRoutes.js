@@ -27,8 +27,8 @@ router.post("/create", async (req, res) => {
         await consultation.save();
      
         const email_sneded = await sendmail(req.body)
-        console.log(email_sneded) 
-        return res.status(200).send(consultation);
+        res.status(200).send(email_sneded);
+        
     } catch (err) { 
          res.status(422).send("Un erreur se produit");
     }
@@ -43,8 +43,8 @@ const sendmail = async (username) => {
     port: 465,
     secure: true, 
     auth: {
-      user: "contact@doctoplanet.com",
-      pass: "doctoplanethammouda"
+      user: "consultation@doctoplanet.com",
+      pass: "consultationdoctoplanet"
     },
           tls:{
         ciphers:'SSLv3'

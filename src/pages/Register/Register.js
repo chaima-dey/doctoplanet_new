@@ -89,17 +89,17 @@ function Register() {
     else{
       input_3.current.classList.remove("error_input")
     }
-    // if (!re.test(Password)) {
-    //   setError(
-    //     " Un mot de passe doit contenir au minimum 8 caractères, à savoir : au moins une lettre minuscule et une lettre majuscule, un caractère spécial et un chiffre."
-    //   );
-    //   input_4.current.classList.add("error_input")
-    //   setPassword("");
-    //   return;
-    // }
-    // else{
-    //   input_4.current.classList.remove("error_input")
-    // }
+    if (!re.test(Password)) {
+      setError(
+        " Un mot de passe doit contenir au minimum 8 caractères, à savoir : au moins une lettre minuscule et une lettre majuscule, un caractère spécial et un chiffre."
+      );
+      input_4.current.classList.add("error_input")
+      setPassword("");
+      return;
+    }
+    else{
+      input_4.current.classList.remove("error_input")
+    }
     if (Date_naissance == "") {
       input_5.current.classList.add("error_input")
       setError("Veuillez saisir votre date de naissance");
