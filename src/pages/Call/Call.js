@@ -25,11 +25,11 @@ function Call() {
 
 
   useEffect(() => {
+    
     navigator.mediaDevices.getUserMedia({
       video: true,
       audio: true
     }).then(stream => {
-
       video_1.current.srcObject = stream
       video_1.current.addEventListener('loadedmetadata', () => {
         video_1.current.play()
@@ -62,8 +62,8 @@ function Call() {
 
       MyPeer.on('call', call => {
         call.answer(stream)
-        const video = document.createElement('video')
         call.on('stream', userVideoStream => {
+          console.log("Receveeee")
           video_2.current.srcObject = userVideoStream
           video_2.current.addEventListener('loadedmetadata', () => {
             video_2.current.play()
@@ -85,7 +85,7 @@ function Call() {
 
 
 
-
+ 
 
 
   const connectToNewUser = (userID, stream) => {
