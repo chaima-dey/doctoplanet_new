@@ -35,7 +35,7 @@ function Consultations() {
     const arr = Allconsult.filter(el => el.etat == 0)
     setConsultFiltred(arr)
     }  
-    if(Filtre == "Validée")    
+    if(Filtre == "Payée")    
     {
       const arr = Allconsult.filter(el => el.etat == 1)
       setConsultFiltred(arr)
@@ -59,6 +59,7 @@ function Consultations() {
       <th><i className="fas fa-user-md"></i> Spécialité</th>
       <th> <i className="far fa-calendar-alt"></i> Date</th>
       <th><i className="far fa-clock"></i> Heure</th>
+      <th><i class="fa fa-video"></i> Lien</th>
       <th><i className="fas fa-ellipsis-h"></i> Etat</th>
     </tr>
   </thead>
@@ -71,13 +72,14 @@ function Consultations() {
     <td> {el.medecin} </td>
     <td> {el.date_consul} </td>
     <td> {el.heure_consul} </td>
+    <td> Visio </td>
   
     <td>
       {
         el.etat == 0 && <p className="m-0 etat_attente">
           <i className="fas fa-info-circle"></i>
           En attente</p> ||
-        el.etat == 1 && <p className="m-0">Validée</p> ||
+        el.etat == 1 && <p className="m-0">Payée</p> ||
         el.etat == 2 && <p className="m-0">Terminée</p>
       }
     </td>
@@ -117,7 +119,7 @@ function Consultations() {
       <Tables etat={0} />
     
    </Tab>
-  <Tab   style={{overflow:'auto'}} eventKey="Validée" title="Validée">
+  <Tab   style={{overflow:'auto'}} eventKey="Payée" title="Payée">
   <Tables etat={1} />
   </Tab>
   <Tab  style={{overflow:'auto'}} eventKey="Terminée" title="Terminée">

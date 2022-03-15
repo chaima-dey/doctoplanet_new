@@ -9,7 +9,7 @@ import {
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
-import { FiUser,FiCalendar,FiList ,FiSearch,BsGenderMale} from "react-icons/fi";
+import { FiUser,FiCalendar,FiList ,FiSearch,BsGenderMale,FiShield} from "react-icons/fi";
 import { Navigate, NavLink, useLocation } from "react-router-dom";
 import LOGO from "../../assets/images/Docto_LOGO.png";
 import "./Navbar.scss";
@@ -79,7 +79,9 @@ function _Navbar() {
             <NavDropdown.Item onClick={() => navigate("/consultations")}>
             <FiList />  Mes consultations
             </NavDropdown.Item>
-           
+            <NavDropdown.Item onClick={() => navigate("/consultations")}>
+            <FiShield />  Assurances
+            </NavDropdown.Item>
           
         
             <NavDropdown.Item onClick={() => navigate("/medicament")}>

@@ -1,17 +1,18 @@
 /* eslint-disable */
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import "./Call.scss";
 import Peer from "peerjs";
 import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom"
 import API from "../../api"
 import io from "socket.io-client";
-const socket = io("http://localhost:5000/");
- 
-function Call() {
+const socket = io(API);
 
+function Call() {
+  const ReadyCall = useSelector((state) => state.ReadyCall);
+  const location = useLocation()
   const params = useParams();
   const [SendID, setSendID] = useState("");
   const [RoomID, setRoomID] = useState("c8130238-a03f-4990-b859-7023a9af18eb")
@@ -20,21 +21,25 @@ function Call() {
   const video_1 = useRef(null);
   const video_2 = useRef(null);
   const peers = {}
- 
- 
+  const navigate = useNavigate()
+   
+
 
   useEffect(() => {
-
-    MyPeer.on('open',id =>{    
-      socket.emit("join-room",RoomID,id)
+ 
+    MyPeer.on('open', id => {
+      socket.emit("join-room", RoomID, id)
     })
 
-  socket.on('user-disconnected', userId => {
-    video_2.current.srcObject = null
-  })
+    socket.on('user-disconnected', userId => {
+      video_2.current.srcObject = null
+    })
 
-    
-  video_1.current.muted = true
+  }, [params.roomID])
+
+
+  useEffect(() => {
+    video_1.current.muted = true
     navigator.mediaDevices.getUserMedia({
       video: true,
       audio: true
@@ -42,7 +47,7 @@ function Call() {
 
       video_1.current.srcObject = stream
       video_1.current.addEventListener('loadedmetadata', () => {
-      
+        video_1.current.play()
       })
 
       MyPeer.on('call', call => {
@@ -54,21 +59,21 @@ function Call() {
             video_2.current.play()
           })
         })
-      })  
-      
-      socket.on("user-joined",userID => {
+      })
+
+      socket.on("user-joined", userID => {
         connectToNewUser(userID, stream)
       })
-    })   
+    })
 
 
-    return () => {  
+    return () => {
       socket.removeAllListeners();
     }
-  }, [VideoGrid])
-  
+  }, [])
 
- 
+
+
 
   const connectToNewUser = (userID, stream) => {
     const call = MyPeer.call(userID, stream)
@@ -85,25 +90,25 @@ function Call() {
     peers[userID] = call
   }
 
-   const addVideoStream = (video, stream) => {
+  const addVideoStream = (video, stream) => {
     video.srcObject = stream
     video.addEventListener('loadedmetadata', () => {
       video.play()
     })
-    VideoGrid.current.append(video) 
+    VideoGrid.current.append(video)
   }
- 
 
- 
+
+
   return (
     <>
-    <h3> {RoomID} </h3>
-  <button onClick={() =>  video_1.current.play()}>PLAY 1</button>
-    {/* <button onClick={}>Join</button> */}
-    <div ref={VideoGrid}  id="video-grid">
-      <video ref={video_1} src=""></video>
-      <video ref={video_2} src=""></video>
-    </div>
+      <h3> {RoomID} </h3>
+
+      {/* <button onClick={}>Join</button> */}
+      <div ref={VideoGrid} id="video-grid">
+        <video ref={video_1} src=""></video>
+        <video ref={video_2} src=""></video>
+      </div>
     </>
   );
 }
