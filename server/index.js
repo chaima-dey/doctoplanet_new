@@ -36,15 +36,26 @@ app.get('/call',(req,res)=>{
 })
 
 io.on("connection", async (socket) => {
+  const users = []
  socket.on("join-room",(roomID,userID)=>{
+  users.push(userID)
   socket.join(roomID); 
+  io.emit("User-enter-room",roomID)
   socket.to(roomID).emit('user-joined', userID);
 
 
   socket.on('disconnect', () => {
     socket.to(roomID).emit('user-disconnected', userID)
   })
- })
+
+  socket.on('Leave-room',() => {
+    socket.leave(roomID); 
+    socket.emit("hangout")
+    io.to(roomID).emit('user-leave', userID)
+  })
+ }) 
+
+ 
 
 
 })

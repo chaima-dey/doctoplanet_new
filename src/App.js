@@ -33,7 +33,7 @@ function App() {
   let navigate = useNavigate();
   const TokenReducer = useSelector((state) => state.TokenReducer);
   const location = useLocation();
- 
+ const [CallRender, setCallRender] = useState(true)
 
 
   useEffect(() => {
@@ -46,7 +46,12 @@ function App() {
     };
   }, [location]);
 
-
+const  RefreshCall = () =>{
+  setCallRender(false)
+  setTimeout(() => {
+    setCallRender(true)
+  }, 500);
+}
 
  
   return (
@@ -56,7 +61,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Accueil />} />
           <Route path="/tocall" element={<ToCall />} />
-          <Route path="/call/:roomID" element={<Call />} />
+          <Route path="/call/:roomID" element={ <Call  />} />
           <Route path="/offres" element={<Offres />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/qui-sommes-nous" element={<QSN />} />

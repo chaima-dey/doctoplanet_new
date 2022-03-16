@@ -4,15 +4,23 @@
   justify-content: center;
   }
   .video_1,.video_2{
-	  width: 50%;
+    width: 50%;
     margin: 25px;
-    height: 400%;
+    height: 550px;
     display: flex;
+    background: black;
+   justify-content:center ;
+   align-items: center;
+    .Spinner{
+      position: absolute;
+    }
   }
   video { 
     transform: rotateY(180deg);
-	width: 100%;
-	border-radius: 32px;
+ 
+    height: 100%;
+    width: 100%;
+ 
   
   }
 
@@ -23,4 +31,41 @@
   .controls{
     width: 100%;
     text-align: center;
+  }
+
+  
+  @media only screen and (max-width: 1100px) {
+    .video_1,.video_2{
+      height: 450px;
+    }
+  }
+  @media only screen and (max-width: 1000px) {
+    .video_1,.video_2{
+      height: 350px;
+    }
+  }
+
+
+  @media only screen and (max-width: 800px) {
+    .video_1,.video_2{
+      height: 300px;
+    }
+  }
+
+
+  @media only screen and (max-width: 600px) {
+    
+    #video-grid {
+      display: flex;
+      flex-direction: column;
+      }
+      .video_2{
+     
+      }
+      .video_1,.video_2{
+        background: rgb(255, 255, 255);
+        width: 100%;
+        margin: 0;
+        margin-bottom: 20px !important;
+      }
   }
