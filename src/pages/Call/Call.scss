@@ -1,9 +1,26 @@
 #video-grid {
-	display: flex;
-	 
+  display: flex;
+  width: 100%;
+  justify-content: center;
   }
-  
-  video {
- margin: 50px;
+  .video_1,.video_2{
+	  width: 50%;
+    margin: 25px;
+    height: 400%;
+    display: flex;
+  }
+  video { 
     transform: rotateY(180deg);
+	width: 100%;
+	border-radius: 32px;
+  
+  }
+
+  .participer{
+    margin: auto;
+  }
+
+  .controls{
+    width: 100%;
+    text-align: center;
   }
