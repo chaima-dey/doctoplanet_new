@@ -30,6 +30,7 @@ function Call(props) {
   const video_1 = useRef(null);
   const video_2 = useRef(null);
   const [MyStream, setMyStream] = useState(null);
+  const [SendStream, setSendStream] = useState(null);
   const [UserId, setUserId] = useState(null)
   const [MyID, setMyID] = useState(null)
   const [LoadingUser, setLoadingUser] = useState(true)
@@ -57,10 +58,20 @@ function Call(props) {
     navigator.mediaDevices
       .getUserMedia({
         video: true,
-        audio: true,
+        audio: false,
       })
       .then((stream) => {
         setMyStream(stream);
+        
+      });
+
+      navigator.mediaDevices
+      .getUserMedia({
+        video: true,
+        audio: true,
+      })
+      .then((stream) => {
+        setSendStream(stream);
         connectToNewUser(UserId, stream)
       });
   }
@@ -82,7 +93,7 @@ function Call(props) {
     });
 
     MyPeer.on("call", (call) => {
-      call.answer(MyStream);
+      call.answer(SendStream);
       call.on("stream", (userVideoStream) => {
         setUserIsHere(true);
 
@@ -97,7 +108,7 @@ function Call(props) {
 
       setUserId(userID)
       setUserIsHere(userID);
-      connectToNewUser(userID, MyStream);
+      connectToNewUser(userID, SendStream);
     });
 
 
@@ -129,15 +140,7 @@ function Call(props) {
 
   // stop only camera
   const stopVideoOnly = () => {
-    const video = MyStream.getTracks();
-    video[1].stop();
-    const call = MyPeer.call(UserId, MyStream);
-    call.on("stream", (userVideoStream) => {
-      video_2.current.srcObject = userVideoStream;
-      video_2.current.addEventListener("loadedmetadata", () => {
-        video_2.current.play();
-      });
-    });
+    
   };
 
   useEffect(() => {

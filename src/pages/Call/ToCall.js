@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 function ToCall() {
   const video_1 = useRef()
-
+ 
   useEffect(() => {
 
   }, [])
@@ -13,9 +13,10 @@ function ToCall() {
 const play = async () =>{
   const mediaStream = await navigator.mediaDevices.getUserMedia({video: false,audio:true});
   
-  
+ 
   video_1.current.srcObject = mediaStream;
   video_1.current.play()
+ 
 }
 
 
