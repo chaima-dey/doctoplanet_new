@@ -11,12 +11,8 @@ function ToCall() {
   }, [])
   
 const play = async () =>{
-  const mediaStream = await navigator.mediaDevices.getUserMedia({video: false,audio:true});
-  
- 
-  video_1.current.srcObject = mediaStream;
-  video_1.current.play()
- 
+  const mediaStream = await navigator.mediaDevices.getUserMedia({video: true,audio:true});
+   
 }
 
 

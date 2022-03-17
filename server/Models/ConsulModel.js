@@ -58,6 +58,9 @@ const ConsulShema = mongoose.Schema({
     option: {
         type: String,
     },
+    stripe_link: {
+        type: String,
+    },
     etat: {
         type: Number,
         default: 0

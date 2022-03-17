@@ -2,7 +2,7 @@
 import axios from 'axios';
 import React, { useState ,useEffect} from 'react';
  
-import { Tab, Table, Tabs } from 'react-bootstrap';
+import { Button, Modal, Tab, Table, Tabs } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import url from '../../api';
 import './Consultations.scss'
@@ -11,7 +11,7 @@ function Consultations() {
   const [ConsultFiltred, setConsultFiltred] = useState([])
   const [Filtre, setFiltre] = useState(0)
   const UserReducer = useSelector((state) => state.UserReducer);
-
+  const [modalShow, setModalShow] = useState(false);
   const getConsults = async () =>{
     const res = await axios.get(`${url}/consultation/get`,{ params: { id: UserReducer._id } })
     setConsultFiltred(res.data)
@@ -30,7 +30,7 @@ function Consultations() {
     {
       setConsultFiltred(Allconsult)
     }
-    if(Filtre == "attente")     
+    if(Filtre == "paiement")     
     {
     const arr = Allconsult.filter(el => el.etat == 0)
     setConsultFiltred(arr)
@@ -59,8 +59,10 @@ function Consultations() {
       <th><i className="fas fa-user-md"></i> Spécialité</th>
       <th> <i className="far fa-calendar-alt"></i> Date</th>
       <th><i className="far fa-clock"></i> Heure</th>
-      <th><i class="fa fa-video"></i> Lien</th>
+  
       <th><i className="fas fa-ellipsis-h"></i> Etat</th>
+
+      <th style={{width:200}}> Actions</th>
     </tr>
   </thead>
   {
@@ -70,20 +72,24 @@ function Consultations() {
   <tr>
     <td>{index +1}</td>
     <td> {el.medecin} </td>
-    <td> {el.date_consul} </td>
+    <td> {DateFormat(el.date_consul)} </td>
     <td> {el.heure_consul} </td>
-    <td> Visio </td>
+   
   
     <td>
       {
         el.etat == 0 && <p className="m-0 etat_attente">
           <i className="fas fa-info-circle"></i>
-          En attente</p> ||
+          En Paiement</p> ||
         el.etat == 1 && <p className="m-0">Payée</p> ||
         el.etat == 2 && <p className="m-0">Terminée</p>
       }
     </td>
-
+    <td className='action_consult'>
+      <button onClick={() => setModalShow(el)} className='payer'>Payer</button>
+      {/* <button className='annuler'>Annuler</button> */}
+       </td>
+   
   </tr>
  
 </tbody>
@@ -95,13 +101,70 @@ function Consultations() {
     )
   }
 
+  const DateFormat = (date) => {
+    const dt = new Date(date);
+    const year = dt.getFullYear();
+    const month = (dt.getMonth() + 1).toString().padStart(2, "0");
+    const day = dt.getDate().toString().padStart(2, "0");
+    return day + '/' + month + '/' +year
+  };
+
+  function MyVerticallyCenteredModal(props) {
+    return (
+      <Modal
+        {...props}
+        size="sm"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Paiement Avec
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <button onClick={() =>{PayerStripe(props)}}>Stripe</button>
+        </Modal.Body>
+       
+      </Modal>
+    );
+  }
+
   useEffect(() => {
+
+  
+
     window.scrollTo(0, 0);
     const element = document.querySelector(".home");
-    element.classList.remove("transition_opacity");
+  
   }, []);
 
+   
+  const PayerStripe = async (props) =>{
+   
+    if(props.show.stripe_link?.length > 10)
+    window.open(props.show.stripe_link, '_blank');
+    else{
+
+    try {
+      const res = await axios.post(`http://localhost:5000/stripe/add_product`,props.show);
+      console.log(res.data)
+    } catch (error) {
+      console.log("error")
+    }
+    }
+    getConsults()
+  }
+
   return <div className="home container inner-content" style={{ paddingTop: 50 }}>
+     <>
+       
+
+      <MyVerticallyCenteredModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
+    </>
   <div className="heading-bx mb-0">
     <h1 className="title-ext text-secondary">Mes Consultations</h1>
   </div>
@@ -115,7 +178,7 @@ function Consultations() {
       <Tables  />
     
    </Tab>
-  <Tab style={{overflow:'auto'}}    eventKey="attente" title="En attente">
+  <Tab style={{overflow:'auto'}}    eventKey="paiement" title="En paiement">
       <Tables etat={0} />
     
    </Tab>

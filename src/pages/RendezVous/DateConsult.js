@@ -32,6 +32,7 @@ function DateConsult(props) {
 
   const VerifyTime = (num) =>{
     if (new Date(DateVal).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0)) {
+    
       return (num > new Date().getHours())
     }
    else{
@@ -67,6 +68,7 @@ function DateConsult(props) {
             style={{ height: 60 }}
             className="form-select"
           >
+              { <option value="">--:--</option>}
             { VerifyTime(7) && <option value="07:00">07:00</option>}
             { VerifyTime(7) && <option value="07:30">07:30</option>}
             {VerifyTime(8) &&<option value="08:00">08:00</option>}

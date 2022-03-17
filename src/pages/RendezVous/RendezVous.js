@@ -98,6 +98,11 @@ useEffect(() => {
       option: Etat_Patient,
 
     };
+ if(consultation.heure_consul == '') 
+ {
+   return   
+ }
+  
     try {
       setLoading(true);
       const res = await axios.post(
