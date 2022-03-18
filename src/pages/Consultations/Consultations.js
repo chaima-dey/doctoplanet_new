@@ -141,23 +141,25 @@ function Consultations() {
 
 
   const PayerStripe = async (props) => {
-
-    if (props.show.stripe_link?.length > 10) {
-      window.open(props.show.stripe_link, '_blank');
-      setModalShow(null)
-      getConsults()
-    }
-    else {
+   
+    // if (props.show.stripe_link?.length > 10) {
+    //   window.open(props.show.stripe_link, '_blank');
+    //   setModalShow(null)
+    //   getConsults()
+    // }
+    // else {
 
       try {
         const res = await axios.post(`http://localhost:5000/stripe/add_product`, props.show);
+        console.log(res.data)
         getConsults()
+        setModalShow(null)
         window.open(res.data.url, '_blank');
 
       } catch (error) {
-        console.log("error")
+        console.log(error)
       }
-    }
+    // }
 
   }
 
