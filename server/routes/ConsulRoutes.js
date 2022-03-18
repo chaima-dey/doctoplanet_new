@@ -8,7 +8,7 @@ router.get("/get", async (req, res) => {
    try {
        const consults = await Consul.find({id_user:req.query.id})
  
-     res.send(consults)
+     res.send(consults.reverse())
    } catch (err) {
     return res.status(422).send(err.message); 
    }
@@ -27,6 +27,7 @@ router.post("/create", async (req, res) => {
         await consultation.save();
      
         const email_sneded = await sendmail(req.body)
+        console.log(email_sneded)
         res.status(200).send(email_sneded);
         
     } catch (err) { 
@@ -43,8 +44,8 @@ const sendmail = async (username) => {
     port: 465,
     secure: true, 
     auth: {
-      user: "consultation@doctoplanet.com",
-      pass: "consultationdoctoplanet"
+      user: "contact@doctoplanet.com",
+      pass: "potterhead123",
     },
           tls:{
         ciphers:'SSLv3'

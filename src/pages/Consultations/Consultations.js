@@ -194,7 +194,7 @@ function Consultations() {
       getConsults()
       setLoading(false)
       setModalShow(null)
-      window.open(res.data.url, '_blank');
+      window.open(res.data.url);
 
     } catch (error) {
       setLoading(false)
