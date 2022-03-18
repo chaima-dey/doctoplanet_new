@@ -12,9 +12,10 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import API from "../../api";
-import io from "socket.io-client";
+
 import { Button, Spinner } from "react-bootstrap";
 import { FiCameraOff, FiCamera, FiMic, FiMicOff } from "react-icons/fi";
+import io from "socket.io-client";
 const socket = io(API);
 
 function Call(props) {

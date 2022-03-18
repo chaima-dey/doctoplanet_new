@@ -27,6 +27,7 @@ import Profile from "./pages/Profile/Profile";
 import Medicament from "./pages/Medicament/Medicament";
 import Call from "./pages/Call/Call";
 import ToCall from "./pages/Call/ToCall";
+import Chekout from "./pages/Checkout/Chekout";
 
 function App() {
   const dispatch = useDispatch();
@@ -84,6 +85,9 @@ const  RefreshCall = () =>{
           } />
           <Route path="/consultations" element={
             TokenReducer ? <Consultations /> : <Navigate to="/login" />
+          } />
+          <Route path="/chekout/:id" element={
+            TokenReducer ? <Chekout /> : <Navigate to="/login" />
           } />
          
 

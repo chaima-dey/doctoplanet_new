@@ -1,17 +1,25 @@
 /* eslint-disable */
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-
-import { Button, Modal, Tab, Table, Tabs } from 'react-bootstrap';
+import ButtonStripe from "../../components/StripeButton/Button"
+import { Button, Modal, Spinner, Tab, Table, Tabs } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import url from '../../api';
+import Icon from "../../assets/images/icon/payments-stripe.png"
 import './Consultations.scss'
+import API from "../../api";
+import io from "socket.io-client";
+
+const socket = io(API);
+
 function Consultations() {
   const [Allconsult, setAllconsult] = useState([]);
   const [ConsultFiltred, setConsultFiltred] = useState([])
   const [Filtre, setFiltre] = useState(0)
   const UserReducer = useSelector((state) => state.UserReducer);
   const [modalShow, setModalShow] = useState(false);
+  const [Loading, setLoading] = useState(false)
+  const [LinkAlert, setLinkAlert] = useState(false)
   const getConsults = async () => {
     const res = await axios.get(`${url}/consultation/get`, { params: { id: UserReducer._id } })
     setConsultFiltred(res.data)
@@ -20,6 +28,9 @@ function Consultations() {
 
 
   useEffect(() => {
+    socket.on("payement-success",()=>{
+      console.log("payed")
+    })
     getConsults()
   }, []);
 
@@ -82,12 +93,12 @@ function Consultations() {
                   }
                 </td>
                 <td className='action_consult'>
-                {  el.etat == 0 && <button onClick={() => setModalShow(el)} className='payer'>
-                <i className="fa fa-credit-card" style={{marginRight:10}}></i>
-                  Payer</button>}
-                {  el.etat == 1 && <button   className='payer'>
-                <i  style={{marginRight:10}} className="fa fa-video"></i>
-                  Lien</button>}
+                  {el.etat == 0 && <button onClick={() => setModalShow(el)} className='payer'>
+                    <i className="fa fa-credit-card" style={{ marginRight: 10 }}></i>
+                    Payer</button>}
+                  {el.etat == 1 && <button onClick={() => setLinkAlert(true)} className='payer'>
+                    <i style={{ marginRight: 10 }} className="fa fa-video"></i>
+                    Lien</button>}
                 </td>
 
               </tr>
@@ -122,8 +133,37 @@ function Consultations() {
             Paiement Avec
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <button onClick={() => { PayerStripe(props) }}>Stripe</button>
+        <Modal.Body style={{ textAlign: "center" }}>
+
+          {!Loading ? <img
+            onClick={() => { PayerStripe(props) }}
+            className='stripe_btn' src={Icon} alt="" />
+            :
+            <Spinner animation="border" variant="primary" />
+          }
+
+        </Modal.Body>
+
+      </Modal>
+    );
+  }
+
+
+  function LienModel() {
+    return (
+      <Modal
+      
+      show={LinkAlert} onHide={() => setLinkAlert(false)}
+        size="md"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+           Lien introuvable
+        </Modal.Header>
+        <Modal.Body style={{ textAlign: "center" }}>
+        Votre lien sera pret le jour de la consultation
+
         </Modal.Body>
 
       </Modal>
@@ -141,24 +181,25 @@ function Consultations() {
 
 
   const PayerStripe = async (props) => {
-   
+
     // if (props.show.stripe_link?.length > 10) {
     //   window.open(props.show.stripe_link, '_blank');
     //   setModalShow(null)
     //   getConsults()
     // }
     // else {
+    setLoading(true)
+    try {
+      const res = await axios.post(`http://localhost:5000/stripe/add_product`, props.show);
+      getConsults()
+      setLoading(false)
+      setModalShow(null)
+      window.open(res.data.url, '_blank');
 
-      try {
-        const res = await axios.post(`http://localhost:5000/stripe/add_product`, props.show);
-        console.log(res.data)
-        getConsults()
-        setModalShow(null)
-        window.open(res.data.url, '_blank');
-
-      } catch (error) {
-        console.log(error)
-      }
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+    }
     // }
 
   }
@@ -166,7 +207,7 @@ function Consultations() {
   return <div className="home container inner-content" style={{ paddingTop: 50 }}>
     <>
 
-
+   <LienModel />
       <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}

@@ -1,0 +1,16 @@
+
+  .stripe_btn , .paypal_btn{
+    width: 200px;
+    cursor: pointer;
+    margin: auto;
+    transition: .3s;
+  }
+
+ .paypal_btn:hover{
+      
+      transform: scale(1.1);
+  }
+  .stripe_btn:hover {
+      
+    transform: scale(1.1);
+}

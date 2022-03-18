@@ -1,9 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const server = require("http").createServer(app);
+ 
 const ConnectDB = require("./database/connectDB")
 const { v4: uuidv4 } = require('uuid');
+const server = require("http").createServer(app);
 options = {
   cors: true,
 };
@@ -28,6 +29,7 @@ app.use('/assets', express.static('assets'));
 // Routes
 app.use("/user", require("./routes/UserRoute"));
 app.use("/consultation", require("./routes/ConsulRoutes"));
+app.use("/stripe/", require("./routes/StripeRoute"));
 app.use("/", require("./routes/MedicamentRoutes"));
 
  
