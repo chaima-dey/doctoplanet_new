@@ -1,71 +1,172 @@
+.room{
+  height: 100vh;
+  background: #363636;
+}
+
 #video-grid {
   display: flex;
-  width: 100%;
   justify-content: center;
+  padding-top: 20px;
+  align-items: center;
+}
+
+video {
+  transform: rotateY(180deg);
+  height: 100%;
+  width: 100%;
+}
+
+.participer {
+  padding: 15px 17px;
+  border-radius: 50% !important;
+  margin: 0px;
+  svg {
+    color: white;
+    font-size: 23px;
   }
-  .video_1,.video_2{
-    width: 50%;
-    margin: 25px;
-    height: 550px;
-    display: flex;
-    background: black;
-   justify-content:center ;
-   align-items: center;
-    .Spinner{
-      position: absolute;
-    }
+}
+
+.controls {
+  position: fixed;
+  bottom: 17px;
+  background: #00000094;
+  padding: 13px;
+  z-index: 999;
+  border-radius: 40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hangout-btn {
+  background: #ff2515;
+  padding: 15px 17px;
+  border-radius: 54% !important;
+  cursor: pointer;
+  border: none !important;
+  transition: 0.3s;
+  svg {
+    color: white;
+    font-size: 21px;
   }
-  video { 
-    transform: rotateY(180deg);
- 
-    height: 100%;
+}
+
+.hangout-btn:active {
+  filter: opacity(0.5) !important;
+}
+
+.video_1 {
+  border-radius: 40px;
+  overflow: hidden;
+  margin: 20px;
+  display: flex;
+  transition: 0.3s;
+}
+
+.video_2 {
+  border-radius: 40px;
+  overflow: hidden;
+  margin: 20px;
+  display: flex;
+  transition: 0.3s;
+}
+
+@media only screen and (min-width: 1200px) {
+  #video-grid {
+    margin: 0 10%;
+  }
+  .video_1 {
+    border-radius: 40px;
+    overflow: hidden;
+    margin: 20px;
+    width: 30%;
+  }
+
+  .video_2 {
+    border-radius: 40px;
+    overflow: hidden;
+    margin: 20px;
+    width: 60%;
+  }
+
+  .UserIsHere {
+    width: 600px !important;
+    height: 500px;
+    border-radius: 0px;
+  }
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1200px) {
+  #video-grid {
+    margin: 0 100px;
+  }
+  .video_1 {
+    border-radius: 40px;
+    overflow: hidden;
+    margin: 20px;
+    width: 30%;
+  }
+
+  .video_2 {
+    border-radius: 40px;
+    overflow: hidden;
+    margin: 20px;
+    width: 60%;
+  }
+  .controls {
+  }
+  .UserIsHere {
+    width: 500px !important;
+    height: 400px;
+    border-radius: 0px;
+  }
+}
+
+#video-grid {
+  flex-direction: row-reverse;
+  position: relative;
+}
+
+@media only screen and (min-width: 600px) and (max-width: 900px) {
+  .video_1 {
+    width: 30%;
+    margin: 10px;
+  }
+
+  .video_2 {
+    width: 70%;
+    margin: 10px;
+  }
+
+  .UserIsHere {
+    width: 500px !important;
+    height: 400px;
+    border-radius: 0px;
+  }
+}
+
+@media only screen and (min-width: 200px) and (max-width: 600px) {
+  #video-grid {
+    flex-direction: column-reverse;
+    padding: 0;
+  }
+  .video_1 {
+    width: 70%;
+  }
+
+  .video_2 {
     width: 100%;
- 
-  
+    margin: 0;
+    border-radius: 0;
   }
 
-  .participer{
-    margin: auto;
+  .UserIsHere {
+    width: 100% !important;
+    border-radius: 0px;
+    margin: 0 !important;
   }
-
-  .controls{
-    width: 100%;
-    text-align: center;
-  }
-
-  
-  @media only screen and (max-width: 1100px) {
-    .video_1,.video_2{
-      height: 450px;
-    }
-  }
-  @media only screen and (max-width: 1000px) {
-    .video_1,.video_2{
-      height: 350px;
-    }
-  }
-
-
-  @media only screen and (max-width: 800px) {
-    .video_1,.video_2{
-      height: 300px;
-    }
-  }
-
-
-  @media only screen and (max-width: 600px) {
-    
-    #video-grid {
-      display: flex;
-      flex-direction: column;
-      }
-      .video_2{
-     
-      }
-      .video_1,.video_2{
-        background: rgb(255, 255, 255);
-        width: 100%;
-        margin: 0;
-        margin-bottom: 20px !important;
-      }
-  }
+}

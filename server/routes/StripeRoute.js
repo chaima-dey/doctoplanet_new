@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Consult = require("../Models/ConsulModel");
-
 //REGISTER USER
 router.post("/add_product", async (req, res) => {
 

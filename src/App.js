@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 import "../src/assets/css/style.css";
 import Navbar from "./components/Navbar/Navbar";
+import NavbarRoom from "./components/Navbar/NavbarRoom";
 import Accueil from "./pages/Accueil/Accueil";
 import QSN from "./pages/QSN/QSN";
 import Footer from "./components/Footer/Footer";
@@ -35,9 +36,10 @@ function App() {
   const TokenReducer = useSelector((state) => state.TokenReducer);
   const location = useLocation();
  const [CallRender, setCallRender] = useState(true)
-
+ 
 
   useEffect(() => {
+    console.log(window.location.pathname.split('/')[1])
     return () => {
       dispatch({
         type: "SetSuccess",
@@ -45,6 +47,7 @@ function App() {
       });
    
     };
+  
   }, [location]);
 
 const  RefreshCall = () =>{
@@ -57,7 +60,7 @@ const  RefreshCall = () =>{
  
   return (
     <div className="container_app">
-      <Navbar />
+    {  window.location.pathname.split('/')[1] == 'call' ? <NavbarRoom /> :  <Navbar />}
       <div className="route_app">
         <Routes>
           <Route path="/" element={<Accueil />} />
@@ -96,7 +99,8 @@ const  RefreshCall = () =>{
       </div>
       {/*       
       <Contact /> */}
-      <Footer />
+      {
+        window.location.pathname.split('/')[1] == 'call' ? "" : <Footer />}
     </div>
   );
 }

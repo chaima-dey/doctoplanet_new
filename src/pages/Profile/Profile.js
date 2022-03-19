@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { useEffect, useRef, useState } from "react";
-import url from "../../api";
+import URL_LINK from "../../api";
 import "./Profile.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import User_icon from "../../assets/images/icon/user.png";
@@ -135,7 +135,7 @@ function Profile() {
     setLoading(true);
     try {
       const res = await UpdateUser(user, dispatch);
-     
+
       if (res.status == 200) {
         setLoading(false);
         dispatch({
@@ -161,7 +161,7 @@ function Profile() {
       setError("Champs vides !");
       return;
     }
-    setLoading(true)
+    setLoading(true);
     const res = await UpdatePasswordAction({
       userID: UserReducer._id,
       OldPassword,
@@ -169,11 +169,10 @@ function Profile() {
     });
 
     if (res.status == 200) {
-      setLoading(false)
-      if(LogginOut) 
-      {
-        SeDeconncter()
-        return
+      setLoading(false);
+      if (LogginOut) {
+        SeDeconncter();
+        return;
       }
       resetpass();
       dispatch({
@@ -181,7 +180,7 @@ function Profile() {
         payload: "Mot de passe changé avec succés",
       });
     } else {
-      setLoading(false)
+      setLoading(false);
       resetpass();
       dispatch({
         type: "SetError",
@@ -197,13 +196,18 @@ function Profile() {
     window.scrollTo(0, 0);
   };
 
-
   const SeDeconncter = () => {
     dispatch(RemoveToken());
     dispatch(RemoveUser());
     window.location.replace("/login");
     // navigate("/login")
   };
+
+  const UserImage = () =>{
+   if (Image) return `url(${Image.preview})`
+   if(UserReducer.image.length > 0) return `url("${URL_LINK}/uploads/${UserReducer.image}")` 
+   else return `url(${User_icon})`
+  }
 
   return (
     <>
@@ -221,13 +225,7 @@ function Profile() {
                 <div
                   className="profile_pic"
                   style={{
-                    backgroundImage:
-                      !Image && UserReducer.image
-                        ? `url(${url}/uploads/${UserReducer.image}) `
-                        : Image
-                        ? `url(${Image.preview})`
-                        : "",
-                  }}
+                   backgroundImage:UserImage()  }}
                 >
                   {!LoadingImage && (
                     <i
@@ -253,9 +251,7 @@ function Profile() {
                 <b className="mt-2" style={{ fontSize: 22 }}>
                   {UserReducer.nom + " " + UserReducer.prenom}
                 </b>
-                {/* <p className="adresse_text" style={{ color: "gray" }}>
-              <i className="fas fa-thumbtack "></i>
-                 {UserReducer.adresse} </p> */}
+ 
                 <hr />
                 <p onClick={Logout} className="logout_text">
                   <i className="fas fa-sign-out-alt"></i>
@@ -281,7 +277,7 @@ function Profile() {
                   Membre depuis <b>{Created_date()}</b>
                 </p>
                 <hr />
-             
+
                 <h5>A propos</h5>
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -291,7 +287,7 @@ function Profile() {
                 </p>
                 <hr />
                 <h5>Sécurité Compte</h5>
-              
+
                 <div className="form-wraper">
                   <div className="row_group">
                     <div className="form-group" style={{ marginRight: 0 }}>
@@ -352,32 +348,29 @@ function Profile() {
                           id="flexCheckDefault"
                           onChange={(e) => setLogginOut(e.target.checked)}
                         />
-                        <label className="form-check-label" >
+                        <label className="form-check-label">
                           Se déconnecter ?
                         </label>
                       </div>
                       <br />
-                    {
-                      !Loading ?
+                      {!Loading ? (
                         <button
-                        onClick={UpdatePassword}
-                        className="btn btn-secondary"
-                      >
-                        Changer Mot de passe
-                      </button>
-                      :
-                      <p>Loading...</p>
-                    }
+                          onClick={UpdatePassword}
+                          className="btn btn-secondary"
+                        >
+                          Changer Mot de passe
+                        </button>
+                      ) : (
+                        <p>Loading...</p>
+                      )}
                     </div>
                   )}
                 </div>
 
-             
-
                 <hr />
                 <div className="form-wraper">
-                <h5 className="mb-4">Inforamtions du patient</h5>
-                 
+                  <h5 className="mb-4">Inforamtions du patient</h5>
+
                   <div className="row_group">
                     <div className="form-group">
                       <input
@@ -498,22 +491,7 @@ function Profile() {
                       />
                     </div>
                   </div>
-                  {/* <div className="form-group">
-                  <label htmlFor="">Adresse</label>
-                  <input
-                    value={Adresse}
-                    style={{
-                      backgroundColor:
-                        UserReducer.adresse && Adresse == UserReducer.adresse
-                          ? "#00a9dd26"
-                          : "",
-                    }}
-                    onChange={(e) => setAdresse(e.target.value)}
-                    type="text"
-                    className="form-control"
-                    placeholder="Adresse"
-                  />
-                </div> */}
+       
                 </div>
                 <input
                   style={{ display: "none" }}
