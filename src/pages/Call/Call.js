@@ -30,12 +30,11 @@ function Call(props) {
   const video_1 = useRef(null);
   const video_2 = useRef(null);
   const [MyStream, setMyStream] = useState(null);
-  const [SendStream, setSendStream] = useState(null);
   const [UserId, setUserId] = useState(null);
   const [MyID, setMyID] = useState(null);
   const navigate = useNavigate();
-const [VideoScale, setVideoScale] = useState(null)
-
+  const [Loading, setLoading] = useState(null);
+  const [VideoScale, setVideoScale] = useState(null);
 
   useEffect(() => {
     GetMyStrem();
@@ -49,7 +48,7 @@ const [VideoScale, setVideoScale] = useState(null)
     });
   }, []);
 
-  const GetMyStrem = () => {  
+  const GetMyStrem = () => {
     navigator.mediaDevices
       .getUserMedia({
         video: true,
@@ -57,18 +56,20 @@ const [VideoScale, setVideoScale] = useState(null)
       })
       .then((stream) => {
         setMyStream(stream);
-        setSendStream(stream);
-        connectToNewUser(UserId, stream);
+        // connectToNewUser(UserId, stream);
       });
   };
 
   useEffect(() => {
     if (!Ready) return;
-    console.log(MyPeer)
+
+    console.log(MyPeer);
     MyPeer.on("open", (id) => {
-   
+      setLoading(true);
       setMyID(id);
-     
+      console.log(id)
+      setLoading(false);
+      console.log("you joined");
       socket.emit("join-room", params.roomID, id);
     });
 
@@ -78,21 +79,23 @@ const [VideoScale, setVideoScale] = useState(null)
     });
 
     MyPeer.on("call", (call) => {
-      call.answer(SendStream);
-      call.on("stream", (userVideoStream) => {
-        setUserIsHere(true);
-        video_2.current.srcObject = userVideoStream;
-        video_2.current.addEventListener("loadedmetadata", () => {
-          video_2.current.play();
-        });
-      });
-    });
+      console.log('receive call')
+       call.answer(MyStream);
+       call.on("stream", (userVideoStream) => {
+         setUserIsHere(true);
+         video_2.current.srcObject = userVideoStream;
+         video_2.current.addEventListener("loadedmetadata", () => {
+           video_2.current.play();
+         });
+       });
+     });
 
     socket.on("user-joined", (userID) => {
+      console.log("user joined");
+      console.log(userID)
       setUserId(userID);
-
       setUserIsHere(userID);
-      connectToNewUser(userID, SendStream);
+      connectToNewUser(userID, MyStream);
     });
   }, [Ready]);
 
@@ -106,12 +109,7 @@ const [VideoScale, setVideoScale] = useState(null)
     });
   };
 
-  const Participer = () => {    
-    setReady(true);
-  };
-
- 
-
+  
   useEffect(() => {
     video_1.current.srcObject = MyStream;
     video_1.current.addEventListener("loadedmetadata", () => {
@@ -121,58 +119,86 @@ const [VideoScale, setVideoScale] = useState(null)
     video_1.current.muted = true;
   }, [MyStream]);
 
+  const Participer = () => {
+    setReady(true);
+  };
+
+ 
+
+
   const EndCall = () => {
     // socket.emit("Leave-room");
     window.location.reload();
   };
-   
-  
-  const  ScaleVideo = (videoRef) =>{
-  const Video_1 = document.querySelector(".video_1")
-  const Video_2 = document.querySelector(".video_2")
-  const size_1 = Video_1.offsetWidth
-  const size_2 = Video_2.offsetWidth
-  Video_1.style.width = `${size_2}px`
-  Video_2.style.width = `${size_1}px`
-      }
+
+  const ScaleVideo = (videoRef) => {
+    const Video_1 = document.querySelector(".video_1");
+    const Video_2 = document.querySelector(".video_2");
+    const size_1 = Video_1.offsetWidth;
+    const size_2 = Video_2.offsetWidth;
+    Video_1.style.width = `${size_2}px`;
+    Video_2.style.width = `${size_1}px`;
+  };
 
   return (
     <div className="room">
- 
-
-     
-     {  <div ref={VideoGrid} id="video-grid">
-        <div className={"video_1 " + (!UserIsHere && "UserIsHere")}>
-          <video onClick={() => ScaleVideo("video_1")} ref={video_1} src={MyStream}></video>
+      {
+        <div ref={VideoGrid} id="video-grid">
+          <div className={"video_1 " + (!UserIsHere && "UserIsHere")}>
+            <video
+              onClick={() => ScaleVideo("video_1")}
+              ref={video_1}
+              src={MyStream}
+            ></video>
+          </div>
+          <div
+            className="video_2"
+            style={{ display: UserIsHere ? "" : "none" }}
+          >
+            <video
+              onClick={() => ScaleVideo("video_2")}
+              ref={video_2}
+              src=""
+            ></video>
+          </div>
         </div>
-        <div className="video_2" style={{ display: UserIsHere ? "" : "none" }}>
-          <video onClick={() => ScaleVideo("video_2")} ref={video_2} src=""></video>
-        </div>
-      </div>}
+      }
 
       <div className="controls">
         {TestVideo &&
           (!Ready ? (
-       <div>
-              <Button
-              onClick={() => Participer()}
-              variant="primary"
-              className="participer"
-              size="lg"
-            >
-              <FiLogIn />
-            
-            </Button>
-   
-       </div>
+            <div>
+              {
+                <Button
+                  onClick={() => Participer()}
+                  variant="primary"
+                  className="participer"
+                  size="lg"
+                >
+                  <FiLogIn />
+                </Button>
+              }
+            </div>
           ) : (
             <>
               {/* <Button onClick={stopVideoOnly} variant="secondary">
                 <FiCameraOff />
               </Button> */}
-              <button className="hangout-btn" onClick={EndCall} variant="danger">
-               <FiPhoneOff /> 
-              </button>
+              {MyID && (
+                <button
+                  className="hangout-btn"
+                  onClick={EndCall}
+                  variant="danger"
+                >
+                  <FiPhoneOff />
+                </button>
+              )}
+
+              {!MyID && (
+                <div className="loading">
+                  <Spinner animation="border" variant="light" />
+                </div>
+              )}
             </>
           ))}
       </div>
