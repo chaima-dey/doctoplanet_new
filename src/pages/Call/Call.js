@@ -25,7 +25,7 @@ function Call(props) {
   const [Ready, setReady] = useState(false);
   const [UserIsHere, setUserIsHere] = useState(null);
   const [TestVideo, setTestVideo] = useState(false);
-  const MyPeer = new Peer(undefined);
+
   const VideoGrid = useRef(null);
   const video_1 = useRef(null);
   const video_2 = useRef(null);
@@ -35,7 +35,8 @@ function Call(props) {
   const navigate = useNavigate();
   const [Loading, setLoading] = useState(null);
   const [VideoScale, setVideoScale] = useState(null);
-
+  const { v4: uuidv4 } = require('uuid');
+  const MyPeer = new Peer(uuidv4());
   useEffect(() => {
     GetMyStrem();
     socket.on("user-leave", () => {
@@ -64,24 +65,25 @@ function Call(props) {
     if (!Ready) return;
 
     console.log(MyPeer);
+  try {
     MyPeer.on("open", (id) => {
-      setLoading(true);
       setMyID(id);
-      console.log(id)
-      setLoading(false);
-      console.log("you joined");
+      console.log("you joined : "+id);
       socket.emit("join-room", params.roomID, id);
     });
+  } catch (error) {
+    console.log(error)
+  }
 
     socket.on("user-disconnected", (userId) => {
       video_2.current.srcObject = null;
       setUserIsHere(false);
     });
 
-    MyPeer.on("call", (call) => {
-      console.log('receive call')
+    MyPeer.on("call", (call) => {   
        call.answer(MyStream);
        call.on("stream", (userVideoStream) => {
+        console.log('get stream')
          setUserIsHere(true);
          video_2.current.srcObject = userVideoStream;
          video_2.current.addEventListener("loadedmetadata", () => {
@@ -91,8 +93,8 @@ function Call(props) {
      });
 
     socket.on("user-joined", (userID) => {
-      console.log("user joined");
-      console.log(userID)
+      console.log("user joined : "+userID);
+ 
       setUserId(userID);
       setUserIsHere(userID);
       connectToNewUser(userID, MyStream);
@@ -101,7 +103,7 @@ function Call(props) {
 
   const connectToNewUser = (userID, stream) => {
     const call = MyPeer.call(userID, stream);
-    call.on("stream", (userVideoStream) => {
+    call.on("stream", (userVideoStream) => {    
       video_2.current.srcObject = userVideoStream;
       video_2.current.addEventListener("loadedmetadata", () => {
         video_2.current.play();
