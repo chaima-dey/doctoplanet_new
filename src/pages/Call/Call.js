@@ -35,8 +35,9 @@ function Call(props) {
   const navigate = useNavigate();
   const [Loading, setLoading] = useState(null);
   const [VideoScale, setVideoScale] = useState(null);
-  const { v4: uuidv4 } = require('uuid');
-  const MyPeer = new Peer(uuidv4());
+  const { v4: uuidv4 } = require("uuid");
+  const MyPeer = new Peer(undefined);
+
   useEffect(() => {
     GetMyStrem();
     socket.on("user-leave", () => {
@@ -65,45 +66,45 @@ function Call(props) {
     if (!Ready) return;
 
     console.log(MyPeer);
-  try {
-    MyPeer.on("open", (id) => {
-      setMyID(id);
-      console.log("you joined : "+id);
-      socket.emit("join-room", params.roomID, id);
-    });
-  } catch (error) {
-    console.log(error)
-  }
+    try {
+      MyPeer.on("open", (id) => {
+        setMyID(id);
+        console.log("you joined : " + id);
+        socket.emit("join-room", params.roomID, id);
+      });
+    } catch (error) {
+      console.log(error);
+    }
 
     socket.on("user-disconnected", (userId) => {
       video_2.current.srcObject = null;
       setUserIsHere(false);
     });
 
-    MyPeer.on("call", (call) => {   
-       call.answer(MyStream);
-       call.on("stream", (userVideoStream) => {
-        console.log('get stream')
-         setUserIsHere(true);
-         video_2.current.srcObject = userVideoStream;
-         video_2.current.addEventListener("loadedmetadata", () => {
-           video_2.current.play();
-         });
-       });
-     });
+    MyPeer.on("call", (call) => {
+      call.answer(MyStream);
+      call.on("stream", (userVideoStream) => {
+        console.log("get stream");
+        setUserIsHere(true);
+        video_2.current.srcObject = userVideoStream;
+        video_2.current.addEventListener("loadedmetadata", () => {
+          video_2.current.play();
+        });
+      });
+    });
 
     socket.on("user-joined", (userID) => {
-      console.log("user joined : "+userID);
- 
+      console.log("user joined : " + userID);
       setUserId(userID);
       setUserIsHere(userID);
-      connectToNewUser(userID, MyStream);
+      alert('user is here')
+      // connectToNewUser(userID, MyStream);
     });
   }, [Ready]);
 
   const connectToNewUser = (userID, stream) => {
     const call = MyPeer.call(userID, stream);
-    call.on("stream", (userVideoStream) => {    
+    call.on("stream", (userVideoStream) => {
       video_2.current.srcObject = userVideoStream;
       video_2.current.addEventListener("loadedmetadata", () => {
         video_2.current.play();
@@ -111,7 +112,6 @@ function Call(props) {
     });
   };
 
-  
   useEffect(() => {
     video_1.current.srcObject = MyStream;
     video_1.current.addEventListener("loadedmetadata", () => {
@@ -125,11 +125,8 @@ function Call(props) {
     setReady(true);
   };
 
- 
-
-
   const EndCall = () => {
-    // socket.emit("Leave-room");
+    socket.emit("Leave-room");
     window.location.reload();
   };
 
@@ -144,6 +141,10 @@ function Call(props) {
 
   return (
     <div className="room">
+    {
+      UserIsHere &&  
+       <button onClick={()=> connectToNewUser(UserId,MyStream)}>Accepter</button>
+    }
       {
         <div ref={VideoGrid} id="video-grid">
           <div className={"video_1 " + (!UserIsHere && "UserIsHere")}>
