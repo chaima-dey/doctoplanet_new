@@ -7,7 +7,7 @@ import LoginBanner from "../../assets/images/banner/login-banner.png";
 import VerifyIcon from "../../assets/images/icon/verify.jpg";
 import "./Register.scss";
 import DivError from "../../components/Error/DivError";
-import { Spinner } from "react-bootstrap";
+import { Form, Spinner } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 var validator = require("email-validator");
 import PhoneInput from 'react-phone-input-2'
@@ -32,6 +32,7 @@ function Register() {
   const [Error, setError] = useState(null);
   const [Loading, setLoading] = useState(false);
   const [Verification, setVerification] = useState(false);
+  const [Sexe, setSexe] = useState("")
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -249,6 +250,9 @@ function Register() {
                     className="form-control"
                     placeholder="Email"
                   />
+                </div>
+                <div className="form-group">
+                 
                 </div>
 
                 <div className="form-group">

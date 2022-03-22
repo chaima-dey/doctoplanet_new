@@ -267,11 +267,11 @@ function Profile() {
                     {" "}
                     {Prenom_uppercase(UserReducer.prenom)}
                   </b>
-                  {UserReducer.sexe == "H" ? (
+                  {/* {UserReducer.sexe == "H" ? (
                     <FaMars style={{ color: "#2196f3" }} />
                   ) : (
                     <FaVenus style={{ color: "#f17732" }} />
-                  )}
+                  )} */}
                 </p>
                 <p>
                   Membre depuis <b>{Created_date()}</b>
