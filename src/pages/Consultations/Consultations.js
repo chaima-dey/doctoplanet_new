@@ -190,7 +190,7 @@ function Consultations() {
     // else {
     setLoading(true)
     try {
-      const res = await axios.post(`http://localhost:5000/stripe/add_product`, props.show);
+      const res = await axios.post(`${API}/stripe/add_product`, props.show);
       getConsults()
       setLoading(false)
       setModalShow(null)

@@ -27,7 +27,6 @@ router.post("/create", async (req, res) => {
         await consultation.save();
      
         const email_sneded = await sendmail(req.body)
-        console.log(email_sneded)
         res.status(200).send(email_sneded);
         
     } catch (err) { 
