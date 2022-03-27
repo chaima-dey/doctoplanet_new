@@ -1,0 +1,64 @@
+
+.video-content{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.Video_1{
+    width: 50%;
+    margin: 5px;
+}
+.Video_2{
+    width: 50%;
+    margin: 5px;
+}
+
+video{
+    width: 100%;
+    transform: rotateY(180deg);
+}
+
+.controls{
+    text-align: center;
+    
+        position: fixed;
+        bottom: 17px;
+        background: #00000094;
+        padding: 13px;
+        z-index: 999;
+        border-radius: 40px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 300px;
+        left: 50%;
+        transform: translateX(-50%);
+      
+}
+
+.participer {
+    padding: 15px 17px;
+    border-radius: 50% !important;
+    margin: 0px;
+    background: #03a9f4;
+    border: none;
+    svg {
+      color: white;
+      font-size: 23px;
+    }
+  }
+
+
+  .hangout-btn {
+    background: #ff2515;
+    padding: 15px 17px;
+    border-radius: 54% !important;
+    cursor: pointer;
+    border: none !important;
+    transition: 0.3s;
+    svg {
+      color: white;
+      font-size: 21px;
+    }
+  }

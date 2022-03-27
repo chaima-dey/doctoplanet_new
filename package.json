@@ -30,9 +30,10 @@
     "react-select": "^5.2.2",
     "react-select-country-list": "^2.2.3",
     "redux": "^4.1.1",
-    "simple-peer": "^9.11.0",
+    "simple-peer": "^9.11.1",
     "socket.io-client": "^4.4.1",
     "stripe": "^8.209.0",
+    "styled-components": "^5.3.5",
     "uuid": "^8.3.2",
     "web-vitals": "^1.1.2"
   },

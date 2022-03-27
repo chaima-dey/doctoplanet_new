@@ -26,9 +26,10 @@ import Consultations from "./pages/Consultations/Consultations";
 import Contact from "./pages/Contact/Contact";
 import Profile from "./pages/Profile/Profile";
 import Medicament from "./pages/Medicament/Medicament";
-import Call from "./pages/Call/Call";
-import ToCall from "./pages/Call/ToCall";
+ 
 import Chekout from "./pages/Checkout/Chekout";
+import CreateRoom from "./pages/Room/CreateRoom";
+import Room from "./pages/Room/Room";
 
 function App() {
   const dispatch = useDispatch();
@@ -63,9 +64,11 @@ const  RefreshCall = () =>{
     {  window.location.pathname.split('/')[1] == 'call' ? <NavbarRoom /> :  <Navbar />}
       <div className="route_app">
         <Routes>
+        <Route path="/add" element={<CreateRoom />} />
+        <Route path="/room/:roomID" element={<Room />} />
+     
           <Route path="/" element={<Accueil />} />
-          <Route path="/tocall" element={<ToCall />} />
-          <Route path="/call/:roomID" element={ <Call  />} />
+     
           <Route path="/offres" element={<Offres />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/qui-sommes-nous" element={<QSN />} />
