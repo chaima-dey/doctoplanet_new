@@ -6,11 +6,7 @@ const path = require("path");
 router.post("/add_product", async (req, res) => {
 
   const stripe = require('stripe')('sk_test_51KehaDJo0GAssExxzD8KMr3HJvUfA0IPAOMFBlmA5u9fk5jvH5zCxfdEXEejJKQ5BvJkCpHGyit2xs6r4DgcJF0500vQDPDGBe');
-<<<<<<< HEAD
-=======
- 
->>>>>>> d37d5a5f9b13a8f6cf2700541f05df53a9345fb8
-  try {
+try {
 
     const session = await stripe.checkout.sessions.create({
        success_url: `https://doctoplanet.com/stripe/success?id=${req.body._id}`,
@@ -20,11 +16,7 @@ router.post("/add_product", async (req, res) => {
       mode: 'payment',
     });
  
-<<<<<<< HEAD
-=======
-  
->>>>>>> d37d5a5f9b13a8f6cf2700541f05df53a9345fb8
-    const consult = await Consult.findByIdAndUpdate(req.body._id, { stripe_link: session.url, payement_id: session.id }, { new: true })
+   const consult = await Consult.findByIdAndUpdate(req.body._id, { stripe_link: session.url, payement_id: session.id }, { new: true })
 
     return res.status(200).send({ consult, url: session.url })
   } catch (error) {
