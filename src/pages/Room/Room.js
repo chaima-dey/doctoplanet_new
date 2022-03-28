@@ -31,7 +31,7 @@ const Room = (props) => {
   useEffect(() => {
     socketRef.current = io(API);
     navigator.mediaDevices
-      .getUserMedia({ video: true, audio: false })
+      .getUserMedia({ video: true, audio: true })
       .then((stream) => {
         userVideo.current.srcObject = stream;
         setMyStram(stream)
