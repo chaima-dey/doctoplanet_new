@@ -15,12 +15,12 @@ const path = require("path");
 
 
 router.get("/all", async (req, res) => {
- 
-    const user = await User.find();
-    res.send(user)
- 
 
- 
+  const user = await User.find();
+  res.send(user)
+
+
+
 });
 
 
@@ -40,14 +40,14 @@ router.post("/signup", async (req, res) => {
     const user = new User({
       nom: req.body.user.nom,
       prenom: req.body.user.prenom,
-      sexe:  req.body.user.sexe,
+      sexe: req.body.user.sexe,
       email: req.body.user.email.toLowerCase(),
       password: hashPassowrd,
       date_naissance: req.body.user.date_naissance,
       tel: req.body.user.tel,
       image: "",
       created_at: req.body.user.created_at,
-  
+
     });
 
     await user.save();
@@ -179,18 +179,18 @@ router.post("/uploadimage", upload.single("file"), async (req, res) => {
 
 router.post("/uploadpassword", async (req, res) => {
 
-  const { userID,OldPassword, NewPassword } = req.body;
+  const { userID, OldPassword, NewPassword } = req.body;
   const user = await User.findById(userID)
   const passwords_compare = await bcrypt.compare(
     OldPassword,
     user.password
   );
- if(!passwords_compare) return res.status(404).send("Mot de passe incorrect");
- else{
-  const hashPassowrd = await bcrypt.hash(NewPassword, 10);
-  const updatedPassword = await User.findByIdAndUpdate(userID, {password:hashPassowrd},{ new: true })
-  res.status(200).send("Mot de passe changé avec succés");
- }
+  if (!passwords_compare) return res.status(404).send("Mot de passe incorrect");
+  else {
+    const hashPassowrd = await bcrypt.hash(NewPassword, 10);
+    const updatedPassword = await User.findByIdAndUpdate(userID, { password: hashPassowrd }, { new: true })
+    res.status(200).send("Mot de passe changé avec succés");
+  }
 });
 
 const sendmail = async (mail, url, username) => {
