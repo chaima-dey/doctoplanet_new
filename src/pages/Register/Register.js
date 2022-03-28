@@ -32,12 +32,15 @@ function Register() {
   const [Error, setError] = useState(null);
   const [Loading, setLoading] = useState(false);
   const [Verification, setVerification] = useState(false);
-  const [Sexe, setSexe] = useState("")
+  const [Sexe, setSexe] = useState("H")
 
   useEffect(() => {
     window.scrollTo(0, 0);
     const element = document.querySelector(".home");
     if (element) element.classList.remove("transition_opacity");
+    //     var today = new Date();
+    // var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    console.log(Math.round(new Date().getTime() / 1000))
   }, []);
 
   useEffect(() => {
@@ -63,14 +66,15 @@ function Register() {
       poids: "",
       taille: "",
       groupe_sang: "",
-      created_at: Date.now(),
+      created_at: Math.round(new Date().getTime() / 1000),
+      sexe: Sexe
     };
     if (Nom.trim() == "") {
       input_1.current.classList.add("error_input")
       setError("Veuillez saisir votre nom");
       return;
     }
-    else{
+    else {
       input_1.current.classList.remove("error_input")
     }
     if (Prenom.trim() == "") {
@@ -78,35 +82,35 @@ function Register() {
       setError("Veuillez saisir votre prénom");
       return;
     }
-    else{
+    else {
       input_2.current.classList.remove("error_input")
     }
 
-    if(!validator.validate(Mail)) {
+    if (!validator.validate(Mail)) {
       input_3.current.classList.add("error_input")
       setError("Adresse mail non valide");
       return;
     }
-    else{
+    else {
       input_3.current.classList.remove("error_input")
     }
-    if (!re.test(Password)) {
-      setError(
-        " Un mot de passe doit contenir au minimum 8 caractères, à savoir : au moins une lettre minuscule et une lettre majuscule, un caractère spécial et un chiffre."
-      );
-      input_4.current.classList.add("error_input")
-      setPassword("");
-      return;
-    }
-    else{
-      input_4.current.classList.remove("error_input")
-    }
+    // if (!re.test(Password)) {
+    //   setError(
+    //     " Un mot de passe doit contenir au minimum 8 caractères, à savoir : au moins une lettre minuscule et une lettre majuscule, un caractère spécial et un chiffre."
+    //   );
+    //   input_4.current.classList.add("error_input")
+    //   setPassword("");
+    //   return;
+    // }
+    // else{
+    //   input_4.current.classList.remove("error_input")
+    // }
     if (Date_naissance == "") {
       input_5.current.classList.add("error_input")
       setError("Veuillez saisir votre date de naissance");
       return;
     }
-    else{
+    else {
       input_5.current.classList.remove("error_input")
     }
 
@@ -116,7 +120,7 @@ function Register() {
       setError("Veuillez saisir votre Téléphone");
       return;
     }
-    else{
+    else {
       const element = document.querySelector('.input-phone')
       element.classList.remove("error_input")
     }
@@ -125,13 +129,13 @@ function Register() {
 
     setLoading(true);
     const res = await RegisterUser(user);
- if(!res){
-   setError('Problème de connexion')
-   setLoading(false);
-   ResetFields();
-   return
- }
- 
+    if (!res) {
+      setError('Problème de connexion')
+      setLoading(false);
+      ResetFields();
+      return
+    }
+
     if (res.status == 200) {
       setLoading(false);
       setVerification(true);
@@ -166,10 +170,10 @@ function Register() {
     num.current.classList.remove("focus_input");
   };
 
-  const focus_phone = () =>{
+  const focus_phone = () => {
     const element = document.querySelector('.input-phone')
     element.classList.remove("error_input");
-   
+
   }
 
   const blur_phone = (num) => {
@@ -179,9 +183,9 @@ function Register() {
 
   return (
     <div className="container">
-      
+
       <>
-    
+
       </>
       {/* <GooglePlacesAutocomplete
       apiKey="AIzaSyAGO__UYNepRhRaXW6VY1Q17OhFtu0kcVc"
@@ -238,7 +242,19 @@ function Register() {
                     placeholder="Prénom"
                   />
                 </div>
+           
 
+            
+                <div className="form-group gender-group">
+                  <div onClick={() => setSexe("H")} className={"gender " + (Sexe == "H" && "selected-gender-H")}>
+                    Homme
+                    <i className={'fa fa-mars '}></i>
+                  </div>
+                  <div onClick={() => setSexe("F")} className={"gender " + (Sexe == "F" && "selected-gender-F")}>
+                    Femme
+                    <i className={'fa fa-venus '}></i>
+                  </div>
+                </div>
                 <div className="form-group">
                   <input
                     ref={input_3}
@@ -252,10 +268,6 @@ function Register() {
                   />
                 </div>
                 <div className="form-group">
-                 
-                </div>
-
-                <div className="form-group">
                   <input
                     ref={input_4}
                     onFocus={() => focus(input_4)}
@@ -267,6 +279,7 @@ function Register() {
                     placeholder="Mot de passe"
                   />
                 </div>
+
                 <div className="form-group">
                   <label htmlFor="">Date de naissance</label>
                   <input
@@ -293,19 +306,19 @@ function Register() {
                     className="form-control tel-input"
                     placeholder="Téléphone"
                   /> */}
-                                 <PhoneInput
-   className="input-phone"   
-   onFocus={() => focus_phone()}
-   onBlur={() => blur_phone()}
-   enableLongNumbers={false}
-  country={'fr'}
-  placeholder='Téléphone'
-  value={Tel}
-  onChange={phone => setTel(phone)}
- 
-/>
+                  <PhoneInput
+                    className="input-phone"
+                    onFocus={() => focus_phone()}
+                    onBlur={() => blur_phone()}
+                    enableLongNumbers={false}
+                    country={'fr'}
+                    placeholder='Téléphone'
+                    value={Tel}
+                    onChange={phone => setTel(phone)}
+
+                  />
                 </div>
- <br/>
+                <br />
                 <div className="form-group">
                   {!Loading ? (
                     <button
@@ -313,7 +326,7 @@ function Register() {
                       type="button"
                       className="btn mb-30 btn-lg btn-primary w-100"
                     >
-                     Je m'enregistre
+                      Je m'enregistre
                     </button>
                   ) : (
                     <button className="btn mb-30 btn-lg btn-primary w-100 loading-btn">

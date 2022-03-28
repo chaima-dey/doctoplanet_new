@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("../Models/User");
 const authMiddleware = require('../Middlewear/middlewear')
 
-router.get("/",authMiddleware, async (req, res) => {
+router.get("/", async (req, res) => {
   if(req.user){
     const user = await User.find();
     res.send(user)

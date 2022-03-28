@@ -2,6 +2,16 @@ const express = require("express");
 const router = express.Router();
 const Consul = require("../Models/ConsulModel");
 const nodemailer = require("nodemailer");
+
+
+
+router.get("/", async (req, res) => {
+ 
+      const consults = await Consul.find()
+
+    res.send(consults.reverse())
+  
+});
 //GET CONSULT
 router.get("/get", async (req, res) => {
  

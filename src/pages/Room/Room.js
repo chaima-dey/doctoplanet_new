@@ -86,6 +86,7 @@ const Room = (props) => {
         callerID,
         signal,
       });
+      console.log("sending")
     });
 
     return peer;
@@ -100,6 +101,7 @@ const Room = (props) => {
 
     peer.on("signal", (signal) => {
       socketRef.current.emit("returning signal", { signal, callerID });
+    
     });
 
     peer.signal(incomingSignal);
@@ -111,14 +113,14 @@ const Room = (props) => {
     setPeers([]);
     setReady(false);
     socketRef.current.emit("Hangout")
-    navigation('/landing_room')
+    navigation('/room/landing')
     setTimeout(() => {
       navigation('/room/d13b81d0-adfa-11ec-9e9c-fd920a407322')
     }, 500);
  
   };
   return (
-    <div>
+    <div className="room_call">
       <div className="video-content">
         <div className="Video_1">
           <video muted ref={userVideo} autoPlay></video>

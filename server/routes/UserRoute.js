@@ -11,6 +11,19 @@ const Token = require("../Models/TokenModels");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const path = require("path");
+
+
+
+router.get("/all", async (req, res) => {
+ 
+    const user = await User.find();
+    res.send(user)
+ 
+
+ 
+});
+
+
 //REGISTER USER
 router.post("/signup", async (req, res) => {
   const mail_isExist = await User.findOne({
@@ -27,12 +40,14 @@ router.post("/signup", async (req, res) => {
     const user = new User({
       nom: req.body.user.nom,
       prenom: req.body.user.prenom,
+      sexe:  req.body.user.sexe,
       email: req.body.user.email.toLowerCase(),
       password: hashPassowrd,
       date_naissance: req.body.user.date_naissance,
       tel: req.body.user.tel,
       image: "",
       created_at: req.body.user.created_at,
+  
     });
 
     await user.save();

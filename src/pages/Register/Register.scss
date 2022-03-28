@@ -23,6 +23,33 @@
   }
 }
 
+.gender-group{
+  display: flex;
+  margin-bottom: 10px;
+
+  
+  .gender{
+    display: flex;
+    align-items: center;
+    color: #9d9d9d;
+    cursor: pointer;
+    i{
+      padding: 10px;
+      font-size: 40px;
+      border-radius: 20px;
+   
+ 
+    }
+  }
+}
+
+.selected-gender-H{
+  color: #00a9dd !important;
+}
+.selected-gender-F {
+  color: #f17732 !important;
+}
+
  
 
 @media screen and (max-width: 992px) {

@@ -1,4 +1,13 @@
 
+.room_call{
+  height: 100vh;
+    background: #303030;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -80px;
+}
+
 .video-content{
     width: 100%;
     display: flex;
@@ -7,10 +16,14 @@
 .Video_1{
     width: 50%;
     margin: 5px;
+    background-color: black;
+    display: flex;
 }
 .Video_2{
     width: 50%;
     margin: 5px;
+    background-color: black;
+    display: flex;
 }
 
 video{

@@ -3,7 +3,6 @@ import url from "../api";
 export const RegisterUser = async (user) => {
   try {
     const res = await axios.post(`${url}/user/signup`, { user });
-
     return res;
   } catch (error) {
     return error.response;
