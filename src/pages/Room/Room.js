@@ -6,6 +6,7 @@ import Peer from "simple-peer";
 import API from "../../api";
 import "./Room.scss";
 import { FiCameraOff, FiLogIn, FiPhoneOff, FiMicOff } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 const Video = (props) => {
   const ref = useRef();
 
@@ -19,6 +20,7 @@ const Video = (props) => {
 };
 
 const Room = (props) => {
+  const navigation = useNavigate()
   const [peers, setPeers] = useState([]);
   const socketRef = useRef();
   const userVideo = useRef();
@@ -108,7 +110,12 @@ const Room = (props) => {
   const Hangout = () => {
     setPeers([]);
     setReady(false);
-    window.location.reload(true);
+    socketRef.current.emit("Hangout")
+    navigation('/landing_room')
+    setTimeout(() => {
+      navigation('/room/d13b81d0-adfa-11ec-9e9c-fd920a407322')
+    }, 500);
+ 
   };
   return (
     <div>
@@ -124,6 +131,7 @@ const Room = (props) => {
               </div>
             );
           })}
+          
       </div>
     {
          MyStram && <div className="controls">

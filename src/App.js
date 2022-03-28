@@ -30,6 +30,7 @@ import Medicament from "./pages/Medicament/Medicament";
 import Chekout from "./pages/Checkout/Chekout";
 import CreateRoom from "./pages/Room/CreateRoom";
 import Room from "./pages/Room/Room";
+import LandingRoom from "./pages/Room/LandingRoom";
 
 function App() {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ const  RefreshCall = () =>{
         <Routes>
         <Route path="/add" element={<CreateRoom />} />
         <Route path="/room/:roomID" element={<Room />} />
+        <Route path="/landing_room" element={<LandingRoom />} />
      
           <Route path="/" element={<Accueil />} />
      
