@@ -26,11 +26,10 @@ import Consultations from "./pages/Consultations/Consultations";
 import Contact from "./pages/Contact/Contact";
 import Profile from "./pages/Profile/Profile";
 import Medicament from "./pages/Medicament/Medicament";
-
 import Chekout from "./pages/Checkout/Chekout";
-import CreateRoom from "./pages/Room/CreateRoom";
 import Room from "./pages/Room/Room";
 import LandingRoom from "./pages/Room/LandingRoom";
+import track, { useTracking } from "react-tracking";
 
 function App() {
   const dispatch = useDispatch();
@@ -64,13 +63,11 @@ function App() {
     <div className="container_app">
       {window.location.pathname.split('/')[1] == 'room' ? <NavbarRoom /> : <Navbar />}
       <div className="route_app">
+
         <Routes>
-          {/* <Route path="/add" element={<CreateRoom />} /> */}
           <Route path="/room/:roomID" element={<Room />} />
           <Route path="/room/landing" element={<LandingRoom />} />
-
           <Route path="/" element={<Accueil />} />
-
           <Route path="/offres" element={<Offres />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/qui-sommes-nous" element={<QSN />} />
@@ -85,8 +82,7 @@ function App() {
             !TokenReducer ? <Login /> : <Navigate to="/" />
           } />
           <Route path="/register" element={
-            !TokenReducer ? <Register /> : <Navigate to="/" />
-          } />
+            !TokenReducer ? <Register /> : <Navigate to="/" />} />
 
           <Route path="/compte" element={
             TokenReducer ? <Profile /> : <Navigate to="/login" />
@@ -97,17 +93,11 @@ function App() {
           <Route path="/chekout/:id" element={
             TokenReducer ? <Chekout /> : <Navigate to="/login" />
           } />
-
-
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
-      {/*       
-      <Contact /> */}
-      {
-        window.location.pathname.split('/')[1] == 'room' ? "" : <Footer />}
+      {window.location.pathname.split('/')[1] == 'room' ? "" : <Footer />}
       <Routes>
-
       </Routes>
     </div>
   );

@@ -1,5 +1,5 @@
  
-import track, { useTracking } from "react-tracking";
+import  { useTracking } from "react-tracking";
 import React from "react";
 
 const HookButton = () => {
@@ -25,23 +25,10 @@ const HookButton = () => {
 const LandingRoom = () => {
   return (
     <div className="App">
-      <h1>React-Tracking</h1>
       <HookButton />
- 
     </div>
   );
 };
-const  TrackedApp = track(
-  // app-level tracking data
-  { app: "tracking-app" },
 
-  // top-level options
-  {
-    // custom dispatch to console.log in addition to pushing to dataLayer[]
-    dispatch: (data) => {
-      console.log(data);
-    }
-  }
-)(LandingRoom);
 
-export default TrackedApp;
+export default LandingRoom;
