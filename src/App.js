@@ -104,12 +104,9 @@ function App() {
 }
 
 const  TrackedApp = track(
-  // app-level tracking data
   { app: "tracking-app" },
 
-  // top-level options
   {
-    // custom dispatch to console.log in addition to pushing to dataLayer[]
     dispatch: (data) => {
       console.log(data);
     }
