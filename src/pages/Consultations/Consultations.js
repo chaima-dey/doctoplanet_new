@@ -58,7 +58,7 @@ function Consultations() {
 
   const Tables = () => {
     return (
-      <Table style={{ minWidth: 1000 }} striped bordered hover>
+      <Table style={{ minWidth: 1000 }}  bordered >
         <thead>
           <tr>
             <th><i className="fas fa-list-ol"></i></th>
