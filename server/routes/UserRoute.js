@@ -196,14 +196,6 @@ router.post("/uploadpassword", async (req, res) => {
 
 const sendmail = async (mail, url, username) => {
   try {
-
-
-
-
-    
-
-
-    
     const transporter = nodemailer.createTransport({
       host: "ssl0.ovh.net",
       port: 465,

@@ -6,7 +6,7 @@ import FormConsult from "./FormConsult";
 import DateConsult from "./DateConsult";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { Spinner } from "react-bootstrap";
+import { Button, Modal, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import url from "../../api";
 import DivError from "../../components/Error/DivError";
@@ -51,19 +51,16 @@ function RendezVous() {
   const [adress, setadress] = useState("")
   const [ErrorServer, setErrorServer] = useState(false)
   const SuccessReducer = useSelector((state) => state.SuccessReducer);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(false)
+    navigate("/consultations")
+  };
 
 
 
-  useEffect(() => {
-    //   let array = []
-    //  const key = Object.keys(PaysList)
 
-    // for (let index = 0; index < key.length; index++) {
-
-    // array.push({'id':index+1,'code':key[index],'name':PaysList[key[index]]})
-    // }
-
-  }, [])
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -118,6 +115,7 @@ function RendezVous() {
       setErrorServer(true)
       window.scrollTo(0, 0);
       setLoading(false);
+
     }
   };
 
@@ -221,8 +219,23 @@ function RendezVous() {
 
 
     <>
-      {SuccessReducer.length > 0 && <_Alert variant={"success"} text={"Consultation enregistrée avec succés"} />
-      }
+
+      <Modal show={SuccessReducer.length > 1} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Votre consultation a été enregistré avec succès
+          </Modal.Title>
+        </Modal.Header>
+
+        <Modal.Footer>
+
+          <Button variant="primary" onClick={() => navigate("/consultations")} >
+            Voir Consultations
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* {SuccessReducer.length > 0 && <_Alert variant={"success"} text={"Consultation enregistrée avec succés"} />
+      } */}
       <div className="transition_opacity home container " >
 
         <div className="heading-bx" style={{ marginTop: 120, marginBottom: 70 }}>
