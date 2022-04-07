@@ -20,7 +20,7 @@ function _Navbar() {
  
   return (
     <Navbar  className="NavRoom" expand="lg">
-      <Navbar.Brand style={{ cursor: "pointer" }} onClick={() => navigate("/")}>
+      <Navbar.Brand style={{ cursor: "pointer" }} >
         <img className="LOGO Logo-white"  src={LOGO} alt="" />
       </Navbar.Brand>
      

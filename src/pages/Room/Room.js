@@ -6,7 +6,7 @@ import Peer from "simple-peer";
 import API from "../../api";
 import "./Room.scss";
 import { FiCameraOff, FiLogIn, FiPhoneOff, FiMicOff } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const Video = (props) => {
   const ref = useRef();
 
@@ -21,13 +21,22 @@ const Video = (props) => {
 
 const Room = (props) => {
   const navigation = useNavigate()
+  const params = useParams()
   const [peers, setPeers] = useState([]);
+  const [Ready, setReady] = useState(false);
+  const [MyStram, setMyStram] = useState(null)
+  const [roomID, setroomID] = useState(null)
   const socketRef = useRef();
   const userVideo = useRef();
   const peersRef = useRef([]);
-  const roomID = "123";
-  const [Ready, setReady] = useState(false);
-  const [MyStram, setMyStram] = useState(null)
+  
+
+  useEffect(() => {
+    setroomID(params.roomID)
+  }, [params])
+  
+ 
+
   useEffect(() => {
     socketRef.current = io(API);
     navigator.mediaDevices

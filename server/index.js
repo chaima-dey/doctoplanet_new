@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-
+const nodemailer = require("nodemailer");
 const ConnectDB = require("./database/connectDB");
 const { v4: uuidv4 } = require("uuid");
 const server = require("http").createServer(app);
@@ -93,6 +93,8 @@ io.on("connection", (socket) => {
     });
   });
 });
+
+ 
 
 // INIT PORT
 const PORT = process.env.PORT || 5000;

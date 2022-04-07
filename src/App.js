@@ -40,15 +40,12 @@ function App() {
 
 
   useEffect(() => {
-    console.log(window.location.pathname.split('/')[1])
     return () => {
       dispatch({
         type: "SetSuccess",
         payload: "",
       });
-
     };
-
   }, [location]);
 
   const RefreshCall = () => {

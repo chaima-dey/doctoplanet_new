@@ -63,7 +63,8 @@ router.post("/signup", async (req, res) => {
       url,
       req.body.user.nom
     );
-
+console.log(mail_sned)
+return
     //  if(!mail_sned.accepted)
     //    return res.status(422).send("Erreur serveur, essayez encore")
     return res.status(200).send(user);
@@ -195,6 +196,14 @@ router.post("/uploadpassword", async (req, res) => {
 
 const sendmail = async (mail, url, username) => {
   try {
+
+
+
+
+    
+
+
+    
     const transporter = nodemailer.createTransport({
       host: "ssl0.ovh.net",
       port: 465,

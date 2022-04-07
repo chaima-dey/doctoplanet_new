@@ -1,4 +1,5 @@
  
+/* eslint-disable */
 import  { useTracking } from "react-tracking";
 import React from "react";
 
@@ -6,7 +7,7 @@ const HookButton = () => {
   const { trackEvent } = useTracking();
   return (
     <div>
-      <h2>Click for HookButton</h2>
+      {/* <h2>Click for HookButton</h2>
       <button
         onClick={() =>
           trackEvent({
@@ -17,7 +18,7 @@ const HookButton = () => {
         }
       >
         Click Me!
-      </button>
+      </button> */}
     </div>
   );
 };
