@@ -20,6 +20,7 @@ function Consultations() {
   const [modalShow, setModalShow] = useState(false);
   const [Loading, setLoading] = useState(false)
   const [LinkAlert, setLinkAlert] = useState(false)
+
   const getConsults = async () => {
     const res = await axios.get(`${url}/consultation/get`, { params: { id: UserReducer._id } })
     setConsultFiltred(res.data)
@@ -28,37 +29,37 @@ function Consultations() {
 
 
   useEffect(() => {
-    socket.on("payement-success",()=>{
-      console.log("payed")
-    })
+    // socket.on("payement-success",()=>{
+    //   console.log("payed")
+    // })
     getConsults()
   }, []);
 
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (Filtre == 'Tous') {
-      setConsultFiltred(Allconsult)
-    }
-    if (Filtre == "paiement") {
-      const arr = Allconsult.filter(el => el.etat == 0)
-      setConsultFiltred(arr)
-    }
-    if (Filtre == "Payée") {
-      const arr = Allconsult.filter(el => el.etat == 1)
-      setConsultFiltred(arr)
-    }
-    if (Filtre == "Terminée") {
-      const arr = Allconsult.filter(el => el.etat == 2)
-      setConsultFiltred(arr)
-    }
+  //   if (Filtre == 'Tous') {
+  //     setConsultFiltred(Allconsult)
+  //   }
+  //   if (Filtre == "paiement") {
+  //     const arr = Allconsult.filter(el => el.etat == 0)
+  //     setConsultFiltred(arr)
+  //   }
+  //   if (Filtre == "Payée") {
+  //     const arr = Allconsult.filter(el => el.etat == 1)
+  //     setConsultFiltred(arr)
+  //   }
+  //   if (Filtre == "Terminée") {
+  //     const arr = Allconsult.filter(el => el.etat == 2)
+  //     setConsultFiltred(arr)
+  //   }
 
-  }, [Filtre])
+  // }, [Filtre])
 
 
   const Tables = () => {
     return (
-      <Table style={{ minWidth: 1000 }}  bordered >
+      <Table  bordered >
         <thead>
           <tr>
             <th><i className="fas fa-list-ol"></i></th>
@@ -171,9 +172,6 @@ function Consultations() {
   }
 
   useEffect(() => {
-
-
-
     window.scrollTo(0, 0);
     const element = document.querySelector(".home");
 
@@ -220,7 +218,7 @@ function Consultations() {
 
     </div>
 
-    <Tabs onSelect={(k) => setFiltre(k)} defaultActiveKey="Tous" id="uncontrolled-tab-example" className="mb-3">
+    {/* <Tabs onSelect={(k) => setFiltre(k)} defaultActiveKey="Tous" id="uncontrolled-tab-example" className="mb-3">
 
       <Tab style={{ overflow: 'auto' }} eventKey="Tous" title="Tous">
         <Tables />
@@ -237,7 +235,7 @@ function Consultations() {
         <Tables etat={2} />
       </Tab>
 
-    </Tabs>
+    </Tabs> */}
 
 
 
