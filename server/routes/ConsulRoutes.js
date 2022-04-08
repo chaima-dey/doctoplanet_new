@@ -24,16 +24,26 @@ router.get("/get", async (req, res) => {
   }
 });
 
-
+   const DateFormat = () => {
+    const dt = new Date();
+    const year = dt.getFullYear();
+    const month = (dt.getMonth() + 1).toString().padStart(2, "0");
+    const day = dt.getDate().toString().padStart(2, "0");
+    const date =  year  + '-' + month + '-' + day
+    return date
+  };
 
 //NEW CONSULT 
 router.post("/create", async (req, res) => {
-
+ 
+ 
   try {
     const consultation = new Consul({
-      ...req.body
+      ...req.body,
+      date_consul : DateFormat(req.body.date_consul)
     });
 
+ 
     await consultation.save();
 
     const email_sneded = await sendmail(req.body)
