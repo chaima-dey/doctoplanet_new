@@ -63,8 +63,7 @@ router.post("/signup", async (req, res) => {
       url,
       req.body.user.nom
     );
-console.log(mail_sned)
-return
+ 
     //  if(!mail_sned.accepted)
     //    return res.status(422).send("Erreur serveur, essayez encore")
     return res.status(200).send(user);
@@ -83,6 +82,7 @@ router.get("/verify/:id/:token", async (req, res) => {
       userId: user._id,
       token: req.params.token,
     });
+    console.log(token)
     if (!token) return res.sendFile(path.join(__dirname + "/html/error.html"));
 
     const uploaded = await User.findByIdAndUpdate(
@@ -164,11 +164,47 @@ const storage = multer.diskStorage({
   },
 });
 
+
+//RESEND MAIL 
+router.post("/resendmail", async (req, res) => {
+  
+try {
+  const user = await User.findOne({
+    email: req.body.Mail.toLowerCase(),
+  });
+
+  const username = user.nom+" "+user.prenom
+  // let token =  new Token({
+  //   userId: user._id,
+  //   token: crypto.randomBytes(32).toString("hex"),
+  // })
+  // await token.save();
+  
+  const token = await Token.findOne({userId: "6250212d5ecfbb5a05955bb2"})
+ 
+   
+ //  const url = `http://localhost:5000/user/verify/${user._id}/${token.token}`;
+ 
+  const url = `https://doctoplanet.com/user/verify/${user._id}/${token.token}`;
+  const mail_sned = await sendmail(
+    req.body.Mail.toLowerCase(),
+    url,
+    username
+  );
+ 
+if(mail_sned.accepted)
+return res.status(200).send("Mail de confirmation envoyé avec succès")
+else return res.status(500).send("Probleme de serveur")
+} catch (error) {
+  return res.status(404).send("Probleme de serveur")
+}
+});
+
+
 // init multer
 const upload = multer({
   storage: storage,
 });
-
 router.post("/uploadimage", upload.single("file"), async (req, res) => {
   const uploaded = await User.findByIdAndUpdate(
     req.body.user,

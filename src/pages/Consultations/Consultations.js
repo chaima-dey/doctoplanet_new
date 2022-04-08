@@ -10,6 +10,7 @@ import './Consultations.scss'
 import API from "../../api";
 import io from "socket.io-client";
 
+import { FiInfo} from "react-icons/fi";
 const socket = io(API);
 
 function Consultations() {
@@ -58,6 +59,7 @@ function Consultations() {
 
   const Tables = () => {
     return (
+    <>
       <Table bordered >
         <thead>
           <tr>
@@ -104,11 +106,17 @@ function Consultations() {
               </tr>
 
             </tbody>
+           
           )
 
         }
 
       </Table>
+     { ConsultFiltred.length == 0 && <div className="empty_tab">
+    <FiInfo />
+      Pas de consultation
+     </div>}
+    </>
     )
   }
 

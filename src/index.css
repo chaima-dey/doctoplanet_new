@@ -16,9 +16,6 @@ button:active{
      display: flex;
      justify-content: center;
  }
- /* .banner-img > img{
-     max-width: 90% !important;
- } */
  
  .comment_ça_marche{
     background: #f2f2f2;
@@ -33,7 +30,9 @@ button:active{
 .transition_opacity{
     opacity: 0;
 }
- 
+ footer{
+     margin-top: 50px;
+ }
 
 .assurence_box{
     height: 350px;

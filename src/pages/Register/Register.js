@@ -5,13 +5,16 @@ import { useNavigate } from "react-router-dom";
 import { RegisterUser } from "../../actions/UserActions";
 import LoginBanner from "../../assets/images/banner/login-banner.png";
 import VerifyIcon from "../../assets/images/icon/verify.jpg";
+import _Alert from "../../components/Alert/_Alert";
 import "./Register.scss";
 import DivError from "../../components/Error/DivError";
 import { Form, Spinner } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 var validator = require("email-validator");
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/bootstrap.css'
+import axios from "axios";
+import url from "../../api";
 function Register() {
   const input_1 = useRef(null);
   const input_2 = useRef(null);
@@ -20,6 +23,7 @@ function Register() {
   const input_5 = useRef(null);
   const input_6 = useRef(null);
   const input_7 = useRef(null);
+  const SuccessReducer = useSelector((state) => state.SuccessReducer);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -181,15 +185,27 @@ function Register() {
     element.classList.remove("focus_input");
   };
 
+
+  const ResendMail = async () => {
+    setLoading(true)
+    const res = await axios.post(`${url}/user/resendmail`, { Mail });
+    setLoading(false)
+    if (res.status == 200) {
+      
+      dispatch({
+        type: "SetSuccess",
+        payload: res.data,
+      });
+    }
+  }
+
   return (
+   <>
+    {SuccessReducer.length > 0 && (
+          <_Alert variant={"success"} text={SuccessReducer} close={true} />
+        )}
     <div className="container">
-
-      <>
-
-      </>
-      {/* <GooglePlacesAutocomplete
-      apiKey="AIzaSyAGO__UYNepRhRaXW6VY1Q17OhFtu0kcVc"
-    /> */}
+ 
       {Verification && (
         <div className="heading-bx container mt-5 mb-5 confirmation_message">
           <img src={VerifyIcon} />
@@ -201,10 +217,10 @@ function Register() {
             <br /> pour confirmer la validité de notre adresse email
           </p>
           <hr className="w100" />
-          <p>
+          {!Loading && <p>
             si vous n'avez pas reçu d'e-mail{" "}
-            <a>Renvoyer un mail de vérification</a>
-          </p>
+            <a onClick={() => ResendMail()}>Renvoyer un mail de vérification</a>
+          </p>}
         </div>
       )}
       {!Verification && (
@@ -242,9 +258,9 @@ function Register() {
                     placeholder="Prénom"
                   />
                 </div>
-           
 
-            
+
+
                 <div className="form-group gender-group">
                   <div onClick={() => setSexe("H")} className={"gender " + (Sexe == "H" && "selected-gender-H")}>
                     Homme
@@ -346,7 +362,7 @@ function Register() {
           </div>
         </div>
       )}
-    </div>
+    </div></>
   );
 }
 
