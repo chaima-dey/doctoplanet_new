@@ -180,9 +180,8 @@ try {
   // })
   // await token.save();
   
-  const token = await Token.findOne({userId: "6250212d5ecfbb5a05955bb2"})
+  const token = await Token.findOne({userId: user._id})
  
-   
  //  const url = `http://localhost:5000/user/verify/${user._id}/${token.token}`;
  
   const url = `https://doctoplanet.com/user/verify/${user._id}/${token.token}`;
