@@ -10,7 +10,7 @@ import './Consultations.scss'
 import API from "../../api";
 import io from "socket.io-client";
 
-import { FiInfo} from "react-icons/fi";
+import { FiInfo } from "react-icons/fi";
 const socket = io(API);
 
 function Consultations() {
@@ -29,7 +29,7 @@ function Consultations() {
 
 
   useEffect(() => {
-    socket.on("payement-success",()=>{
+    socket.on("payement-success", () => {
       console.log("payed")
     })
     getConsults()
@@ -59,64 +59,64 @@ function Consultations() {
 
   const Tables = () => {
     return (
-    <>
-      <Table bordered >
-        <thead>
-          <tr>
-            <th><i className="fas fa-list-ol"></i></th>
+      <>
+        <Table bordered >
+          <thead>
+            <tr>
+              <th><i className="fas fa-list-ol"></i></th>
 
-            <th><i className="fas fa-user-md"></i> Spécialité</th>
-            <th> <i className="far fa-calendar-alt"></i> Date</th>
-            <th style={{width:110}}><i className="far fa-clock"></i> Heure</th>
+              <th><i className="fas fa-user-md"></i> Spécialité</th>
+              <th> <i className="far fa-calendar-alt"></i> Date</th>
+              <th style={{ width: 110 }}><i className="far fa-clock"></i> Heure</th>
 
-            <th><i className="fas fa-ellipsis-h"></i> Etat</th>
+              <th><i className="fas fa-ellipsis-h"></i> Etat</th>
 
-            <th style={{ width: 200 }}> Actions</th>
-          </tr>
-        </thead>
-        {
-          ConsultFiltred.map((el, index) =>
+              <th style={{ width: 200 }}> Actions</th>
+            </tr>
+          </thead>
+          {
+            ConsultFiltred.map((el, index) =>
 
-            <tbody key={index}>
-              <tr>
-                <td>{index + 1}</td>
-                <td> {el.medecin} </td>
-                <td> {el.date_consul} </td>
-                <td> {el.heure_consul} </td>
+              <tbody key={index}>
+                <tr>
+                  <td>{index + 1}</td>
+                  <td> {el.medecin} </td>
+                  <td> {el.date_consul} </td>
+                  <td> {el.heure_consul} </td>
 
 
-                <td>
-                  {
-                    el.etat == 0 && <p className="m-0 etat_attente">
-                      <i className="fas fa-info-circle"></i>
-                      En Paiement</p> ||
-                    el.etat == 1 && <p className="m-0 payee_etat"><i className="fas fa-check-circle"></i> Payée</p> ||
-                    el.etat == 2 && <p className="m-0">Terminée</p>
-                  }
-                </td>
-                <td className='action_consult'>
-                  {el.etat == 0 && <button onClick={() => setModalShow(el)} className='payer'>
-                    <i className="fa fa-credit-card" style={{ marginRight: 10 }}></i>
-                    Payer</button>}
-                  {el.etat == 1 && <button onClick={() => setLinkAlert(true)} className='payer'>
-                    <i style={{ marginRight: 10 }} className="fa fa-video"></i>
-                    Lien</button>}
-                </td>
+                  <td>
+                    {
+                      el.etat == 0 && <p className="m-0 etat_attente">
+                        <i className="fas fa-info-circle"></i>
+                        En Paiement</p> ||
+                      el.etat == 1 && <p className="m-0 payee_etat"><i className="fas fa-check-circle"></i> Payée</p> ||
+                      el.etat == 2 && <p className="m-0">Terminée</p>
+                    }
+                  </td>
+                  <td className='action_consult'>
+                    {el.etat == 0 && <button onClick={() => setModalShow(el)} className='payer'>
+                      <i className="fa fa-credit-card" style={{ marginRight: 10 }}></i>
+                      Payer</button>}
+                    {el.etat == 1 && <button onClick={() => setLinkAlert(true)} className='payer'>
+                      <i style={{ marginRight: 10 }} className="fa fa-video"></i>
+                      Lien</button>}
+                  </td>
 
-              </tr>
+                </tr>
 
-            </tbody>
-           
-          )
+              </tbody>
 
-        }
+            )
 
-      </Table>
-     { ConsultFiltred.length == 0 && <div className="empty_tab">
-    <FiInfo />
-      Pas de consultation
-     </div>}
-    </>
+          }
+
+        </Table>
+        {ConsultFiltred.length == 0 && <div className="empty_tab">
+          <FiInfo />
+          Pas de consultation
+        </div>}
+      </>
     )
   }
 
@@ -154,17 +154,17 @@ function Consultations() {
   function LienModel() {
     return (
       <Modal
-      
-      show={LinkAlert} onHide={() => setLinkAlert(false)}
+
+        show={LinkAlert} onHide={() => setLinkAlert(false)}
         size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
         <Modal.Header closeButton>
-           Lien introuvable
+          Lien introuvable
         </Modal.Header>
         <Modal.Body style={{ textAlign: "center" }}>
-        Votre lien sera pret le jour de la consultation
+          Votre lien sera pret le jour de la consultation
 
         </Modal.Body>
 
@@ -196,7 +196,20 @@ function Consultations() {
       getConsults()
       setLoading(false)
       setModalShow(null)
-      window.open(res.data.url);
+      // window.open(res.data.url);
+      // let a = document.createElement("a");
+      // document.body.appendChild(a);
+      // a.style = "display: none";
+      // a.href = res.data.url      
+      // a.click();
+      // document.body.removeChild(a);
+      var url = window.location.href;
+      if (url.indexOf('?') > -1) {
+        url += '&param=1'
+      } else {
+        url += '?param=1'
+      }
+      window.location.href = res.data.url   ;
 
     } catch (error) {
       setLoading(false)
@@ -209,7 +222,7 @@ function Consultations() {
   return <div className="home container inner-content" style={{ paddingTop: 50 }}>
     <>
 
-   <LienModel />
+      <LienModel />
       <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
