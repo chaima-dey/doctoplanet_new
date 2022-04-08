@@ -1,59 +1,83 @@
-.etat_attente{
+.etat_attente {
     font-weight: 600;
     color: #f17732;
-    i{
+
+    i {
         margin-right: 5px;
     }
 }
 
-th{
+th {
     font-size: 15px;
     font-weight: 700;
-    i{
+
+    i {
         font-size: 20px;
         margin-right: 5px;
         transform: translateY(2px);
     }
 }
 
-.empty_tab{
+.scroll-png {
+    position: fixed;
+    width: 80px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.25;
+}
+
+.empty_tab {
     color: #cdcdcd;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 10px 0;
-    svg{
+
+    svg {
         margin-right: 3px;
     }
 }
 
 
-.action_consult{
+.action_consult {
     display: flex;
     justify-content: space-around;
     width: 200px;
-    .payer{
+
+    .payer {
         border: none;
-    background: #00a9dd;
-    padding: 5px 10px;
-    color: white;
+        background: #00a9dd;
+        padding: 5px 10px;
+        color: white;
     }
-    .annuler{
+
+    .annuler {
         border: none;
         background: #959595;
         padding: 5px 10px;
         color: white;
     }
 }
-.tab-content{
+
+.tab-content {
     margin-bottom: 70px;
 }
-.table-bordered{
+
+.table-bordered {
     min-width: 800px !important;
 }
 
 
-.payee_etat{
+.payee_etat {
     color: #209f84;
     font-weight: 700;
+}
+
+
+
+@media only screen and (min-width: 1000px) {
+    .scroll-png {
+        display: none;
+    }
 }

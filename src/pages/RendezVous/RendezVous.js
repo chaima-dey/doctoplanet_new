@@ -221,7 +221,8 @@ function RendezVous() {
 
       <Modal show={SuccessReducer.length > 1} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>
+        <Modal.Title className="modal-success-title">
+          <i className="fas fa-check-circle"></i>
             Votre consultation a été enregistré avec succès
           </Modal.Title>
         </Modal.Header>

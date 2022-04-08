@@ -6,6 +6,7 @@ import { Button, Modal, Spinner, Tab, Table, Tabs } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import url from '../../api';
 import Icon from "../../assets/images/icon/payments-stripe.png"
+import favpng_scroll from "../../assets/images/favpng_scroll-icon.png"
 import './Consultations.scss'
 import API from "../../api";
 import io from "socket.io-client";
@@ -60,7 +61,11 @@ function Consultations() {
   const Tables = () => {
     return (
       <>
+     {
+      ConsultFiltred.length > 0 && <img className='scroll-png' src={favpng_scroll} alt="" />
+        }
         <Table bordered >
+       
           <thead>
             <tr>
               <th><i className="fas fa-list-ol"></i></th>
