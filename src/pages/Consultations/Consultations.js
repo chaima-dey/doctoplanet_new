@@ -20,7 +20,6 @@ function Consultations() {
   const [modalShow, setModalShow] = useState(false);
   const [Loading, setLoading] = useState(false)
   const [LinkAlert, setLinkAlert] = useState(false)
-
   const getConsults = async () => {
     const res = await axios.get(`${url}/consultation/get`, { params: { id: UserReducer._id } })
     setConsultFiltred(res.data)
@@ -29,44 +28,44 @@ function Consultations() {
 
 
   useEffect(() => {
-    // socket.on("payement-success",()=>{
-    //   console.log("payed")
-    // })
+    socket.on("payement-success",()=>{
+      console.log("payed")
+    })
     getConsults()
   }, []);
 
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   if (Filtre == 'Tous') {
-  //     setConsultFiltred(Allconsult)
-  //   }
-  //   if (Filtre == "paiement") {
-  //     const arr = Allconsult.filter(el => el.etat == 0)
-  //     setConsultFiltred(arr)
-  //   }
-  //   if (Filtre == "Payée") {
-  //     const arr = Allconsult.filter(el => el.etat == 1)
-  //     setConsultFiltred(arr)
-  //   }
-  //   if (Filtre == "Terminée") {
-  //     const arr = Allconsult.filter(el => el.etat == 2)
-  //     setConsultFiltred(arr)
-  //   }
+    if (Filtre == 'Tous') {
+      setConsultFiltred(Allconsult)
+    }
+    if (Filtre == "paiement") {
+      const arr = Allconsult.filter(el => el.etat == 0)
+      setConsultFiltred(arr)
+    }
+    if (Filtre == "Payée") {
+      const arr = Allconsult.filter(el => el.etat == 1)
+      setConsultFiltred(arr)
+    }
+    if (Filtre == "Terminée") {
+      const arr = Allconsult.filter(el => el.etat == 2)
+      setConsultFiltred(arr)
+    }
 
-  // }, [Filtre])
+  }, [Filtre])
 
 
   const Tables = () => {
     return (
-      <Table  bordered >
+      <Table bordered >
         <thead>
           <tr>
             <th><i className="fas fa-list-ol"></i></th>
 
             <th><i className="fas fa-user-md"></i> Spécialité</th>
             <th> <i className="far fa-calendar-alt"></i> Date</th>
-            <th><i className="far fa-clock"></i> Heure</th>
+            <th style={{width:110}}><i className="far fa-clock"></i> Heure</th>
 
             <th><i className="fas fa-ellipsis-h"></i> Etat</th>
 
@@ -80,7 +79,7 @@ function Consultations() {
               <tr>
                 <td>{index + 1}</td>
                 <td> {el.medecin} </td>
-                <td> {DateFormat(el.date_consul)} </td>
+                <td> {el.date_consul} </td>
                 <td> {el.heure_consul} </td>
 
 
@@ -113,13 +112,7 @@ function Consultations() {
     )
   }
 
-  const DateFormat = (date) => {
-    const dt = new Date(date);
-    const year = dt.getFullYear();
-    const month = (dt.getMonth() + 1).toString().padStart(2, "0");
-    const day = dt.getDate().toString().padStart(2, "0");
-    return day + '/' + month + '/' + year
-  };
+
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -172,6 +165,9 @@ function Consultations() {
   }
 
   useEffect(() => {
+
+
+
     window.scrollTo(0, 0);
     const element = document.querySelector(".home");
 
@@ -218,7 +214,7 @@ function Consultations() {
 
     </div>
 
-    {/* <Tabs onSelect={(k) => setFiltre(k)} defaultActiveKey="Tous" id="uncontrolled-tab-example" className="mb-3">
+    <Tabs onSelect={(k) => setFiltre(k)} defaultActiveKey="Tous" id="uncontrolled-tab-example" className="mb-3">
 
       <Tab style={{ overflow: 'auto' }} eventKey="Tous" title="Tous">
         <Tables />
@@ -235,7 +231,7 @@ function Consultations() {
         <Tables etat={2} />
       </Tab>
 
-    </Tabs> */}
+    </Tabs>
 
 
 

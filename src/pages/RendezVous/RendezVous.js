@@ -43,7 +43,7 @@ function RendezVous() {
   const [Ville, setVille] = useState("");
   const [Pays, setPays] = useState("France");
   const [Asymptotes, setAsymptotes] = useState([]);
-  const [Date_consul, setDate_consul] = useState(new Date());
+  const [Date_consul, setDate_consul] = useState();
   const [Heure_consul, setHeure_consul] = useState("");
   const [Medecin, setMedecin] = useState("Généraliste");
   const [Etat_Patient, setEtat_Patient] = useState("");
@@ -68,13 +68,21 @@ function RendezVous() {
   useEffect(() => {
     const element = document.querySelector(".home");
     element.classList.remove("transition_opacity");
+    DateFormat()
   }, []);
 
   useEffect(() => {
     setErrorServer(false)
   }, [count])
 
-
+  const DateFormat = () => {
+    const dt = new Date();
+    const year = dt.getFullYear();
+    const month = (dt.getMonth() + 1).toString().padStart(2, "0");
+    const day = dt.getDate().toString().padStart(2, "0");
+    const date =  year  + '-' + month + '-' + day
+    setDate_consul(date)
+  };
   const SaveConsultation = async () => {
 
     const consultation = {
@@ -98,7 +106,8 @@ function RendezVous() {
     if (consultation.heure_consul == '') {
       return
     }
-
+    console.log(consultation)
+   
     try {
       setLoading(true);
       const res = await axios.post(
