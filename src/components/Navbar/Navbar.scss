@@ -213,3 +213,11 @@
   height: 35px;
 }
 
+@media only screen and (max-width: 1100px) and (min-width: 980px) {
+  .LOGO {
+    height: 20px;
+}
+.btn-icon-bx.fas.fa-chevron-right{
+  display: none;
+}
+}

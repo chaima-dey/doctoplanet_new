@@ -86,7 +86,10 @@ function App() {
           } />
           <Route path="/consultations" element={
             TokenReducer ? <Consultations /> : <Navigate to="/login" />
-          } />
+          } >
+            <Route path=":payed" element={<Consultations />} />
+          </Route>
+          
           <Route path="/chekout/:id" element={
             TokenReducer ? <Chekout /> : <Navigate to="/login" />
           } />

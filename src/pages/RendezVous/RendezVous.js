@@ -96,7 +96,7 @@ function RendezVous() {
     if (consultation.heure_consul == '') {
       return
     }
-    console.log(consultation)
+   
    
     try {
       setLoading(true);

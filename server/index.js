@@ -25,7 +25,7 @@ app.use(express.static(__dirname + "/build/"));
 // Routes
 app.use("/user", require("./routes/UserRoute"));
 app.use("/consultation", require("./routes/ConsulRoutes"));
-app.use("/stripe/", require("./routes/StripeRoute"));
+app.use("/paiement/", require("./routes/StripeRoute"));
 app.use("/", require("./routes/MedicamentRoutes"));
 
 app.get("/call", (req, res) => {

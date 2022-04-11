@@ -39,6 +39,7 @@ const Room = (props) => {
 
   useEffect(() => {
     socketRef.current = io(API);
+    
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {

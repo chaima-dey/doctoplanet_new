@@ -16,9 +16,9 @@ router.get("/", async (req, res) => {
 router.get("/get", async (req, res) => {
 
   try {
-    const consults = await Consul.find({ id_user: req.query.id })
+    const consults = await Consul.find({ id_user: req.query.id }).sort({ _id: -1 })
 
-    res.send(consults.reverse())
+    res.send(consults)
   } catch (err) {
     return res.status(422).send(err.message);
   }

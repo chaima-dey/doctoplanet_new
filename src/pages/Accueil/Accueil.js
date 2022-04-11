@@ -21,7 +21,6 @@ function Accueil() {
   const [AlertShow, setAlertShow] = useState(false);
   const TokenReducer = useSelector((state) => state.TokenReducer);
   const SuccessReducer = useSelector((state) => state.SuccessReducer);
-  const dispatch = useDispatch();
  
   useEffect(() => {
     
