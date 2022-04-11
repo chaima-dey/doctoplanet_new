@@ -63,6 +63,7 @@ router.post("/signup", async (req, res) => {
       url,
       req.body.user.nom
     );
+ console.log(mail_sned)
  
     //  if(!mail_sned.accepted)
     //    return res.status(422).send("Erreur serveur, essayez encore")
@@ -82,7 +83,7 @@ router.get("/verify/:id/:token", async (req, res) => {
       userId: user._id,
       token: req.params.token,
     });
-    console.log(token)
+ 
     if (!token) return res.sendFile(path.join(__dirname + "/html/error.html"));
 
     const uploaded = await User.findByIdAndUpdate(
@@ -232,17 +233,29 @@ router.post("/uploadpassword", async (req, res) => {
 const sendmail = async (mail, url, username) => {
   try {
     const transporter = nodemailer.createTransport({
-      host: "ssl0.ovh.net",
+      // host: "ssl0.ovh.net",
+      // port: 465,
+      // secure: true,
+      // auth: {
+      //   user: "contact@doctoplanet.com",
+      //   pass: "potterhead123",
+      // },
+      // tls: {
+      //   ciphers: "SSLv3",
+      // },
+      name: 'doctoplanet.com',
+      host: 'ssl0.ovh.net',
       port: 465,
       secure: true,
       auth: {
-        user: "contact@doctoplanet.com",
-        pass: "potterhead123",
+          user: "contact@doctoplanet.com",
+          pass: "potterhead123",
       },
-      tls: {
-        ciphers: "SSLv3",
-      },
+      from: 'contact@doctoplanet.com'
+
     });
+  
+    
 
     // send mail with defined transport object
     let info = await transporter.sendMail({

@@ -44,7 +44,7 @@ paypal.payment.create(create_payment_json, function (error, payment) {
         throw error;
     } else {
         console.log("Create Payment Response");
-        console.log(payment);
+       
     }
 });
 })  

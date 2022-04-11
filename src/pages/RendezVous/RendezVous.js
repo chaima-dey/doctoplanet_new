@@ -114,7 +114,6 @@ function RendezVous() {
       setErrorServer(true)
       window.scrollTo(0, 0);
       setLoading(false);
-
     }
   };
 

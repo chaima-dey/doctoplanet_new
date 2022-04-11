@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useRef, useState } from "react";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { RegisterUser } from "../../actions/UserActions";
 import LoginBanner from "../../assets/images/banner/login-banner.png";
 import VerifyIcon from "../../assets/images/icon/verify.jpg";
@@ -24,7 +24,7 @@ function Register() {
   const input_6 = useRef(null);
   const input_7 = useRef(null);
   const SuccessReducer = useSelector((state) => state.SuccessReducer);
-
+  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [Nom, setNom] = useState("");
@@ -39,6 +39,12 @@ function Register() {
   const [Sexe, setSexe] = useState("H")
 
   useEffect(() => {
+    if(location.state)
+    {
+      setVerification(location.state.verify)
+      setMail(location.state.mail)
+    }
+     
     window.scrollTo(0, 0);
     const element = document.querySelector(".home");
     if (element) element.classList.remove("transition_opacity");

@@ -57,7 +57,7 @@ router.post("/paypalpay", async (req, res) => {
       "payment_method": "paypal"
     },
     "redirect_urls": {
-      "return_url": "http://localhost:5000/paiement/success_paypal",
+      "return_url": "https://doctoplanet.com/paiement/success_paypal",
       "cancel_url": "https://doctoplanet.com/"
     },
     "transactions": [{

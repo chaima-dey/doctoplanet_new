@@ -43,7 +43,7 @@ function Login() {
  
 
   const Login = async () => {
-     
+  
     const user = {
       email: Mail,
       password: Passowrd,
@@ -71,11 +71,17 @@ function Login() {
     }
     setLoading(true);
     const res = await LoginUser(user, dispatch);
+
     if(!res){
       setError('Problème de connexion')
       setLoading(false);
       return
     }
+ 
+     if(res.data == "Adresse mail non vérifiée"){
+       navigate('/register',{state:{verify:true,mail:Mail}})
+       return
+     }
     if (res && res.status == 200) {
       setLoading(false);
       window.location.replace("/");
