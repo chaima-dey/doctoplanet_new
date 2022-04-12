@@ -81,17 +81,7 @@ function Consultations() {
   };
 
   const PayerStripe = async (props) => {
-  
-    var url = window.location.href;
-    if (url.indexOf("?") > -1) {
-      url += "&param=1";
-    } else {
-      url += "?param=1";
-    }
-    if (props.show.paiement_link?.length > 10) {
-      window.location.href = props.show.paiement_link;
-      return;
-    }
+
     setLoading(true);
     try {
       const res = await axios.post(`${API}/paiement/stripepay`, {
@@ -101,7 +91,13 @@ function Consultations() {
       getConsults();
       setLoading(false);
       setModalShow(null);
-      window.location.href = res.data.consult.paiement_link;
+      var url = window.location.href;
+    if (url.indexOf("?") > -1) {
+      url += "&param=1";
+    } else {
+      url += "?param=1";
+    }
+  window.location.href = res.data.consult.paiement_link;
     } catch (error) {
       setLoading(false);
       console.log(error);

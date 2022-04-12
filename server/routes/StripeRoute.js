@@ -12,7 +12,7 @@ router.post("/stripepay", async (req, res) => {
   );
   try {
     const session = await stripe.checkout.sessions.create({
-      success_url: `https://doctoplanet.com/stripe/success_stripe?id=${req.body._id}`,
+      success_url: `https://doctoplanet.com/paiement/success_stripe?id=${req.body._id}`,
       //   success_url: `http://localhost:5000/stripe/success?id=${req.body._id}`,
       cancel_url: `https://doctoplanet.com/`,
       line_items: [{ price: "price_1KeheVJo0GAssExxk4eKSOcJ", quantity: 1 }],
