@@ -5,11 +5,11 @@ const nodemailer = require("nodemailer");
 
 
 
-router.get("/", async (req, res) => {
+router.get("/all", async (req, res) => {
 
   const consults = await Consul.find()
 
-  res.send(consults.reverse())
+  res.send(consults)
 
 });
 //GET CONSULT

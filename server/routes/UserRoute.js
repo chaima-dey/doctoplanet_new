@@ -15,12 +15,8 @@ const path = require("path");
 
 
 router.get("/all", async (req, res) => {
-
   const user = await User.find();
   res.send(user)
-
-
-
 });
 
 

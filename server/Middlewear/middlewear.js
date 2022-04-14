@@ -5,7 +5,6 @@
 
 module.exports = (req,res,next)=>{
     const { authorization } = req.headers;
- 
     const jwtkey = process.env.jwtkey;
  
     //authorization === Bearer sfafsafa
